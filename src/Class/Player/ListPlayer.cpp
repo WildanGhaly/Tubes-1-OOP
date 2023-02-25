@@ -4,15 +4,19 @@
 ListPlayer::ListPlayer() {
     this->totalPlayer = 0;
     this->players = new Player[0];
+    this->isReverse = false;
+    this->firstLastPlayer = 0;
 }
 
 /* Constructor with total player */
 ListPlayer::ListPlayer(int totalPlayer) {
     this->totalPlayer = totalPlayer;
     this->players = new Player[this->totalPlayer];
-    for (int i = 0; i < this->totalPlayer; i++) {
-        /* INI MASUKIN PLAYER */
-    }
+    // for (int i = 0; i < this->totalPlayer; i++) {
+    //     this->players[i] = Player("Player " + std::to_string(i + 1));
+    // }
+    this->firstLastPlayer = 0;
+    this->isReverse = false;
 }
 
 /* Copy Constructor */
@@ -46,7 +50,7 @@ bool ListPlayer::getIsReverse() const {
 }
 
 /* Getter untuk player */
-Player ListPlayer::getPlayer(int index) const {
+Player ListPlayer::getPlayer(int index) {
     return this->players[index];
 }
 
@@ -149,4 +153,36 @@ bool ListPlayer::operator==(const ListPlayer& lp) const {
 
 bool ListPlayer::operator!=(const ListPlayer& lp) const {
     return !(*this == lp);
+}
+
+Player& ListPlayer::operator[](int index) {
+    return this->players[index];
+}
+
+ListPlayer& ListPlayer::operator=(const ListPlayer& lp) {
+    this->totalPlayer = lp.totalPlayer;
+    this->firstLastPlayer = lp.firstLastPlayer;
+    this->isReverse = lp.isReverse;
+    delete[] this->players;
+    this->players = new Player[this->totalPlayer];
+    for (int i = 0; i < this->totalPlayer; i++) {
+        this->players[i] = lp.players[i];
+    }
+    return *this;
+}
+
+/* Printing players */
+void ListPlayer::print() const {
+    for (int i = 0; i < this->totalPlayer; i++) {
+        this->players[i].print();
+    }
+}
+
+void ListPlayer::addCard(CardDeck& cd, int totalCard) {
+    for (int j = 0; j < totalCard; j++) {
+        for (int i = 0; i < this->totalPlayer; i++) {
+            this->players[i].addCard(cd.getCard(0));
+            cd.removeCard(0);
+        }
+    }
 }
