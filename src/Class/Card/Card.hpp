@@ -40,13 +40,17 @@ class Card {
         std::string toString() const;
 
         /* operator */
+        Card &operator=(const Card&);
         bool operator==(const Card&) const;
         bool operator!=(const Card&) const;
-        bool operator<(const Card&) const;
-        bool operator>(const Card&) const;
-        bool operator<=(const Card&) const;
-        bool operator>=(const Card&) const;
-        Card& operator=(const Card&);
+        // bool operator<(const Card&) const;
+        // bool operator>(const Card&) const;
+        // bool operator<=(const Card&) const;
+        // bool operator>=(const Card&) const;
+        // Card& operator=(const Card&);
+
+        /* method */
+        void print() const;
 
     private:
         int number;
