@@ -1,7 +1,7 @@
 #ifndef _PLAYER_HPP_
 #define _PLAYER_HPP_
 
-#include "../Card/CardList.hpp"
+#include "../Card/CardList.cpp"
 
 #define LEFT 0
 #define RIGHT 1
@@ -28,7 +28,7 @@ class Player {
         void setPoint(int);
         void setAbility(int);
         void setIsTurn(int);
-        void setName(std::string);
+        // void setName(std::string);
         void addCard(Card);
         void removeCard(Card);
         void removeCard(int);
@@ -41,11 +41,14 @@ class Player {
         bool operator>=(const Player&) const;
         bool operator<=(const Player&) const;
         Player& operator=(const Player&);
+
+        void print();
+    
     
     private:
         Card* cards;
         int ID;
-        std::string name;
+        // std::string name;
         int point;
         int ability;
         bool isTurn;
