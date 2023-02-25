@@ -1,7 +1,7 @@
 #ifndef _CARD_LIST_HPP_
 #define _CARD_LIST_HPP_
 
-#include "Card.hpp"
+#include "Card.cpp"
 
 class CardDeck {
     static int totalDeck;
@@ -20,14 +20,18 @@ class CardDeck {
         /* Method */
         void addCard(Card);
         void removeCard(Card);
+        void removeCard(int);
         void shuffle();
         void sortByNumber();
         void sortByColor();
         void sortByID();
+        void print() const;
 
         /* Operator */
         bool operator==(const CardDeck&) const;
         bool operator!=(const CardDeck&) const;
+        Card& operator[](int) const;
+        CardDeck& operator=(const CardDeck&);
 
     private:
         Card* cards;
