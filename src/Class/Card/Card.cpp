@@ -131,13 +131,26 @@ std::string Card::toString() const {
     return this->getColorAsString() + " " + this->getCardNumberAsString();
 }
 
-/* Operator overloading */
+/* Operator overloading untuk operator = */
+Card& Card::operator=(const Card& c) {
+    this->number = c.number;
+    this->color = c.color;
+    return *this;
+}
+
+/* Operator overloading untuk operator == */
 bool Card::operator==(const Card& c) const {
     return this->number == c.number && this->color == c.color;
 }
 
+/* Operator overloading untuk operator != */
 bool Card::operator!=(const Card& c) const {
     return !(*this == c);
 }
 
 /* KURANG DARI, LEBIH DARI, DLL itu harus ngitung dulu?? */
+
+/* printing */
+void Card::print() const {
+    std::cout << this->toString() << std::endl;
+}
