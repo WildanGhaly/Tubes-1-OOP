@@ -4,29 +4,31 @@
 int Player::totalPlayer = 0;
 
 /* Default Constructor */
-Player::Player() : ID(totalPlayer++) {
+Player::Player() : ID(++totalPlayer) {
     this->cards = new Card[0];
     this->cardCount = 0;
     this->point = 0;
     this->ability = 0;
     this->isTurn = false;
-    this->name = "Player " + std::to_string(this->ID);
+    // this->name = "Player ";
 }
 
 /* Constructor with name */
-Player::Player(std::string name) : ID(totalPlayer++) {
+Player::Player(std::string name) : ID(++totalPlayer) {
     this->cards = new Card[0];
     this->cardCount = 0;
     this->point = 0;
     this->ability = 0;
     this->isTurn = false;
-    this->name = name;
+    // this->name = name;
 }
 
 /* Copy Constructor */
-Player::Player(const Player& p) : ID(totalPlayer++) {
+Player::Player(const Player& p) : ID(totalPlayer){
     this->cardCount = p.cardCount;
-    delete[] this->cards;
+    if (this->getCardCount() > 0) {
+        delete[] this->cards;
+    }
     this->cards = new Card[this->cardCount];
     for (int i = 0; i < this->cardCount; i++) {
         this->cards[i] = p.cards[i];
@@ -34,11 +36,12 @@ Player::Player(const Player& p) : ID(totalPlayer++) {
     this->point = p.point;
     this->ability = p.ability;
     this->isTurn = p.isTurn;
-    this->name = p.name;
+    // this->name = p.name;
 }
 
 /* Destructor */
-Player::~Player() {
+Player::~Player(){
+    totalPlayer--;
     delete[] this->cards;
 }
 
@@ -73,9 +76,9 @@ Card Player::getCard(int index) const {
 }
 
 /* Getter untuk ID */
-std::string Player::getName() const {
-    return this->name;
-}
+// std::string Player::getName() const {
+//     return this->name;
+// }
 
 /* Setter untuk ID */
 void Player::setID(int ID) {
@@ -98,9 +101,9 @@ void Player::setIsTurn(int isTurn) {
 }
 
 /* Setter untuk name */
-void Player::setName(std::string name) {
-    this->name = name;
-}
+// void Player::setName(std::string name) {
+//     this->name = name;
+// }
 
 /* Menambahkan kartu ke dalam list kartu */
 void Player::addCard(Card card) {
@@ -111,7 +114,7 @@ void Player::addCard(Card card) {
     temp[this->cardCount] = card;
     delete[] this->cards;
     this->cards = temp;
-    this->cardCount++;
+    this->cardCount = this->cardCount + 1;
 }
 
 /* Menghapus kartu dari list kartu */
@@ -180,7 +183,7 @@ Player& Player::operator=(const Player& p) {
     this->point = p.point;
     this->ability = p.ability;
     this->isTurn = p.isTurn;
-    this->name = p.name;
+    // this->name = p.name;
     return *this;
 }
 
@@ -202,4 +205,18 @@ bool Player::operator>=(const Player& p) const {
 /* Operator <= */
 bool Player::operator<=(const Player& p) const {
     return (this->point <= p.point);
+}
+
+/* Print */
+void Player::print(){
+    std::cout << "Player " << this->ID << std::endl;
+    std::cout << "  Ability " << this->ability << std::endl;
+    std::cout << "  Point " << this->point << std::endl;
+    std::cout << "  Card Count " << this->cardCount << std::endl;
+    if (this->cardCount > 0) {
+        for (int i = 0; i < this->cardCount; i++) {
+            std::cout << "    ";
+            this->cards[i].print();
+        }
+    }
 }
