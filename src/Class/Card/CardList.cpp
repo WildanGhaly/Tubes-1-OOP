@@ -5,7 +5,7 @@ int CardDeck::totalDeck = 0;
 
 /* Default Constructor */
 CardDeck::CardDeck() : ID(totalDeck++) {
-    this->totalCard = 54;
+    this->totalCard = 52;
     this->cards = new Card[this->totalCard];
     for (int i = 0; i < this->totalCard; i++) {
         this->cards[i] = Card(i % 13 + 1, i / 13);
@@ -83,6 +83,21 @@ void CardDeck::removeCard(Card c) {
     }
 }
 
+void CardDeck::removeCard(int index) {
+    if (index >= 0 && index < this->totalCard) {
+        Card* temp = new Card[this->totalCard - 1];
+        for (int i = 0; i < index; i++) {
+            temp[i] = this->cards[i];
+        }
+        for (int i = index; i < this->totalCard - 1; i++) {
+            temp[i] = this->cards[i + 1];
+        }
+        delete[] this->cards;
+        this->cards = temp;
+        this->totalCard--;
+    }
+}
+
 /* Shuffle the deck */
 void CardDeck::shuffle() {
     srand(time(NULL));
@@ -133,6 +148,13 @@ void CardDeck::sortByID() {
     }
 }
 
+/* Print the deck */
+void CardDeck::print() const {
+    for (int i = 0; i < this->totalCard; i++) {
+        this->cards[i].print();
+    }
+}
+
 /* Operator == */
 bool CardDeck::operator==(const CardDeck& cd) const {
     if (this->totalCard != cd.totalCard) {
@@ -149,4 +171,22 @@ bool CardDeck::operator==(const CardDeck& cd) const {
 /* Operator != */
 bool CardDeck::operator!=(const CardDeck& cd) const {
     return !(*this == cd);
+}
+
+/* Operator = */
+CardDeck& CardDeck::operator=(const CardDeck& cd) {
+    if (this != &cd) {
+        this->totalCard = cd.totalCard;
+        delete[] this->cards;
+        this->cards = new Card[this->totalCard];
+        for (int i = 0; i < this->totalCard; i++) {
+            this->cards[i] = cd.cards[i];
+        }
+    }
+    return *this;
+}
+
+/* Operator [] */
+Card& CardDeck::operator[](int index) const {
+    return this->cards[index];
 }
