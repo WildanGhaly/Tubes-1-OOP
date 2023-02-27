@@ -28,7 +28,7 @@ class Player {
         void setPoint(int);
         void setAbility(int);
         void setIsTurn(int);
-        // void setName(std::string);
+        // void setName(std::string); 
         void addCard(Card);
         void removeCard(Card);
         void removeCard(int);
@@ -50,7 +50,7 @@ class Player {
         int ID;
         // std::string name;
         int point;
-        int ability;
+        int ability; // pecah
         bool isTurn;
         int cardCount;
 };
