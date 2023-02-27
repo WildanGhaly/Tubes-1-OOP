@@ -11,7 +11,7 @@ Card::Card() : number(0), color(0), IDCard(IDCounter++) {
 Card::Card(int number, int color) : number(number), color(color), IDCard(IDCounter++) {
 }
 
-Card::Card(const Card& c) : number(c.number), color(c.color), IDCard(IDCounter++) {
+Card::Card(const Card& c) : number(c.number), color(c.color) {
 }
 
 Card::~Card() {

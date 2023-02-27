@@ -185,4 +185,4 @@ void ListPlayer::addCard(CardDeck& cd, int totalCard) {
             cd.removeCard(0);
         }
     }
-}
+} 
