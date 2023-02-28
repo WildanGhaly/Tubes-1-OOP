@@ -10,13 +10,10 @@
 
 #include <string>
 #include <iostream>
+#include "SubCard/CardColor.cpp"
+#include "SubCard/CardNumber.cpp"
 
-#define GREEN 0
-#define BLUE 1
-#define YELLOW 2
-#define RED 3
-
-class Card {
+class Card : public CardColor, public CardNumber {
     static int IDCounter;
     public:
         /* ctor cctor dtor */
@@ -31,8 +28,8 @@ class Card {
         void setColor(std::string);
 
         /* getter */
-        int getNumber() const;
-        int getColor() const;
+        virtual int getNumber() const;
+        virtual int getColor() const;
         int getID() const;
         void input();
         std::string getColorAsString() const;
@@ -50,11 +47,9 @@ class Card {
         // Card& operator=(const Card&);
 
         /* method */
-        void print() const;
+        virtual void print() const;
 
     private:
-        int number;
-        int color;
         int IDCard;
 };
 
