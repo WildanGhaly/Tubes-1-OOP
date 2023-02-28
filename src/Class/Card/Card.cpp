@@ -4,14 +4,20 @@
 int Card::IDCounter = 0;
 
 /* Default Constructor */
-Card::Card() : number(0), color(0), IDCard(IDCounter++) {
+Card::Card() :  IDCard(IDCounter++), 
+                CardColor(), 
+                CardNumber() {
 }
 
 /* Constructor with number and color */
-Card::Card(int number, int color) : number(number), color(color), IDCard(IDCounter++) {
+Card::Card(int number, int color) : IDCard(IDCounter++),
+                                    CardColor(color), 
+                                    CardNumber(number) {
 }
 
-Card::Card(const Card& c) : number(c.number), color(c.color) {
+Card::Card(const Card& c) : IDCard(IDCounter++) {
+    CardColor::operator=(c);
+    CardNumber::operator=(c);
 }
 
 Card::~Card() {
@@ -19,37 +25,27 @@ Card::~Card() {
 
 /* Setter number */
 void Card::setNumber(int number) {
-    this->number = number;
+    CardNumber::setNumber(number);
 }
 
 /* Setter color with int */
 void Card::setColor(int color) {
-    this->color = color;
+    CardColor::setColor(color);
 }
 
 /* Setter color with string */
 void Card::setColor(std::string color) {
-    if (color == "Green") {
-        this->color = GREEN;
-    } else if (color == "Blue") {
-        this->color = BLUE;
-    } else if (color == "Yellow") {
-        this->color = YELLOW;
-    } else if (color == "Red") {
-        this->color = RED;
-    } else {
-        std::cout << "Invalid color" << std::endl;
-    }
+    CardColor::setColor(color);
 }
 
 /* Mengembalikan number */
 int Card::getNumber() const {
-    return this->number;
+    return CardNumber::getNumber();
 }
 
 /* Mengembalikan color */
 int Card::getColor() const {
-    return this->color;
+    return CardColor::getColor();
 }
 
 /* Mengembalikan ID */
@@ -61,14 +57,14 @@ int Card::getID() const {
 void Card::input() {
     while (true){
         std::cout << "Input number: ";
-        std::cin >> this->number;
+        CardNumber::input();
         std::cout << "0. Green" << std::endl;
         std::cout << "1. Blue" << std::endl;
         std::cout << "2. Yellow" << std::endl;
         std::cout << "3. Red" << std::endl;
         std::cout << "Input color: ";
-        std::cin >> this->color;
-        if (this->color >= 0 && this->color <= 3 && this->number >= 1 && this->number <= 13) {
+        CardNumber::input();
+        if (this->getColor() >= 0 && this->getColor() <= 3 && this->getNumber() >= 1 && this->getNumber() <= 13) {
             break;
         } else {
             std::cout << "Invalid input" << std::endl;
@@ -78,7 +74,7 @@ void Card::input() {
 
 /* Mengembalikan string dari color */
 std::string Card::getColorAsString() const {
-    switch (this->color) {
+    switch (this->getColor()) {
         case GREEN:
             return "Green";
         case BLUE:
@@ -94,7 +90,7 @@ std::string Card::getColorAsString() const {
 
 /* Mengembalikan string dari number */
 std::string Card::getCardNumberAsString() const {
-    switch (this->number) {
+    switch (this->getNumber()) {
         case 1:
             return "1";
         case 2:
@@ -133,14 +129,14 @@ std::string Card::toString() const {
 
 /* Operator overloading untuk operator = */
 Card& Card::operator=(const Card& c) {
-    this->number = c.number;
-    this->color = c.color;
-    return *this;
+    CardColor::operator=(c);
+    CardNumber::operator=(c);
+    return *this;   
 }
 
 /* Operator overloading untuk operator == */
 bool Card::operator==(const Card& c) const {
-    return this->number == c.number && this->color == c.color;
+    return (this->getColor() == c.getColor() && this->getNumber() == c.getNumber());
 }
 
 /* Operator overloading untuk operator != */
