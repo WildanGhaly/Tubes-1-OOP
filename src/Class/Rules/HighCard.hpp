@@ -16,10 +16,10 @@ class HighCard : public Rules {
 
         /* Setter */
         void setID(int);
-        void setScore(int);
+        void setScore(float);
         
         /* Method */
-        void addScore(int);
+        void addScore(float);
         void computeScore();
 
         /* Operator */

@@ -40,7 +40,7 @@ void HighCard::setID(int ID) {
     this->ID = ID;
 }
 
-void HighCard::setScore(int score) {
+void HighCard::setScore(float score) {
     this->Rules::setScore(score);
 }
 
