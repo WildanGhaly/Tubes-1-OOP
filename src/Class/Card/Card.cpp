@@ -150,3 +150,7 @@ bool Card::operator!=(const Card& c) const {
 void Card::print() const {
     std::cout << this->toString() << std::endl;
 }
+
+float Card::getScore() const {
+    return (0.3 * this->getColor()) + this->getNumber();
+}
