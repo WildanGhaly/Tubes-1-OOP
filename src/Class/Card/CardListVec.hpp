@@ -20,6 +20,7 @@ class CardDeckVec {
         int getTotalCard() const;
         int getID() const;
         Card getCard(int) const;
+        vector<Card> getCards() const;
 
         /* Method */
         void addCard(Card);

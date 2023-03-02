@@ -30,7 +30,7 @@ int PlayerVec::getID() const {
 }
 
 /* Getter untuk score */
-int PlayerVec::getScore() const {
+float PlayerVec::getScore() const {
     return this->score;
 }
 
