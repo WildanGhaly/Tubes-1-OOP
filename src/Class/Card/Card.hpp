@@ -28,13 +28,14 @@ class Card : public CardColor, public CardNumber {
         void setColor(std::string);
 
         /* getter */
-        virtual int getNumber() const;
-        virtual int getColor() const;
+        int getNumber() const;
+        int getColor() const;
         int getID() const;
         void input();
         std::string getColorAsString() const;
         std::string getCardNumberAsString() const;
         std::string toString() const;
+        float getScore() const;
 
         /* operator */
         Card &operator=(const Card&);

@@ -1,14 +1,57 @@
 #include "HighCard.hpp"
 
-HighCard::HighCard(){
+int HighCard::IDcounter = 0;
+
+/* Default Constructor */
+HighCard::HighCard() : ID(IDcounter++), Rules() {
     this->name = "High Card";
 }
 
-/* Selalu true karena apapun yang terjdi akan ada high card */
-bool HighCard::check(Game game){
-    return true;
+/* Constructor with player and table */
+HighCard::HighCard(Table table, PlayerVec player) : ID(IDcounter++), Rules(table, player) {
+    this->name = "High Card";
 }
 
-std::string HighCard::getName() const{
+/* Copy Constructor */
+HighCard::HighCard(const HighCard& h) : ID(IDcounter++), Rules(h) {
+    this->name = h.name;
+}
+
+/* Destructor */
+HighCard::~HighCard() {
+    // nothing to do
+}
+
+/* Getter */
+int HighCard::getID() const {
+    return this->ID;
+}
+
+string HighCard::getName() const {
     return this->name;
 }
+
+const float HighCard::getMin() const {
+    return this->min;
+}
+
+/* Setter */
+void HighCard::setID(int ID) {
+    this->ID = ID;
+}
+
+void HighCard::setScore(int score) {
+    this->Rules::setScore(score);
+}
+
+/* Method */
+void HighCard::computeScore() {
+    float score = this->Rules::getPlayer().getCard(0).getScore() > 
+                this->Rules::getPlayer().getCard(1).getScore() ? 
+                this->Rules::getPlayer().getCard(0).getScore() : 
+                this->Rules::getPlayer().getCard(1).getScore();
+    if (score > this->Rules::getPlayer().getScore())
+        this->Rules::setScore(score);
+    this->Rules::setScore(score);
+}
+

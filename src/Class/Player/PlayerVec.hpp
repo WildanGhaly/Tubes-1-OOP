@@ -14,7 +14,7 @@ class PlayerVec {
 
         /* Getter */
         int getID() const;
-        int getScore() const;
+        float getScore() const;
         std::vector<Card> getCards() const;
         int getTotalCard() const;
         Card getCard(int) const;
@@ -40,7 +40,7 @@ class PlayerVec {
 
     private:
         int ID;
-        int score;
+        float score;
         std::vector<Card> cards;
         // std::string name; BISA PAKAI MAPPING NANTI
 };

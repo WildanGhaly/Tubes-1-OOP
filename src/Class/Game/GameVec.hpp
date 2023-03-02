@@ -17,6 +17,9 @@ class GameVec {
         ListPlayerVec getPlayers() const;
         CardDeckVec getDeck() const;
         int getTotalCard() const;
+        int getTotalPlayer() const;
+        static int getTotalGame();
+        int getTotalTableCard() const;
         int getID() const;
         Card getCard(int) const;
         PlayerVec getPlayer(int) const;

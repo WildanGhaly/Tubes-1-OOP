@@ -1,23 +1,34 @@
-#include "../Game/Game.hpp"
+#include "Rules.cpp"
 
-/* Class TwoPair */
-class HighCard {
+class HighCard : public Rules {
+    static int IDcounter;
     public:
-        /* Constructor */
         HighCard();
+        HighCard(Table, PlayerVec);
+        HighCard(const HighCard& hc);
+        ~HighCard();
 
-        /* Destructor */
-        ~HighCard() {
-        }
-
-        /* Mengembalikan true jika memenuhi syarat */
-        bool check(Game game);
-
-        /* Mengembalikan nama */
+        /* Getter */
+        int getID() const;
+        int getScore() const;
         std::string getName() const;
+        const float getMin() const;
 
-        int compute(Game game);
+        /* Setter */
+        void setID(int);
+        void setScore(int);
+        
+        /* Method */
+        void addScore(int);
+        void computeScore();
+
+        /* Operator */
+        bool operator==(const HighCard&) const;
+        bool operator!=(const HighCard&) const;
+        HighCard& operator=(const HighCard&);
     
     private:
+        const int min = 0; // unknown yet
+        int ID;
         std::string name;
 };
