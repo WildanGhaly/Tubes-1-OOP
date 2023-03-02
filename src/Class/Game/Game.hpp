@@ -15,6 +15,10 @@ class Game {
         ListPlayer getPlayers() const;
         CardDeck getDeck() const;
         int getTotalCard() const;
+        int getID() const;
+        Card getCard(int) const;
+        Player getPlayer(int) const;
+
 
         /* Setter */
         void setPlayers(ListPlayer);
@@ -40,5 +44,6 @@ class Game {
     private:
         ListPlayer players;
         CardDeck deck;
+        CardDeck table;
 };
 #endif
