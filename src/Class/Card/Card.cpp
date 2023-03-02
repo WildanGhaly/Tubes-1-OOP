@@ -152,5 +152,5 @@ void Card::print() const {
 }
 
 float Card::getScore() const {
-    return (0.3 * this->getColor()) + this->getNumber();
+    return (0.3 * this->getColor()) + this->getNumber()*0.1;
 }
