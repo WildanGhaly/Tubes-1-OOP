@@ -36,6 +36,18 @@ int GameVec::getTotalCard() const {
     return this->deck.getTotalCard();
 }
 
+int GameVec::getTotalPlayer() const {
+    return this->players.getTotalPlayer();
+}
+
+int GameVec::getTotalGame() {
+    return totalGame;
+}
+
+int GameVec::getTotalTableCard() const {
+    return this->table.getTotalCard();
+}
+
 int GameVec::getID() const {
     return this->ID;
 }
