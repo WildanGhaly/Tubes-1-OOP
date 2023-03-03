@@ -2,6 +2,7 @@
 #define _PLAYER_VEC_HPP_
 
 #include "../Card/CardListVec.cpp"
+#include <cstring>
 
 class PlayerVec {
     static int totalPlayer;
