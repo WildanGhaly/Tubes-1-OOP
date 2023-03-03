@@ -21,14 +21,52 @@ int main(){
 
     std::cout << "================================= BATAS SUCI =================================" << std::endl;
 
-    HighCard highCard(game.getTable(), game.getPlayers().getPlayer(0));
-    highCard.computeScore();
+    Rules *card;
     
-    Rules *rules = &highCard;
-    std::cout << "\n Color = " << rules->getCard(0).getColor() << std::endl;
-    rules->print();
-    std::cout << "\n Color = " << rules->getCard(0).getColor() << std::endl;
-    std::cout << "\n Color = " << rules->getCard(0).getColorAsString() << std::endl;
+    // HighCard highCard;
+    Pair pair;
+    ThreeOfKind threeOfKind;
+    FullHouse fullHouse;
+
+    Card c1(10,0);
+    Card c2(10,1);
+    Card c3(10,2);
+    Card c4(2,1);
+    Card c5(11,1);
+    Card c6(12,3);
+    Card c7(1,0);
+    vector<Card> cards(7);
+    cards[0] = c1;
+    cards[1] = c2;
+    cards[2] = c3;
+    cards[3] = c4;
+    cards[4] = c5;
+    cards[5] = c6;
+    cards[6] = c7;
+
+    // highCard.setCards(cards);
+    // card = &highCard;
+    // card->computeScore();
+
+    threeOfKind.setCards(cards);
+    card = &threeOfKind;
+    card->computeScore();
+
+    cout << "Score ToK: " << card->getScore() << endl;
+
+    
+    fullHouse.setCards(cards);
+    card = &fullHouse;
+    card->computeScore();
+    cout << "Score fullhouse: " << card->getScore() << endl;
+    
+    // Rules *rules = &highCard;
+    std::cout << "\n Color = " << card->getCard(0).getColor() << std::endl;
+    card->print();
+    // std::cout << "\n Color = " << rules->getCard(0).getColor() << std::endl;
+    // std::cout << "\n Color = " << rules->getCard(0).getColorAsString() << std::endl;
+
+    
 
 
     return 0;
