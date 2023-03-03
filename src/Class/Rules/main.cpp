@@ -26,19 +26,19 @@ int main(){
     HighCard highCard;
     Pair pair;
     ThreeOfKind threeOfKind;
-    Straight straight;
+    // Straight straight;
     Flush flush;
     FullHouse fullHouse;
     FourOfKind fourOfKind;
-    StraightFlush straightFlush;
+    // StraightFlush straightFlush;
 
-    Card c1(0,0);
-    Card c2(0,1);
-    Card c3(0,2);
-    Card c4(1,0);
-    Card c5(0,0);
-    Card c6(0,3);
-    Card c7(0,0);
+    Card c1(5,0);
+    Card c2(1,1);
+    Card c3(10,3);
+    Card c4(10,2);
+    Card c5(13,3);
+    Card c6(2,2);
+    Card c7(3,3);
     vector<Card> cards(7);
     cards[0] = c1;
     cards[1] = c2;
@@ -62,14 +62,14 @@ int main(){
     card->setScore(pair.getScore());
     card->computeScore();
 
-    card = &straight;
-    card->setCards(cards);
-    card->setScore(threeOfKind.getScore());
-    card->computeScore();
+    // card = &straight;
+    // card->setCards(cards);
+    // card->setScore(threeOfKind.getScore());
+    // card->computeScore();
 
     card = &flush;
     card->setCards(cards);
-    card->setScore(straight.getScore());
+    card->setScore(threeOfKind.getScore());
     card->computeScore();
 
     card = &fullHouse;
@@ -82,10 +82,10 @@ int main(){
     card->setScore(fullHouse.getScore());
     card->computeScore();
 
-    card = &straightFlush;
-    card->setCards(cards);
-    card->setScore(fourOfKind.getScore());
-    card->computeScore();
+    // card = &straightFlush;
+    // card->setCards(cards);
+    // card->setScore(fourOfKind.getScore());
+    // card->computeScore();
     
     // Rules *rules = &highCard;
     std::cout << "\n Color = " << card->getCard(0).getColor() << std::endl;
