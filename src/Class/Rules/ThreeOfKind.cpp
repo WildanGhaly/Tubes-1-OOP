@@ -1,6 +1,8 @@
 #include "ThreeOfKind.hpp"
 
-ThreeOfKind::ThreeOfKind(){
+int ThreeOfKind::IDcounter=0;
+
+ThreeOfKind::ThreeOfKind(): ID(IDcounter++), Rules(){
     this->name="Three Of Kind";
 }
 ThreeOfKind::ThreeOfKind(Table table, PlayerVec player): ID(IDcounter++), Rules(table, player){
