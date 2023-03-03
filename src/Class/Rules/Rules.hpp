@@ -1,4 +1,5 @@
 #include "../Game/GameVec.cpp"
+#include "GenericRules.hpp"
 
 class Rules {
     static int IDcounter;
