@@ -35,30 +35,42 @@ void FourOfKind::setScore(float scoreNew){
 }
         
 /* Method */
-bool FourOfKind::isFourOfKind(std::vector<Card> cardComb, int& total){
-    int count=0;
-    total=0;
-    for (int i = 0; i < cardComb.size(); i++){
-        for (int j = 0; i < cardComb.size(); i++){
-            if(i!=j){
-                if(cardComb[i].getNumber()==cardComb[j].getNumber()){
-                    count++;
-                    if(count==4){
-                        total++;
-                    }
-                }
+bool FourOfKind::isFourOfKind(std::vector<Card> cardComb, int& number, int& color){
+    int size = this->Rules::getCombination();
+    int arr[size];
+    for (int i = 0; i < size; i++)
+    {
+        arr[i]= this->Rules::getCard(i).getNumber();
+    }
+    int max = 13;
+    std::vector<int> result = countElements(arr, size, max);
+    bool fourOfKind = false;
+    number=0;
+    for(int i = 0; i < max+1; i++){
+        if(result[i]==4){
+            fourOfKind=true;
+            number=i;
+        }
+    }
+    color =0;
+    if(fourOfKind){
+        for (int i = 0; i < this->Rules::getCombination(); i++)
+        {
+            if ((this->getCard(i).getNumber() == number) && (color < this->getCard(i).getColor())){
+                color = this->getCard(i).getColor();
             }
         }
-        count=0;
+        
     }
-    return total>0;
+    return fourOfKind;
 }
 
 void FourOfKind::computeScore(){
-    int total;
-    if(isFourOfKind(this->Rules::getCards(), total)){
-        if(total<1){
-            this->Rules::addScore(70);
-        }
+    int number=0;
+    int color=0;
+    float score=0;
+    if(isFourOfKind(this->Rules::getCards(), number, color)){
+        score+=70 + number * 0.1 + 0.3 * color;
     }
+    this->Rules::setScore(score > this->getScore() ? score : this->getScore());
 }

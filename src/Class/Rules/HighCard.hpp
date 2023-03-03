@@ -2,7 +2,7 @@
 #define __HIGHCARD_HPP__
 
 #include "Rules.hpp"
-
+#include "GenericRules.hpp"
 class HighCard : public Rules {
     static int IDcounter;
     public:
@@ -13,7 +13,7 @@ class HighCard : public Rules {
 
         /* Getter */
         int getID() const;
-        int getScore() const;
+        float getScore() const;
         std::string getName() const;
         const float getMin() const;
 

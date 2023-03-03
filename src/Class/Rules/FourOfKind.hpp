@@ -2,6 +2,7 @@
 #define __FOUROFKIND_HPP__
 
 #include "Rules.hpp"
+#include "GenericRules.hpp"
 class FourOfKind: public Rules{
     static int IDcounter;
     public:
@@ -21,7 +22,7 @@ class FourOfKind: public Rules{
         
         /* Method */
         void computeScore();
-        bool isFourOfKind(std::vector<Card>, int&);
+        bool isFourOfKind(std::vector<Card>, int&, int&);
     private:
         int ID;
         std::string name;

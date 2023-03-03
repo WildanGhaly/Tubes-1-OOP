@@ -23,18 +23,22 @@ int main(){
 
     Rules *card;
     
-    // HighCard highCard;
+    HighCard highCard;
     Pair pair;
     ThreeOfKind threeOfKind;
+    Straight straight;
+    Flush flush;
     FullHouse fullHouse;
+    FourOfKind fourOfKind;
+    StraightFlush straightFlush;
 
-    Card c1(10,0);
-    Card c2(10,1);
-    Card c3(10,2);
-    Card c4(2,1);
-    Card c5(11,1);
-    Card c6(12,3);
-    Card c7(1,0);
+    Card c1(0,0);
+    Card c2(0,1);
+    Card c3(0,2);
+    Card c4(1,0);
+    Card c5(0,0);
+    Card c6(0,3);
+    Card c7(0,0);
     vector<Card> cards(7);
     cards[0] = c1;
     cards[1] = c2;
@@ -44,21 +48,44 @@ int main(){
     cards[5] = c6;
     cards[6] = c7;
 
-    // highCard.setCards(cards);
-    // card = &highCard;
-    // card->computeScore();
+    card = &highCard;
+    card->setCards(cards);
+    card->computeScore();
 
-    threeOfKind.setCards(cards);
+    card = &pair;
+    card->setCards(cards);
+    card->setScore(highCard.getScore());
+    card->computeScore();
+
     card = &threeOfKind;
+    card->setCards(cards);
+    card->setScore(pair.getScore());
     card->computeScore();
 
-    cout << "Score ToK: " << card->getScore() << endl;
+    card = &straight;
+    card->setCards(cards);
+    card->setScore(threeOfKind.getScore());
+    card->computeScore();
 
-    
-    fullHouse.setCards(cards);
+    card = &flush;
+    card->setCards(cards);
+    card->setScore(straight.getScore());
+    card->computeScore();
+
     card = &fullHouse;
+    card->setCards(cards);
+    card->setScore(flush.getScore());
     card->computeScore();
-    cout << "Score fullhouse: " << card->getScore() << endl;
+
+    card = &fourOfKind;
+    card->setCards(cards);
+    card->setScore(fullHouse.getScore());
+    card->computeScore();
+
+    card = &straightFlush;
+    card->setCards(cards);
+    card->setScore(fourOfKind.getScore());
+    card->computeScore();
     
     // Rules *rules = &highCard;
     std::cout << "\n Color = " << card->getCard(0).getColor() << std::endl;
