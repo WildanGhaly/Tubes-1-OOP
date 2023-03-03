@@ -23,7 +23,7 @@ class Pair : public Rules{
         /* Method */
         void addScore(float);
         void computeScore();
-        bool isPairs(std::vector<Card>, int&);
+        bool isPairs(std::vector<Card>, int&, int&, int&, int&);
     
     private:
         int ID;
