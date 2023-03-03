@@ -3,7 +3,6 @@
 #include "../Game/GameVec.cpp"
 #include <iostream>
 
-
 int main(){
     std::cout << "Deck before start" << std::endl;
     
@@ -24,7 +23,7 @@ int main(){
 
     HighCard highCard(game.getTable(), game.getPlayers().getPlayer(0));
     highCard.computeScore();
-
+    
     Rules *rules = &highCard;
     std::cout << "\n Color = " << rules->getCard(0).getColor() << std::endl;
     rules->print();
