@@ -1,4 +1,8 @@
-#include "HighCard.cpp"
+#include "RulesImplementation.hpp"
+#include "../Game/GameVec.hpp"
+#include "../Game/GameVec.cpp"
+#include <iostream>
+
 
 int main(){
     std::cout << "Deck before start" << std::endl;

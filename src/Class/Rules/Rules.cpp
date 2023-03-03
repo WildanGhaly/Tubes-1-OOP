@@ -1,5 +1,3 @@
-#include "Rules.hpp"
-
 int Rules::IDcounter = 0;
 
 /* Default Constructor */
