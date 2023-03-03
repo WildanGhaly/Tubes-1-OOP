@@ -1,8 +1,5 @@
-#ifndef __RULES_HPP__
-#define __RULES_HPP__
 
-#include "../Game/GameVec.hpp"
-
+#include "../Game/GameVec.cpp"
 class Rules {
     static int IDcounter;
     const int combination = 7;
