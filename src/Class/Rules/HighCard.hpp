@@ -1,4 +1,7 @@
-#include "Rules.cpp"
+#ifndef __HIGHCARD_HPP__
+#define __HIGHCARD_HPP__
+
+#include "Rules.hpp"
 
 class HighCard : public Rules {
     static int IDcounter;
@@ -32,3 +35,5 @@ class HighCard : public Rules {
         int ID;
         std::string name;
 };
+
+#endif

@@ -2,7 +2,6 @@
 #define __FOUROFKIND_HPP__
 
 #include "Rules.hpp"
-
 class FourOfKind: public Rules{
     static int IDcounter;
     public:
@@ -13,7 +12,7 @@ class FourOfKind: public Rules{
 
         /* Getter */
         int getID() const;
-        int getScore() const;
+        float getScore() const;
         std::string getName() const;
 
         /* Setter */

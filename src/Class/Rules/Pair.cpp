@@ -18,8 +18,8 @@ Pair::~Pair(){
 int Pair::getID() const{
     return this->ID;
 }
-int Pair::getScore() const{
-    this->Rules::getScore();
+float Pair::getScore() const{
+    return this->Rules::getScore();
 }
 std::string Pair::getName() const{
     return this->name;
@@ -37,7 +37,7 @@ void Pair::setScore(float ScoreNew){
 /*!
 *@attention Sort needed
 */
-bool isPairs(std::vector<Card> cardComb, int &total){
+bool Pair::isPairs(std::vector<Card> cardComb, int &total){
     int count=0;
     total=0;
     for (int i = 0; i < cardComb.size(); i++){

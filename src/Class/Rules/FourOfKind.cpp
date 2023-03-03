@@ -19,7 +19,7 @@ FourOfKind::~FourOfKind(){
 int FourOfKind::getID() const{
     return this->ID;
 }
-int FourOfKind::getScore() const{
+float FourOfKind::getScore() const{
     return this->Rules::getScore();
 }
 std::string FourOfKind::getName() const{
@@ -58,7 +58,7 @@ void FourOfKind::computeScore(){
     int total;
     if(isFourOfKind(this->Rules::getCards(), total)){
         if(total<1){
-            this->Rules::addScore(60);
+            this->Rules::addScore(70);
         }
     }
 }

@@ -20,7 +20,7 @@ ThreeOfKind::~ThreeOfKind(){
 int ThreeOfKind::getID() const{
     return this->ID;
 }
-int ThreeOfKind::getScore() const{
+float ThreeOfKind::getScore() const{
     return this->Rules::getScore();
 }
 std::string ThreeOfKind::getName() const{
