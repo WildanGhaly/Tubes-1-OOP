@@ -29,6 +29,7 @@ class CardDeckVec {
         void removeCard(int);
         void shuffle();
         void sortByNumber();
+        void sortByNmuberDesc();
         void sortByColor();
         void sortByID();
         void print() const;
