@@ -43,7 +43,7 @@ bool isPairs(std::vector<Card> cardComb, int &total){
     for (int i = 0; i < cardComb.size(); i++){
         for (int j = 0; i < cardComb.size(); i++){
             if(i!=j){
-                if(cardComb[i]==cardComb[j]){
+                if(cardComb[i].getNumber()==cardComb[j].getNumber()){
                     count++;
                     if(count==2){
                         total++;
