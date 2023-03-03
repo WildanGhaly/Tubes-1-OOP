@@ -1,6 +1,6 @@
 #include "FullHouse.hpp"
 
-FullHouse::FullHouse() {
+FullHouse::FullHouse() : Rules(){
     this->ID = 0;
     this->name = "Full House";
 }
@@ -8,6 +8,11 @@ FullHouse::FullHouse() {
 FullHouse::FullHouse(const FullHouse& fh) {
     this->ID = fh.ID;
     this->name = fh.name;
+}
+
+FullHouse::FullHouse(Table table, PlayerVec player) : Rules(table, player) {
+    this->ID = 0;
+    this->name = "Full House";
 }
 
 FullHouse::~FullHouse() {
@@ -34,17 +39,25 @@ void FullHouse::setName(std::string name) {
 
 /* Method */
 void FullHouse::addScore(float score) {
-    this->Rules::addScore(60);
+    this->Rules::addScore(score);
 }
 
 void FullHouse::computeScore() {
-    this->addScore(60);
+    int first = 0;
+    int second = 0;
+    int color = 0;
+    float score = 0;
+    if (isFullHouse(this->getCards(), first, second, color)){
+        score += 60 + first * 0.1 + 0.3 * color;
+    }
+    this->Rules::setScore(score > this->getScore() ? 
+                            score : this->getScore());
 }
 
 // return true if the cards is full house
 // return false if the cards is not full house
 // first and second is the number of the card
-bool FullHouse::isFullHouse(std::vector<Card> cards, int& first, int& second) {
+bool FullHouse::isFullHouse(std::vector<Card> cards, int& first, int& second, int& color) {
     int size = this->Rules::getCombination();
     int arr[size];
     for (int i = 0; i < size; i++){
@@ -67,6 +80,14 @@ bool FullHouse::isFullHouse(std::vector<Card> cards, int& first, int& second) {
         } else if (result[i] == 2) {
             second = i;
             twoKind = true;
+        }
+    }
+    color = 0;
+    if (threeKind) {
+        for (int i = 0; i < this->Rules::getCombination(); i++){
+            if ((this->getCard(i).getNumber() == first) && (color < this->getCard(i).getColor())){
+                color = this->getCard(i).getColor();
+            }
         }
     }
     return (threeKind && twoKind);

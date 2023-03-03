@@ -2,6 +2,7 @@
 #define __RULES_HPP__
 
 #include "../Game/GameVec.hpp"
+#include "GenericRules.hpp"
 
 class Rules {
     static int IDcounter;

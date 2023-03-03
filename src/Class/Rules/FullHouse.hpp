@@ -7,13 +7,14 @@ class FullHouse : public Rules {
     public:
         /* ctor cctor dtor */
         FullHouse();
+        FullHouse(Table, PlayerVec);
         FullHouse(const FullHouse&);
         ~FullHouse();
 
         /* Getter */
         int getID() const;
         std::string getName() const;
-        
+
         /* Setter */
         void setID(int);
         void setName(std::string);
@@ -21,7 +22,7 @@ class FullHouse : public Rules {
         /* Method */
         void addScore(float);
         void computeScore();
-        bool isFullHouse(std::vector<Card>, int&, int&);
+        bool isFullHouse(std::vector<Card>, int&, int&, int&);
 
         /* Operator */
         bool operator==(const FullHouse&) const;

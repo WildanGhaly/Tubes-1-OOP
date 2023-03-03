@@ -7,6 +7,7 @@
 #include "ThreeOfKind.cpp"
 #include "Pair.cpp"
 #include "HighCard.cpp"
+#include "FullHouse.cpp"
 
 
 #endif
