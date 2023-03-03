@@ -2,6 +2,7 @@
 #define __THREEOFKIND_HPP__
 
 #include "Rules.hpp"
+#include "GenericRules.hpp"
 
 class ThreeOfKind : public Rules{
     static int IDcounter;
@@ -23,7 +24,7 @@ class ThreeOfKind : public Rules{
         /* Method */
         void addScore(float);
         void computeScore();
-        bool isThreeOfKind(std::vector<Card>, int&);
+        bool isThreeOfKind(std::vector<Card>, int&, int&);
     
     private:
         int ID;
