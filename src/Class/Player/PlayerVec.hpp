@@ -8,7 +8,7 @@ class PlayerVec {
     public:
         /* ctor cctor dtor */
         PlayerVec();
-        PlayerVec(int);
+        PlayerVec(int, char*);
         PlayerVec(const PlayerVec&);
         ~PlayerVec();
 
@@ -18,11 +18,13 @@ class PlayerVec {
         std::vector<Card> getCards() const;
         int getTotalCard() const;
         Card getCard(int) const;
+        char* getNickname() const;
 
         /* Setter */
         void setID(int);
         void setScore(int);
         void setCards(std::vector<Card>);
+        void setNickname(char*);
 
         /* Method */
         void print() const;
@@ -42,6 +44,7 @@ class PlayerVec {
         int ID;
         float score;
         std::vector<Card> cards;
+        char* nickname;
         // std::string name; BISA PAKAI MAPPING NANTI
 };
 
