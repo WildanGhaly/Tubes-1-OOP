@@ -9,60 +9,73 @@ Straight::Straight(Table table, PlayerVec player) : ID(IDcounter++), Rules(table
     this->name="Straight";
 }
 
-Straight::Straight(const Straight& otherStraight) : ID(IDcounter++), Rules(otherStraight){
-    this->name = otherStraight.name;
+Straight::Straight(const Straight& cardComb) : ID(IDcounter++), Rules(cardComb){
+    this->name = cardComb.name;
 }
 
-Straight::~Straight(){
-/*Destroy*/
+Straight::~Straight() {
+    /* Destructor */
 }
 
 /* Getter */
-int Straight::getID() const{
+int Straight::getID() const {
     return this->ID;
 }
 
-int Straight::getScore() const{
-    this->Rules::getScore();
+int Straight::getScore() const {
+    return this->Rules::getScore();
 }
 
-std::string Straight::getName() const{
+std::string Straight::getName() const {
     return this->name;
 }
 
 /* Setter */
-void Straight::setID(int IDnew){
-    this->ID=IDnew;
+void Straight::setID(int IDnew) {
+    this->ID = IDnew;
 }
 
-void Straight::setScore(float ScoreNew){
-    this->Rules::setScore(ScoreNew);
+void Straight::setScore(float scoreNew) {
+    this->Rules::setScore(scoreNew);
 }
 
 /* Method */
-/*!
-* @attention Sort needed
-*/
-
-bool isStraight(std::vector<Card> cardComb, int &total) {
-    total = 0;
-    for (int i = 0; i < 3; i++) {
-        if (cardComb[i].getNumber() == cardComb[i+1].getNumber() - 1 &&
-            cardComb[i].getNumber() == cardComb[i+2].getNumber() - 2 &&
-            cardComb[i].getNumber() == cardComb[i+3].getNumber() - 3 &&
-            cardComb[i].getNumber() == cardComb[i+4].getNumber() - 4 
-        ) {
-            total++;
-        }
-    }        
-    return total > 0;
-}
-
-void Straight::computeScore(){
-    int total;
-    if(isStraight(this->Rules::getCards(), total)){
-        if(total<1){
-            this->Rules::setScore(40);
+bool Straight::isStraight(std::vector<Card> cardComb, int& number, int& color) {
+    int size = this->Rules::getCombination();
+    int arr[size];
+    for (int i = 0; i < size; i++)
+    {
+        arr[i]= this->Rules::getCard(i).getNumber();
+    }
+    int max = 13;
+    std::vector<int> result = countElements(arr, size, max);
+    bool straight = false;
+    int count = 0;
+    number = 0;
+    for (int i = 0; i < max; i++)
+    {
+        if(result[i]>0 && result[i+1]>0 && result[i+2]>0 && result[i+3]>0 && result[i+4]>0){
+            straight=true;
+            number=i+4;
         }
     }
+    color = 0;
+    if (straight) {
+        for (int i = 0; i < size; i++)
+        {
+            if (number == this->Rules::getCard(i).getNumber() && color < this->Rules::getCard(i).getColor()) {
+                color = this->Rules::getCard(i).getColor();
+            }
+        }
+    }
+    return straight;
+}
+
+void Straight::computeScore() {
+    int number, color = 0;
+    float score = 0;
+    if (isStraight(this->Rules::getCards(), number, color)) {
+        score = 40 + number * 0.1 + color * 0.3;
+    }
+    this->Rules::setScore(score > this->Rules::getScore() ? score : this->Rules::getScore());    
 }

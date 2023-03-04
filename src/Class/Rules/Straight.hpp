@@ -2,9 +2,10 @@
 #define __STRAIGHT_HPP__
 
 #include "Rules.hpp"
+#include "GenericRules.hpp"
 
 /* Class Straight */
-class Straight : public Rules{
+class Straight : public Rules {
     static int IDcounter;
     public:
         Straight();
@@ -24,7 +25,7 @@ class Straight : public Rules{
         /* Method */
         void addScore(float);
         void computeScore();
-        bool isStraight(std::vector<Card>, int&);
+        bool isStraight(std::vector<Card>, int&, int&);
     
     private:
         int ID;
