@@ -1,6 +1,8 @@
 #include "Flush.hpp"
 
 int Flush::IDcounter = 0;
+
+/* Constructor */
 Flush::Flush():ID(IDcounter++), Rules() {
     this->name="Flush";
 }
@@ -9,13 +11,15 @@ Flush::Flush(Table table, PlayerVec player) : ID(IDcounter++), Rules(table, play
     this->name="Flush";
 }
 
-Flush::Flush(const Flush& otherFlush) : ID(IDcounter++), Rules(otherFlush){
-    this->name = otherFlush.name;
+Flush::Flush(const Flush& cardComb) : ID(IDcounter++), Rules(cardComb){
+    this->name = cardComb.name;
 }
 
+/* Destroyer */
 Flush::~Flush(){
 
 }
+
 
 /* Getter */
 int Flush::getID() const{
@@ -40,30 +44,42 @@ void Flush::setScore(float ScoreNew){
 }
 
 /* Method */
-bool Flush::isFlush(std::vector<Card> cardComb, int &total){
-    int count=0;
-    total=0;
-    for (int i = 0; i < cardComb.size(); i++){
-        for (int j = 0; i < cardComb.size(); i++){
-            if(i!=j){
-                if(cardComb[i].getColor()==cardComb[j].getColor()){
-                    count++;
-                    if(count==5){
-                        total++;
-                    }
-                }
+bool Flush::isFlush(std::vector<Card> cardComb, int &number, int& color){
+    int size = this->Rules::getCombination();
+    int arr[size];
+    for (int i = 0; i < size; i++)
+    {
+        arr[i]= this->Rules::getCard(i).getColor();
+    }
+    int max = 4;
+    std::vector<int> result = countElements(arr, size, max);
+    bool flush = false;
+    color=0;
+    for(int i = 0; i < max+1; i++){ 
+        if(result[i]==5){
+            flush=true;
+            color=i;
+        }
+    }
+    number =0;
+    if(flush){
+        for (int i = 0; i < this->Rules::getCombination(); i++)
+        {
+            if ((this->getCard(i).getColor() == color) && (number < this->getCard(i).getNumber())){
+                number = this->getCard(i).getNumber();
             }
         }
-        count=0;
     }
-    return total>0;
+    return flush;
 }
 
 void Flush::computeScore(){
-    int total;
-    if(isFlush(this->Rules::getCards(), total)){
-        if (total < 1) {
-            this->Rules::setScore(50);
-        }
+    int number = 0;
+    int color = 0;
+    float score = 0;
+    if (isFlush(this->Rules::getCards(), number, color)){
+        score = 50 + number * 0.1 + color * 0.3;
     }
+
+    this->Rules::setScore(score > this->Rules::getScore() ? score : this->Rules::getScore());
 }

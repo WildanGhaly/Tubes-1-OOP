@@ -1,4 +1,8 @@
+#ifndef __STRAIGHTFLUSH_HPP__
+#define __STRAIGHTFLUSH_HPP__
+
 #include "Rules.hpp"
+#include "GenericRules.hpp"
 
 /* Class StraightFlush */
 class StraightFlush : public Rules {
@@ -21,9 +25,11 @@ class StraightFlush : public Rules {
         /* Method */
         void addScore(float);
         void computeScore();
-        bool isStraightFlush(std::vector<Card>, int&);
+        bool isStraightFlush(std::vector<Card>, int&, int&);
     
     private:
         int ID;
         std::string name;
 };
+
+#endif
