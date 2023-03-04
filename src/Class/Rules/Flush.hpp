@@ -2,6 +2,7 @@
 #define __FLUSH_HPP__
 
 #include "Rules.hpp"
+#include "GenericRules.hpp"
 
 /* Class Flush */
 class Flush : public Rules{
@@ -24,7 +25,7 @@ class Flush : public Rules{
         /* Method */
         void addScore(float);
         void computeScore();
-        bool isFlush(std::vector<Card>, int&);
+        bool isFlush(std::vector<Card>, int&, int&);
         
     
     private:
