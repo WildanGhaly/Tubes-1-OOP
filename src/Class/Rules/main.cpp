@@ -1,5 +1,4 @@
 #include "RulesImplementation.hpp"
-#include "../Game/GameVec.hpp"
 #include "../Game/GameVec.cpp"
 #include <iostream>
 
@@ -26,19 +25,19 @@ int main(){
     HighCard highCard;
     Pair pair;
     ThreeOfKind threeOfKind;
-    // Straight straight;
+    Straight straight;
     Flush flush;
     FullHouse fullHouse;
     FourOfKind fourOfKind;
-    // StraightFlush straightFlush;
+    StraightFlush straightFlush;
 
-    Card c1(5,0);
-    Card c2(1,1);
-    Card c3(10,3);
-    Card c4(10,2);
-    Card c5(13,3);
-    Card c6(2,2);
-    Card c7(3,3);
+    Card c1(1,0);
+    Card c2(2,0);
+    Card c3(3,0);
+    Card c4(4,0);
+    Card c5(5,0);
+    Card c6(5,1);
+    Card c7(5,2);
     vector<Card> cards(7);
     cards[0] = c1;
     cards[1] = c2;
@@ -51,41 +50,49 @@ int main(){
     card = &highCard;
     card->setCards(cards);
     card->computeScore();
+    cout << "High Card Score = " << card->getScore() << endl;
 
     card = &pair;
     card->setCards(cards);
     card->setScore(highCard.getScore());
     card->computeScore();
+    cout << "Pair Score = " << card->getScore() << endl;
 
     card = &threeOfKind;
     card->setCards(cards);
     card->setScore(pair.getScore());
     card->computeScore();
+    cout << "Three of Kind Score = " << card->getScore() << endl;
 
-    // card = &straight;
-    // card->setCards(cards);
-    // card->setScore(threeOfKind.getScore());
-    // card->computeScore();
-
-    card = &flush;
+    card = &straight;
     card->setCards(cards);
     card->setScore(threeOfKind.getScore());
     card->computeScore();
+    cout << "Straight Score = " << card->getScore() << endl;
+
+    card = &flush;
+    card->setCards(cards);
+    card->setScore(straight.getScore());
+    card->computeScore();
+    cout << "Flush Score = " << card->getScore() << endl;
 
     card = &fullHouse;
     card->setCards(cards);
     card->setScore(flush.getScore());
     card->computeScore();
+    cout << "Full House Score = " << card->getScore() << endl;
 
     card = &fourOfKind;
     card->setCards(cards);
     card->setScore(fullHouse.getScore());
     card->computeScore();
+    cout << "Four of Kind Score = " << card->getScore() << endl;
 
-    // card = &straightFlush;
-    // card->setCards(cards);
-    // card->setScore(fourOfKind.getScore());
-    // card->computeScore();
+    card = &straightFlush;
+    card->setCards(cards);
+    card->setScore(fourOfKind.getScore());
+    card->computeScore();
+    cout << "Straight Flush Score = " << card->getScore() << endl;
     
     // Rules *rules = &highCard;
     std::cout << "\n Color = " << card->getCard(0).getColor() << std::endl;
