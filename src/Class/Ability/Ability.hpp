@@ -5,9 +5,12 @@
 #include "Reroll.hpp"
 #include "Quadruple.hpp"
 #include "Quarter.hpp"
+#include "Switch.hpp"
+#include "ReverseDirection.hpp"
+#include "SwapCard.hpp"
 
 
-class Ability : public Reroll, public Quadruple, public Quarter  {
+class Ability : public Reroll, public Quadruple, public Quarter, public Switch, public ReverseDirection, public SwapCard  {
     public:
         Ability(char*);
         Ability(const Ability&);
