@@ -2,10 +2,9 @@
 #define _QUADRUPLE_HPP
 
 #include <iostream>
-#include "../Player/PlayerVec.hpp"
-#include "../Game/GameVec.hpp"
+#include "../Player/Score.hpp"
 
-class Quadruple : public PlayerVec, public GameVec  {
+class Quadruple : public Score  {
     public :
         Quadruple();
         bool isQuadruple() const;
