@@ -42,9 +42,8 @@ void StraightFlush::setScore(float scoreNew) {
 /* Method */
 bool StraightFlush::isStraightFlush(std::vector<Card> cardComb, int& number, int& color) {
     int size = this->Rules::getCombination();
-    int sizeColor = 4;
     int arr[size];
-    int arrColor[sizeColor];
+    int arrColor[size];
     for (int i = 0; i < size; i++)
     {
         arr[i]= this->Rules::getCard(i).getNumber();
@@ -57,7 +56,7 @@ bool StraightFlush::isStraightFlush(std::vector<Card> cardComb, int& number, int
     int maxColor = 4;
     std::vector<int> result = countElements(arr, size, max);
     cout << "result: " << result[0] << " " << result[1] << " " << result[2] << " " << result[3] << " " << result[4] << " " << result[5] << " " << result[6] << " " << result[7] << " " << result[8] << " " << result[9] << " " << result[10] << " " << result[11] << endl;
-    std::vector<int> resultColor = countElements(arrColor, size, sizeColor);
+    std::vector<int> resultColor = countElements(arrColor, size, maxColor);
     cout << "resultColor: " << resultColor[0] << " " << resultColor[1] << " " << resultColor[2] << " " << resultColor[3] << endl;
     bool straightFlush = false;
     number=0;
@@ -76,7 +75,7 @@ bool StraightFlush::isStraightFlush(std::vector<Card> cardComb, int& number, int
     return straightFlush;
 }
 void StraightFlush::computeScore() {
-    int number, color = 0;
+    int number=0, color = 0;
     float score = 0;
     if (isStraightFlush(this->Rules::getCards(), number, color)) {
         score = 80 + number * 0.1 + color * 0.3;
