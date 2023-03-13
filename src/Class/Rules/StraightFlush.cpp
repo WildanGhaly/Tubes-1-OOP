@@ -62,9 +62,9 @@ bool StraightFlush::isStraightFlush(std::vector<Card> cardComb, int& number, int
     number=0;
     color=0;
     for(int i = 0; i < maxColor; i++){ 
-        if(resultColor[i]==5){
+        if(resultColor[i]>=5){
             color=i;
-            for(int j = 0; j < size + 1; j++){ 
+            for(int j = 0; j < result.size()-3; j++){ 
                 if(result[j]>0 && result[j+1]>0 && result[j+2]>0 && result[j+3]>0 && result[j+4]>0){
                     straightFlush=true;
                     number=j+4;
