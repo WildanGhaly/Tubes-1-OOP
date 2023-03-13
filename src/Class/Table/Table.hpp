@@ -18,10 +18,12 @@ class Table {
         int getTotalCard() const;
         Card getCard(int) const;
         int getRound() const;
+        int getScore() const;
 
         /* Setter */
         void setCards(CardDeckVec);
         int setRound(int);
+        void setScore(int);
 
         /* Method */
         void print() const;
@@ -40,6 +42,7 @@ class Table {
     private:
         std::vector<Card> cards;
         int round;
+        int score;
 };
 
 #endif

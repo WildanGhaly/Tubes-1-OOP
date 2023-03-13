@@ -3,8 +3,8 @@
 #include <windows.h>
 #include <cstring>
 #include "Class/Game/GameVec.cpp"
+#include "Table/Table.hpp"
 #include <vector>
-#include <sstream>  
 using namespace std;
 
 int main(){
@@ -21,6 +21,7 @@ int main(){
     boolean end = false;
     int pWin;
     int game_total = 0;
+    Table table;
 
     do {
         cout << "Pilih Game: " << endl;
@@ -76,13 +77,16 @@ int main(){
                                 cout << ">> ";
                                 cin >> playeropt;
                                 if (playeropt == "Double"){
-                                    temp_actv = "game.getPlayers().getPlayer(i).getNickname() ""melakukan DOUBLE! Poin hadiah naik dari " + to_string(64) + " Menjadi " + to_string(128);
+                                    temp_actv = "game.getPlayers().getPlayer(i).getNickname() ""melakukan DOUBLE! Poin hadiah naik dari " + to_string(table.getScore()) + " Menjadi " + to_string(table.getScore() * 2);
+                                    table.setScore(table.getScore() * 2);
                                     activity.push_back(temp_actv);
+
 
                                 } else if (playeropt == "Next"){
                                     
                                 } else if (playeropt == "Half"){
-                                    temp_actv = "game.getPlayers().getPlayer(i).getNickname() ""melakukan Half! Poin hadiah turun dari " + to_string(64) + " Menjadi " + to_string(32);
+                                    temp_actv = "game.getPlayers().getPlayer(i).getNickname() ""melakukan Half! Poin hadiah turun dari " + to_string(table.getScore()) + " Menjadi " + to_string(table.getScore() / 2);
+                                    table.setScore(table.getScore() / 2);
                                     activity.push_back(temp_actv);
 
 
