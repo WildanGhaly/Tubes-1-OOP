@@ -2,12 +2,11 @@
 #define _SWITCH_CARD_HPP_
 
 
-#include "../Player/Player.hpp"
 #include "../Player/ListPlayerVec.hpp"
 #include "../Player/PlayerVec.hpp"
-#include "../Card/CardListVec.hpp"
+#include "../Game/GameVec.hpp"
 
-class Switch : public ListPlayerVec{
+class Switch : public ListPlayerVec ,public GameVec{
     public:
         Switch(int, int);
 };
