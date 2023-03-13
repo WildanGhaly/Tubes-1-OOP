@@ -1,14 +1,17 @@
 #include "CardList.hpp"
 
-CardList::CardList() {
+template <class T>
+CardList<T>::CardList() {
     this->cards = vector<Card>();
 }
 
-CardList::CardList(int totalCard) {
+template <class T>
+CardList<T>::CardList(int totalCard) {
     this->cards = vector<Card>(totalCard);
 }
 
-CardList::CardList(string name) {
+template <class T>
+CardList<T>::CardList(string name) {
     this->cards = vector<Card>();
     if (name == "POKER") {
         for (int i = 0; i < 4; i++) {
@@ -22,31 +25,38 @@ CardList::CardList(string name) {
     }
 }
 
-CardList::CardList(const CardList& cardList) {
+template <class T>
+CardList<T>::CardList(const CardList& cardList) {
     this->cards = cardList.cards;
 }
 
-CardList::~CardList() {
+template <class T>
+CardList<T>::~CardList() {
     // Nothing to do
 }
 
-int CardList::getTotalCard() const {
+template <class T>
+int CardList<T>::getTotalCard() const {
     return this->cards.size();
 }
 
-Card CardList::getCard(int index) const {
+template <class T>
+T CardList<T>::getCard(int index) const {
     return this->cards[index];
 }
 
-vector<Card> CardList::getCards() const {
+template <class T>
+vector<T> CardList<T>::getCards() const {
     return this->cards;
 }
 
-void CardList::addCard(Card card) {
+template <class T>
+void CardList<T>::addCard(T card) {
     this->cards.push_back(card);
 }
 
-void CardList::removeCard(Card card) {
+template <class T>
+void CardList<T>::removeCard(T card) {
     for (int i = 0; i < this->cards.size(); i++) {
         if (this->cards[i] == card) {
             this->cards.erase(this->cards.begin() + i);
@@ -55,11 +65,13 @@ void CardList::removeCard(Card card) {
     }
 }
 
-void CardList::removeCard(int index) {
+template <class T>
+void CardList<T>::removeCard(int index) {
     this->cards.erase(this->cards.begin() + index);
 }
 
-void CardList::shuffle() {
+template <class T>
+void CardList<T>::shuffle() {
     srand(time(NULL));
     for (int i = 0; i < this->cards.size(); i++) {
         int randomIndex = rand() % this->cards.size();
@@ -69,7 +81,8 @@ void CardList::shuffle() {
     }
 }
 
-void CardList::sortByNumber() {
+template <class T>
+void CardList<T>::sortByNumber() {
     for (int i = 0; i < this->cards.size(); i++) {
         for (int j = i + 1; j < this->cards.size(); j++) {
             if (this->cards[i].getNumber() > this->cards[j].getNumber()) {
@@ -81,7 +94,8 @@ void CardList::sortByNumber() {
     }
 }
 
-void CardList::sortByNumberDesc() {
+template <class T>
+void CardList<T>::sortByNumberDesc() {
     for (int i = 0; i < this->cards.size(); i++) {
         for (int j = i + 1; j < this->cards.size(); j++) {
             if (this->cards[i].getNumber() < this->cards[j].getNumber()) {
@@ -93,7 +107,8 @@ void CardList::sortByNumberDesc() {
     }
 }
 
-void CardList::sortByColor() {
+template <class T>
+void CardList<T>::sortByColor() {
     for (int i = 0; i < this->cards.size(); i++) {
         for (int j = i + 1; j < this->cards.size(); j++) {
             if (this->cards[i].getColor() > this->cards[j].getColor()) {
@@ -105,13 +120,15 @@ void CardList::sortByColor() {
     }
 }
 
-void CardList::print() const {
+template <class T>
+void CardList<T>::print() const {
     for (int i = 0; i < this->cards.size(); i++) {
         cout << this->cards[i] << endl;
     }
 }
 
-bool CardList::operator==(const CardList& cardList) const {
+template <class T>
+bool CardList<T>::operator==(const CardList& cardList) const {
     if (this->cards.size() != cardList.cards.size()) {
         return false;
     }
@@ -123,25 +140,30 @@ bool CardList::operator==(const CardList& cardList) const {
     return true;
 }
 
-bool CardList::operator!=(const CardList& cardList) const {
+template <class T>
+bool CardList<T>::operator!=(const CardList& cardList) const {
     return !(*this == cardList);
 }
 
-const Card& CardList::operator[](int index) const {
+template <class T>
+const Card& CardList<T>::operator[](int index) const {
     return this->cards[index];
 }
 
-CardList& CardList::operator=(const CardList& cardList) {
+template <class T>
+CardList<T>& CardList<T>::operator=(const CardList& cardList) {
     this->cards = cardList.cards;
     return *this;
 }
 
-CardList& CardList::operator<<(const Card& card) {
+template <class T>
+CardList<T>& CardList<T>::operator<<(const Card& card) {
     this->cards.push_back(card);
     return *this;
 }
 
-CardList& CardList::operator>>(Card& card) {
+template <class T>
+CardList<T>& CardList<T>::operator>>(Card& card) {
     card = this->cards.back();
     this->cards.pop_back();
     return *this;

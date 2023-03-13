@@ -1,18 +1,15 @@
-#ifndef _CARD_LIST_HPP_
-#define _CARD_LIST_HPP_
-
-#include "Card.cpp"
+#include "../Card/Card.hpp"
 
 template <class T>
-class CardList {
+class Table {
     public:
         /* ctor cctor dtor */
-        CardList();
-        CardList(int);
-        CardList(string);
+        Table();
+        Table(int);
+        Table(string);
 
-        CardList(const CardList&);
-        ~CardList();
+        Table(const Table&);
+        ~Table();
 
         /* Getter */
         int getTotalCard() const;
@@ -30,15 +27,13 @@ class CardList {
         void print() const;
 
         /* Operator */
-        bool operator==(const CardList&) const;
-        bool operator!=(const CardList&) const;
-        const Card& operator[](int) const;
-        CardList& operator=(const CardList&);
-        CardList& operator<<(const Card&);
-        CardList& operator>>(Card&);
+        bool operator==(const Table&) const;
+        bool operator!=(const Table&) const;
+        const T& operator[](int) const;
+        Table& operator=(const Table&);
+        Table& operator<<(const T&);
+        Table& operator>>(T&);
 
     private:
         vector<T> cards;
 };
-
-#endif
