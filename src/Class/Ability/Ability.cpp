@@ -1,17 +1,25 @@
 #include "Ability.hpp"
 using namespace std;
 
-Ability::Ability(char* ability){
-    this->Ability_name = new char[strlen(ability)];
-    strcpy(this->Ability_name, ability);
+Ability::Ability(int ability_id){
+    this -> ability_id = ability_id;
+    this -> usingAbility = false;
 }
+
 Ability::Ability(const Ability& Ability){
-    this -> Ability_name = new char[strlen(Ability.Ability_name)];
-    this -> Ability_name = Ability.Ability_name;
+    this -> ability_id = Ability.ability_id;
+    this -> usingAbility = Ability.usingAbility;
 }
-char* Ability::getAbility() const{
-    return this-> Ability_name;
+int Ability::getAbility() const{
+    return this-> ability_id;
 }
-void Ability::setAbility(char* ability){
-    strcpy(this -> Ability_name, ability);
+void Ability::setAbility(int ability_id){
+    this -> ability_id = ability_id;
+}
+bool Ability::isUsingAbility() const {
+    return this -> usingAbility;
+}
+        
+void Ability::setUsingAbility(bool usingAbility){
+    this -> usingAbility = usingAbility;
 }

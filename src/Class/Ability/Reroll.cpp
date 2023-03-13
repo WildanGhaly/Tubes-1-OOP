@@ -1,14 +1,13 @@
 #include "Reroll.hpp"
 using namespace std;
 
-Reroll::Reroll() {
-    for (int i = 0; i < 2; i++) {
+Reroll::Reroll() : Ability::Ability(1) {
+
+}
+
+void Reroll::useAbility(){
+    for (int i = 0; i < 2; i++){
         PlayerVec::removeCard(i);
     }
-    for (int i = 0; i < 2; i++){
-        PlayerVec::addCard(GameVec::getDeck().getCard(i));
-        GameVec::getDeck().removeCard(i);
-    }
-    
-
+    Ability::setUsingAbility(true);
 }
