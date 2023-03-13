@@ -4,7 +4,7 @@ using namespace std;
 
 int main(){
     cout << "Hello\n";
-    CardList cardList = CardList("POKER");
+    CardList<Card> cardList = CardList<Card>("POKER");
     cardList.shuffle();
     cardList.sortByNumber();
     cardList.sortByColor();
