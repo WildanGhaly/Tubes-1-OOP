@@ -38,7 +38,7 @@ int TwoPair::getID() const {
     return this->ID;
 }
 
-int TwoPair::getScore() const {
+float TwoPair::getScore() const {
     return this->score;
 }
 

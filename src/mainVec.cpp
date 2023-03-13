@@ -3,6 +3,8 @@
 #include <windows.h>
 #include <cstring>
 #include "Class/Game/GameVec.cpp"
+#include "Table/Table.hpp"
+#include <vector>
 using namespace std;
 
 int main(){
@@ -11,7 +13,15 @@ int main(){
     string next;
     char* nickname;
     nickname = new char[100];
-    string blank;
+    string playeropt;
+    string temp_actv;
+    boolean valid = false;
+    vector <string> activity;
+    string enter;
+    boolean end = false;
+    int pWin;
+    int game_total = 0;
+    Table table;
 
     do {
         cout << "Pilih Game: " << endl;
@@ -40,25 +50,75 @@ int main(){
                     cout << "Game will start in " << i << endl;
                     Sleep(1000);
                 }
-                while(round<5){ 
-                    for (int i = 0; i < 7; i++){
-                        cout << "Sekarang adalah giliran ";
-                        cout << game.getPlayers().getPlayer(i).getNickname();
-                        cout << "Anda memiliki kartu:" << endl;
-                        game.getPlayer(i).print();
-                        cout << "Kartu di meja :" << endl;
-                        game.getTable().print();
-                        cout << "1. Double" << endl;
-                        cout << "2. Next" << endl;
-                        cout << "3. Half" << endl;
-                        cout << "4. Ability" << endl;
-                        cout << " Pilih opsi anda! " << endl;
-                        cout << ">> ";
-                        cin >> blank;
-                        system("CLS");
-                        
-                    }
-                
+            while(!end) {
+                game_total++;
+                activity.push_back("Game ke-" + to_string(game_total));
+                while(round<2){ 
+                        for (int i = 0; i < 7; i++){
+                            valid = false;
+                            while(!valid){
+                                for (auto i = activity.begin(); i != activity.end(); ++i){
+                                    cout << *i << endl;
+                                }
+                                valid = true;
+                                cout << "Sekarang adalah giliran ";
+                                cout << game.getPlayers().getPlayer(i).getNickname();
+                                cout << "Anda memiliki kartu:" << endl;
+                                game.getPlayer(i).print();
+                                cout << "Kartu di meja :" << endl;
+                                game.getTable().print();
+                                cout << ". Double" << endl;
+                                cout << ". Next" << endl;
+                                cout << ". Half" << endl;
+                                if (round >= 2){
+                                cout << ". Ability" << endl; 
+                                }
+                                cout << " Pilih opsi anda! " << endl;
+                                cout << ">> ";
+                                cin >> playeropt;
+                                if (playeropt == "Double"){
+                                    temp_actv = "game.getPlayers().getPlayer(i).getNickname() ""melakukan DOUBLE! Poin hadiah naik dari " + to_string(table.getScore()) + " Menjadi " + to_string(table.getScore() * 2);
+                                    table.setScore(table.getScore() * 2);
+                                    activity.push_back(temp_actv);
+
+
+                                } else if (playeropt == "Next"){
+                                    
+                                } else if (playeropt == "Half"){
+                                    temp_actv = "game.getPlayers().getPlayer(i).getNickname() ""melakukan Half! Poin hadiah turun dari " + to_string(table.getScore()) + " Menjadi " + to_string(table.getScore() / 2);
+                                    table.setScore(table.getScore() / 2);
+                                    activity.push_back(temp_actv);
+
+
+                                } else if (playeropt == "this -> Ability"){
+                                    if (playeropt == "Quadruple"){
+                                        game.getPlayers().getPlayer(i);
+                                    } else if (playeropt == "Quarter"){
+                                        game.getPlayers().getPlayer(i);
+                                    } else if (playeropt == "Reroll"){
+
+                                    } else if (playeropt == "Reverse") {
+
+                                    } else if (playeropt == "Swap"){
+
+                                    } else if (playeropt == "Switch"){
+
+                                    } else if (playeropt == "Abilityless" ) {
+
+                                    }
+
+                                } else {
+                                    cout << "Command tidak valid atau ability tersebut bukan punyamu!" << endl;
+                                    valid = false;
+                                }
+                                cout << "input apapun untuk melanjutkan..." << endl;
+                                cout << ">> ";
+                                cin >> enter;
+                                system("CLS");
+                            }
+                            
+                        }
+
                     game.nextRound();
                     cout << "Next Round: (Y/n)" << endl;
                     cin >> next;
@@ -67,6 +127,30 @@ int main(){
                         system("CLS");
                     }
                 }
+                for (int i = 0; i < game.getPlayers().getTotalPlayer(); i++){ 
+                        // Bandingin Rules di sini
+                        if ("Max < Rules") {
+                            pWin = i;
+                            
+                        }
+                    }
+                game.getPlayers().getPlayer(pWin).setScore(64);
+                for (int i = 0; i < game.getPlayers().getTotalPlayer(); i++){ 
+                        // Bandingin score
+                        if ("some player > 2^32") {
+                            end = true;
+                            break;
+                        }
+                    }
+            }
+            for (int i = 0; i < game.getPlayers().getTotalPlayer(); i++){ 
+                system("CLS");
+                cout << "Permainan Telah berakhir! Player " "game.getPlayers().getPlayer(pWin).setNickname(nickname) Memenangkan pertandingan!" << endl;
+                cout << "input apapun untuk melanjutkan..." << endl;
+                cout << ">> ";
+                cin >> enter;
+            }
+            
             }
         }
     } while(true);

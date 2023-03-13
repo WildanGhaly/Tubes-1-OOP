@@ -3,14 +3,13 @@
 
 #include <iostream>
 #include "../Player/PlayerVec.hpp"
-#include "../Game/GameVec.hpp"
+#include "../Ability/Ability.hpp"
 
-class Reroll : public PlayerVec, public GameVec  {
+class Reroll : public PlayerVec, public Ability {
     public :
     Reroll();
-    
-
-};
+    void useAbility();
+};  
 
 
 #endif
