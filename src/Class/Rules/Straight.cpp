@@ -22,7 +22,7 @@ int Straight::getID() const {
     return this->ID;
 }
 
-int Straight::getScore() const {
+float Straight::getScore() const {
     return this->Rules::getScore();
 }
 

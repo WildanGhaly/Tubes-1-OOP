@@ -15,7 +15,7 @@ class Straight : public Rules {
 
         /* Getter */
         int getID() const;
-        int getScore() const;
+        float getScore() const;
         std::string getName() const;
 
         /* Setter */
