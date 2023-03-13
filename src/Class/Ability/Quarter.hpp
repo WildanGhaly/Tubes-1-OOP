@@ -2,10 +2,9 @@
 #define _QUARTER_HPP
 
 #include <iostream>
-#include "../Player/PlayerVec.hpp"
-#include "../Game/GameVec.hpp"
+#include "../Player/Score.hpp"
 
-class Quarter : public PlayerVec, public GameVec  {
+class Quarter : public Score  {
     public :
         Quarter();
         bool isQuarter() const;
