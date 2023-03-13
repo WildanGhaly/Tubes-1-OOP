@@ -12,7 +12,7 @@ class TwoPair {
 
         /* Getter */
         int getID() const;
-        int getScore() const;
+        float getScore() const;
         std::vector<Card> getCards() const;
         Card getCard(int) const;
         const float getMaxTwoPair() const;

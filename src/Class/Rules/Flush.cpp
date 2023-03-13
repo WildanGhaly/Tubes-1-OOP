@@ -26,7 +26,7 @@ int Flush::getID() const{
     return this->ID;
 }
 
-int Flush::getScore() const{
+float Flush::getScore() const{
     return this->Rules::getScore();
 }
 
