@@ -11,7 +11,7 @@
 #include "FullHouse.cpp"
 #include "Flush.cpp"
 #include "Straight.cpp"
-#include "StraightFlush.hpp"
+#include "StraightFlush.cpp"
 
 
 #endif

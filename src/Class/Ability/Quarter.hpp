@@ -2,17 +2,13 @@
 #define _QUARTER_HPP
 
 #include <iostream>
-#include "../Player/PlayerVec.hpp"
-#include "../Game/GameVec.hpp"
+#include "../Ability/Ability.hpp"
+#include "../Table/Table.hpp"
 
-class Quarter : public PlayerVec, public GameVec  {
+class Quarter : public Table, public Ability  {
     public :
         Quarter();
-        bool isQuarter() const;
-        void setQuarter(bool);
-    
-    private :
-        bool usingQuarter;
+        void useAbility();
 };
 
 

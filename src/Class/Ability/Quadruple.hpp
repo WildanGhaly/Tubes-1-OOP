@@ -2,17 +2,14 @@
 #define _QUADRUPLE_HPP
 
 #include <iostream>
-#include "../Player/PlayerVec.hpp"
-#include "../Game/GameVec.hpp"
+#include "../Ability/Ability.hpp"
+#include "../Table/Table.hpp"
 
-class Quadruple : public PlayerVec, public GameVec  {
+class Quadruple : public Ability, public Table {
     public :
         Quadruple();
-        bool isQuadruple() const;
-        void setQuadruple(bool);
+        void useAbility();
     
-    private :
-        bool usingQuadruple;
 };
 
 

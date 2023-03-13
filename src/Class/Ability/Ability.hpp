@@ -2,24 +2,21 @@
 #define _ABILITY_HPP
 #include <iostream>
 #include <cstring>
-#include "Reroll.hpp"
-#include "Quadruple.hpp"
-#include "Quarter.hpp"
 
 
-class Ability : public Reroll, public Quadruple, public Quarter  {
+
+class Ability {
     public:
-        Ability(char*);
-        Ability(const Ability&);
-        
-        char* getAbility() const;
-
-        void setAbility(char*);
-        
+        Ability(int);
+        int getAbility() const;
+        void setAbility(int);
+        bool isUsingAbility() const;
+        void setUsingAbility(bool);
+        virtual void useAbility() = 0;
 
     private:
-        char* Ability_name;
-
+        int ability_id;
+        bool usingAbility;
 
 };
 
