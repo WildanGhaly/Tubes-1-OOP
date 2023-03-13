@@ -56,7 +56,7 @@ bool Flush::isFlush(std::vector<Card> cardComb, int &number, int& color){
     bool flush = false;
     color=0;
     for(int i = 0; i < max+1; i++){ 
-        if(result[i]==5){
+        if(result[i]>=5){
             flush=true;
             color=i;
         }
