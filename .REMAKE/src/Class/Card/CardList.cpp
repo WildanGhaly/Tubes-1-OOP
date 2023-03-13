@@ -26,6 +26,17 @@ CardList<T>::CardList(string name) {
 }
 
 template <class T>
+CardList<T>::CardList(const CardList<T> cardList, const CardList<T> cardList2) {
+    this->cards = vector<Card>();
+    for (int i = 0; i < cardList.getTotalCard(); i++) {
+        this->cards.push_back(cardList.getCard(i));
+    }
+    for (int i = 0; i < cardList2.getTotalCard(); i++) {
+        this->cards.push_back(cardList2.getCard(i));
+    }
+}
+
+template <class T>
 CardList<T>::CardList(const CardList& cardList) {
     this->cards = cardList.cards;
 }
@@ -48,6 +59,32 @@ T CardList<T>::getCard(int index) const {
 template <class T>
 vector<T> CardList<T>::getCards() const {
     return this->cards;
+}
+
+template <class T>
+void CardList<T>::setCard(int index, T card) {
+    this->cards[index] = card;
+}
+
+template <class T>
+void CardList<T>::setCards(vector<T> cards) {
+    this->cards = cards;
+}
+
+template <class T>
+void CardList<T>::setCards(CardList<T> cardList) {
+    this->cards = cardList.cards;
+}
+
+template <class T>
+void CardList<T>::setCards(CardList<T> cards1, CardList<T> cards2) {
+    this->cards = vector<Card>();
+    for (int i = 0; i < cards1.getTotalCard(); i++) {
+        this->cards.push_back(cards1.getCard(i));
+    }
+    for (int i = 0; i < cards2.getTotalCard(); i++) {
+        this->cards.push_back(cards2.getCard(i));
+    }
 }
 
 template <class T>
@@ -115,6 +152,99 @@ void CardList<T>::sortByColor() {
                 Card temp = this->cards[i];
                 this->cards[i] = this->cards[j];
                 this->cards[j] = temp;
+            }
+        }
+    }
+}
+
+template <class T>
+void CardList<T>::sortByColorDesc() {
+    for (int i = 0; i < this->cards.size(); i++) {
+        for (int j = i + 1; j < this->cards.size(); j++) {
+            if (this->cards[i].getColor() < this->cards[j].getColor()) {
+                Card temp = this->cards[i];
+                this->cards[i] = this->cards[j];
+                this->cards[j] = temp;
+            }
+        }
+    }
+}
+
+template <class T>
+void CardList<T>::sortByNumberAndColor() {
+    for (int i = 0; i < this->cards.size(); i++) {
+        for (int j = i + 1; j < this->cards.size(); j++) {
+            if (this->cards[i].getNumber() > this->cards[j].getNumber()) {
+                Card temp = this->cards[i];
+                this->cards[i] = this->cards[j];
+                this->cards[j] = temp;
+            }
+            else if (this->cards[i].getNumber() == this->cards[j].getNumber()) {
+                if (this->cards[i].getColor() > this->cards[j].getColor()) {
+                    Card temp = this->cards[i];
+                    this->cards[i] = this->cards[j];
+                    this->cards[j] = temp;
+                }
+            }
+        }
+    }
+}
+
+template <class T>
+void CardList<T>::sortByNumberAndColorDesc() {
+    for (int i = 0; i < this->cards.size(); i++) {
+        for (int j = i + 1; j < this->cards.size(); j++) {
+            if (this->cards[i].getNumber() < this->cards[j].getNumber()) {
+                Card temp = this->cards[i];
+                this->cards[i] = this->cards[j];
+                this->cards[j] = temp;
+            }
+            else if (this->cards[i].getNumber() == this->cards[j].getNumber()) {
+                if (this->cards[i].getColor() < this->cards[j].getColor()) {
+                    Card temp = this->cards[i];
+                    this->cards[i] = this->cards[j];
+                    this->cards[j] = temp;
+                }
+            }
+        }
+    }
+}
+
+template <class T>
+void CardList<T>::sortByColorAndNumber() {
+    for (int i = 0; i < this->cards.size(); i++) {
+        for (int j = i + 1; j < this->cards.size(); j++) {
+            if (this->cards[i].getColor() > this->cards[j].getColor()) {
+                Card temp = this->cards[i];
+                this->cards[i] = this->cards[j];
+                this->cards[j] = temp;
+            }
+            else if (this->cards[i].getColor() == this->cards[j].getColor()) {
+                if (this->cards[i].getNumber() > this->cards[j].getNumber()) {
+                    Card temp = this->cards[i];
+                    this->cards[i] = this->cards[j];
+                    this->cards[j] = temp;
+                }
+            }
+        }
+    }
+}
+
+template <class T>
+void CardList<T>::sortByColorAndNumberDesc() {
+    for (int i = 0; i < this->cards.size(); i++) {
+        for (int j = i + 1; j < this->cards.size(); j++) {
+            if (this->cards[i].getColor() < this->cards[j].getColor()) {
+                Card temp = this->cards[i];
+                this->cards[i] = this->cards[j];
+                this->cards[j] = temp;
+            }
+            else if (this->cards[i].getColor() == this->cards[j].getColor()) {
+                if (this->cards[i].getNumber() < this->cards[j].getNumber()) {
+                    Card temp = this->cards[i];
+                    this->cards[i] = this->cards[j];
+                    this->cards[j] = temp;
+                }
             }
         }
     }

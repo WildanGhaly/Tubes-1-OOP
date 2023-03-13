@@ -10,6 +10,7 @@ class CardList {
         CardList();
         CardList(int);
         CardList(string);
+        CardList(const CardList<T>, const CardList<T>);
 
         CardList(const CardList&);
         ~CardList();
@@ -19,6 +20,12 @@ class CardList {
         T getCard(int) const;
         vector<T> getCards() const;
 
+        /* Setter */
+        void setCard(int, T);
+        void setCards(vector<T>);
+        void setCards(CardList<T>);
+        void setCards(CardList<T>, CardList<T>);
+
         /* Method */
         void addCard(T);
         void removeCard(T);
@@ -27,6 +34,11 @@ class CardList {
         void sortByNumber();
         void sortByNumberDesc();
         void sortByColor();
+        void sortByColorDesc();
+        void sortByNumberAndColor();
+        void sortByNumberAndColorDesc();
+        void sortByColorAndNumber();
+        void sortByColorAndNumberDesc();
         void print() const;
 
         /* Operator */
