@@ -1,14 +1,11 @@
 #include "Quarter.hpp"
 using namespace std;
 
-Quarter::Quarter(){
-    this -> usingQuarter = false;
+Quarter::Quarter() : Ability::Ability(3){
+
 }
 
-bool Quarter::isQuarter() const {
-    return this -> usingQuarter;
-}
-
-void Quarter::setQuarter(bool status){
-    this -> usingQuarter = status;
+void Quarter::useAbility(){
+    Table::setScore(Table::getScore() / 4);
+    Ability::setUsingAbility(true);
 }
