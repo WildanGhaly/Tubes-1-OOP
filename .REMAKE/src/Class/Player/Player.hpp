@@ -13,12 +13,12 @@ class Player {
         string getName() const;
         int getScore() const;
         int getHandSize() const;
-        CardList getHand() const;
+        CardList<Card> getHand() const;
         Card getHand(int) const;
     
         void setName(string);
         void setScore(int);
-        void setHand(CardList);
+        void setHand(CardList<Card>);
         void addHand(Card);
         void removeHand(Card);
         void removeHand(int);
@@ -38,7 +38,7 @@ class Player {
     private:
         string name;
         int score;
-        CardList hand;
+        CardList<Card> hand;
 };
 
 #endif

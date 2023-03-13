@@ -3,13 +3,13 @@
 Player::Player() {
     this->name = "Player";
     this->score = 0;
-    this->hand = CardList();
+    this->hand = CardList<Card>();
 }
 
 Player::Player(string name) {
     this->name = name;
     this->score = 0;
-    this->hand = CardList();
+    this->hand = CardList<Card>();
 }
 
 Player::Player(const Player& player) {
@@ -34,7 +34,7 @@ int Player::getHandSize() const {
     return this->hand.getTotalCard();
 }
 
-CardList Player::getHand() const {
+CardList<Card> Player::getHand() const {
     return this->hand;
 }
 
@@ -50,7 +50,7 @@ void Player::setScore(int score) {
     this->score = score;
 }
 
-void Player::setHand(CardList hand) {
+void Player::setHand(CardList<Card> hand) {
     this->hand = hand;
 }
 
