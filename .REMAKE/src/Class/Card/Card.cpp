@@ -116,6 +116,51 @@ void Card::print() {
     cout << this->getColorString() << " " << this->getNumberString() << endl;
 }
 
+vector<string> Card::setToPrint(vector<string> cards){
+    if(this->color==0){
+        cards[0].append(" \033[32m _____\033[0m  ");
+        cards[1].append(" \033[32m| GRN |\033[0m ");
+        cards[2].append(" \033[32m| ");
+        if(this->number.first<10){
+            cards[2].append(" ");
+        }
+        cards[2].append(to_string(this->number.first));
+        cards[2].append("  |\033[0m ");
+        cards[3].append(" \033[32m|_____|\033[0m ");
+    } else if(this->color==1){
+        cards[0].append(" \033[34m _____\033[0m  ");
+        cards[1].append(" \033[34m| BLU |\033[0m ");
+        cards[2].append(" \033[34m| "); 
+        if(this->number.first<10){
+            cards[2].append(" ");
+        }
+        cards[2].append(to_string(this->number.first));
+        cards[2].append("  |\033[0m ");
+        cards[3].append(" \033[34m|_____|\033[0m ");
+    } else if(this->color==2){
+        cards[0].append(" \033[33m _____\033[0m  ");
+        cards[1].append(" \033[33m| YLW |\033[0m ");
+        cards[2].append(" \033[33m| "); 
+        if(this->number.first<10){
+            cards[2].append(" ");
+        }
+        cards[2].append(to_string(this->number.first));
+        cards[2].append("  |\033[0m ");
+        cards[3].append(" \033[33m|_____|\033[0m ");
+    } else if(this->color==3){
+        cards[0].append(" \033[31m _____\033[0m  ");
+        cards[1].append(" \033[31m| RED |\033[0m ");
+        cards[2].append(" \033[31m| ");
+        if(this->number.first<10){
+            cards[2].append(" ");
+        }
+        cards[2].append(to_string(this->number.first));
+        cards[2].append("  |\033[0m ");
+        cards[3].append(" \033[31m|_____|\033[0m ");
+    }
+    return cards;
+}
+
 bool Card::isColorValid(string color){
     for (int i =0; i<color.size(); i++) {
         color[i] = toupper(color[i]);
