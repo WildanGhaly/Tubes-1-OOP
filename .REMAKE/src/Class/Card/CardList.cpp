@@ -13,6 +13,9 @@ CardList<T>::CardList(int totalCard) {
 template <class T>
 CardList<T>::CardList(string name) {
     this->cards = vector<Card>();
+    for(int i=0; i< name.size();i++){
+        name[i]=toupper(name[i]);
+    }
     if (name == "POKER") {
         for (int i = 0; i < 4; i++) {
             for (int j = 1; j <= 13; j++) {
@@ -20,8 +23,7 @@ CardList<T>::CardList(string name) {
             }
         }
     } else {
-        // Bonus spec
-        // Exception handling for invalid name
+        throw InvalidInputException();
     }
 }
 
@@ -104,7 +106,11 @@ void CardList<T>::removeCard(T card) {
 
 template <class T>
 void CardList<T>::removeCard(int index) {
-    this->cards.erase(this->cards.begin() + index);
+    if(index<=0 && index>=this->cards.size()-1){
+        this->cards.erase(this->cards.begin() + index);
+    } else {
+        throw IndexOutOfBoundException();
+    }
 }
 
 template <class T>
