@@ -22,7 +22,7 @@ map<string, T>create_color_map(T a) {
     return colors;
 }
 
-class Card {
+class Card : public Valueable<float> {
     public:
         Card();
         Card(int, int);

@@ -3,7 +3,7 @@
 
 #include "../Card/CardList.cpp"
 
-class Combination {
+class Combination : public Valueable<float> {
     public:
         Combination();
         Combination(CardList<Card>);
@@ -12,7 +12,7 @@ class Combination {
 
         CardList<Card> getCards() const;
         Card getCard(int) const;
-        float getPoint() const;
+        float getValue() const;
 
         void setCards(CardList<Card>);
         void setCard(int, Card);
