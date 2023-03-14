@@ -4,7 +4,7 @@
 #include "../Player/ListPlayerVec.cpp"
 #include "../Table/Table.cpp"
 
-class GameVec {
+class GameVec : public ListPlayerVec, public Table, public CardDeckVec{
     static int totalGame;
     public:
         /* ctor cctor dtor */
@@ -13,22 +13,22 @@ class GameVec {
         GameVec(const GameVec&);
         ~GameVec();
 
-        /* Getter */
-        ListPlayerVec getPlayers() const;
-        CardDeckVec getDeck() const;
-        int getTotalCard() const;
-        int getTotalPlayer() const;
-        static int getTotalGame();
-        int getTotalTableCard() const;
-        int getID() const;
-        Card getCard(int) const;
-        PlayerVec getPlayer(int) const;
-        Table getTable() const;
+        // /* Getter */
+        // ListPlayerVec getPlayers() const;
+        // CardDeckVec getDeck() const;
+        // int getTotalCard() const;
+        // int getTotalPlayer() const;
+        // static int getTotalGame();
+        // int getTotalTableCard() const;
+        // int getID() const;
+        // Card getCard(int) const;
+        // PlayerVec getPlayer(int) const;
+        // Table getTable() const;
     
-        /* Setter */
-        void setPlayers(ListPlayerVec);
-        void setDeck(CardDeckVec);
-        void setTable(Table);
+        // /* Setter */
+        // void setPlayers(ListPlayerVec);
+        // void setDeck(CardDeckVec);
+        // void setTable(Table);
     
         /* Method */
         void print() const;
@@ -45,16 +45,16 @@ class GameVec {
         // void nextTurn();
         void nextRound();
     
-        /* Operator */
-        bool operator==(const GameVec&) const;
-        bool operator!=(const GameVec&) const;
-        GameVec& operator=(const GameVec&);
+        // /* Operator */
+        // bool operator==(const GameVec&) const;
+        // bool operator!=(const GameVec&) const;
+        // GameVec& operator=(const GameVec&);
     
-    private:
-        ListPlayerVec players;
-        CardDeckVec deck;
-        Table table;
-        int ID;
+    // private:
+    //     ListPlayerVec players;
+    //     CardDeckVec deck;
+    //     Table table;
+    //     int ID;
 
 };
 

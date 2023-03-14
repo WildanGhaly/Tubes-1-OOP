@@ -39,10 +39,11 @@ class Table {
         bool operator!=(const Table&) const;
         Table& operator=(const Table&);
 
-    private:
+    protected:
         std::vector<Card> cards;
         int round;
         int score;
+        CardDeckVec deck;
 };
 
 #endif
