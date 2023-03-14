@@ -106,7 +106,7 @@ void CardList<T>::removeCard(T card) {
 
 template <class T>
 void CardList<T>::removeCard(int index) {
-    if(index<=0 && index>=this->cards.size()-1){
+    if(index>=0 && index <= this->cards.size()-1){
         this->cards.erase(this->cards.begin() + index);
     } else {
         throw IndexOutOfBoundException();
