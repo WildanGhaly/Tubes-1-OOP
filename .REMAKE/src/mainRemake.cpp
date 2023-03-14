@@ -13,23 +13,33 @@
 #include "Class/Game/Game.cpp"
 #include "Class/Ability/Ability.cpp"
 #include "Class/Combination/Combination.cpp"
-// #include "src/Class/Combination/Combination.cpp"
-// #include "src/Class/Combination/SubCombination/FullHouse/FullHouse.cpp"
-// #include "src/Class/Combination/SubCombination/FourOfKind/FourOfKind.cpp"
-// #include "src/Class/Combination/SubCombination/FullHouse/FullHouse.cpp"
-// #include "src/Class/Combination/SubCombination/HighCard/HighCard.cpp"
-// #include "src/Class/Combination/SubCombination/Pair/Pair.cpp"
-// #include "src/Class/Combination/SubCombination/Straight/Straight.cpp"
-// #include "src/Class/Combination/SubCombination/StraightFlush/StraightFlush.cpp"
-// #include "src/Class/Combination/SubCombination/ThreeOfKind/ThreeOfKind.cpp"
-// #include "src/Class/Combination/SubCombination/TwoPair/TwoPair.cpp"
+#include "Class/Combination/SubCombination/HighCard/HighCard.cpp"
+#include "Class/Combination/SubCombination/Pair/Pair.cpp"
+#include "Class/Combination/SubCombination/TwoPair/TwoPair.cpp"
+#include "Class/Combination/SubCombination/ThreeOfKind/ThreeOfKind.cpp"
+#include "Class/Combination/SubCombination/Straight/Straight.cpp"
+#include "Class/Combination/SubCombination/Flush/Flush.cpp"
+#include "Class/Combination/SubCombination/FullHouse/FullHouse.cpp"
+#include "Class/Combination/SubCombination/FourOfKind/FourOfKind.cpp"
+#include "Class/Combination/SubCombination/StraightFlush/StraightFlush.cpp"
+
 #include <vector>
 #include <iostream>
 using namespace std;
 
+void clear_screen(){
+    #ifdef __linux__
+        printf("\033[2J");
+    	printf("\033[0;0f");
+    #else
+        system("CLS");
+    #endif
+}
+
+
 int main(){
     int choosegame=0;
-    int round=0;
+    int round=1;
     string next;
     char* nickname;
     nickname = new char[100];
@@ -41,6 +51,18 @@ int main(){
     boolean end = false;
     int pWin;
     int game_total = 0;
+    Combination *combination;
+    HighCard highCard;
+    Pair pair;
+    TwoPair twoPair;
+    ThreeOfKind threeOfKind;
+    Straight straight;
+    Flush flush;
+    FullHouse fullHouse;
+    FourOfKind fourOfKind;
+    StraightFlush straightFlush;
+    CardList<Card> cards = CardList<Card>();
+    float max;
 
     do {
         cout << "Pilih Game: " << endl;
@@ -68,7 +90,7 @@ int main(){
                     game.setPlayer(i,player);
                 }
                 for (int i = 3; i > 0; i--){
-                    system("CLS");
+                    clear_screen();
                     cout << "Game will start in " << i << endl;
                     Sleep(1000);
                 }
@@ -87,7 +109,6 @@ int main(){
                                 cout << game.getPlayer(i).getName();
                                 cout << " Anda memiliki kartu:" << endl;
                                 game.getPlayer(i).printHand();
-                                cout<<"======================================================"<<endl;
                                 cout << "Kartu di meja :" << endl;
                                 game.Table::print();
                                 cout << ". Double" << endl;
@@ -192,33 +213,84 @@ int main(){
                                 cout << "input apapun untuk melanjutkan..." << endl;
                                 cout << ">> ";
                                 cin >> enter;
-                                system("CLS");
+                                clear_screen();
                             }
                             
                         }
 
-                    game.nextRound();
+                    
                     cout << "Next Round: (Y/n)" << endl;
                     cin >> next;
                     if(next=="Y" || next=="y"){
                         round++;
-                        system("CLS");
+                        
                     }
                 }
                 
                 for (int i = 0; i < game.getTotalPlayer(); i++){ 
+                    cards.setCardsList(game.getPlayer(i).getHand(), game.getCards());
+                    cards.print();
+                    cin >> enter;
+                    combination = &highCard;
+                    combination->setPoint(0);
+                    combination->setCards(cards);
+                    combination->computeScore();
 
-                        // Bandingin Rules di sini
-                        if ("Max < Rules") {
+                    combination = &pair;
+                    combination->setPoint(highCard.getValue());
+                    combination->setCards(cards);
+                    combination->computeScore();
+
+                    combination = &twoPair;
+                    combination->setPoint(pair.getValue());
+                    combination->setCards(cards);
+                    combination->computeScore();
+
+                    combination = &threeOfKind;
+                    combination->setPoint(twoPair.getValue());
+                    combination->setCards(cards);
+                    combination->computeScore();
+
+                    combination = &straight;
+                    combination->setPoint(threeOfKind.getValue());
+                    combination->setCards(cards);
+                    combination->computeScore();
+
+                    combination = &flush;
+                    combination->setPoint(straight.getValue());
+                    combination->setCards(cards);
+                    combination->computeScore();
+
+                    combination = &fullHouse;
+                    combination->setPoint(flush.getValue());
+                    combination->setCards(cards);
+                    combination->computeScore();
+
+                    combination = &fourOfKind;
+                    combination->setPoint(fullHouse.getValue());
+                    combination->setCards(cards);
+                    combination->computeScore();
+
+                    combination = &straightFlush;
+                    combination->setPoint(fourOfKind.getValue());
+                    combination->setCards(cards);
+                    combination->computeScore();
+                        
+                    if (i == 0){
+                        max = combination->getValue();
+                        pWin = i;
+                    }
+                    else if (max < combination->getValue()) {
                             pWin = i;
-                            
+                            // Bandingin Rules di sini
                         }
                     }
                 player = game.getPlayer(pWin);
                 player.setScore(player.getValue() + game.getValue());
                 game.setPlayer(pWin, player);
+                
                 for (int i = 0; i < game.getTotalPlayer(); i++){ 
-                        // Bandingin score
+                        
                         if ("some player > 2^32") {
                             end = true;
                             break;
@@ -226,7 +298,7 @@ int main(){
                     }
             }
             for (int i = 0; i < game.getTotalPlayer(); i++){ 
-                system("CLS");
+                clear_screen();
                 cout << "Permainan Telah berakhir! Player " << game.getPlayer(pWin).getName() <<  "Memenangkan pertandingan!" << endl;
                 cout << "input apapun untuk melanjutkan..." << endl;
                 cout << ">> ";

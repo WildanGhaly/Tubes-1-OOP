@@ -79,7 +79,7 @@ void CardList<T>::setCards(CardList<T> cardList) {
 }
 
 template <class T>
-void CardList<T>::setCards(CardList<T> cards1, CardList<T> cards2) {
+void CardList<T>::setCardsList(CardList<T> cards1, CardList<T> cards2) {
     this->cards = vector<Card>();
     for (int i = 0; i < cards1.getTotalCard(); i++) {
         this->cards.push_back(cards1.getCard(i));
