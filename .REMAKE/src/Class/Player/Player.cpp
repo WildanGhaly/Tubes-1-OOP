@@ -26,7 +26,7 @@ string Player::getName() const {
     return this->name;
 }
 
-int Player::getScore() const {
+long int Player::getValue() const {
     return this->score;
 }
 

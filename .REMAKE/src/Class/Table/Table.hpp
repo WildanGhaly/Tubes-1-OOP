@@ -4,7 +4,7 @@
 // #include "../Card/CardList.cpp"
 
 template <class V>
-class Table {
+class Table : public Valueable<long int> {
     public:
         Table();
         Table(CardList<V>, int);
@@ -17,7 +17,7 @@ class Table {
         int getTotalCard() const;
         V getCard(int) const;
         int getRound() const;
-        long int getReward() const;
+        long int getValue() const;
 
         /* Setter */
         void setDeck(CardList<V>);
