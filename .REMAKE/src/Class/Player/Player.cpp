@@ -1,18 +1,18 @@
 #include "Player.hpp"
 
-Player::Player() {
+Player::Player() : Ability(0) {
     this->name = "Player";
     this->score = 0;
     this->hand = CardList<Card>();
 }
 
-Player::Player(string name) {
+Player::Player(string name) : Ability(0) {
     this->name = name;
     this->score = 0;
     this->hand = CardList<Card>();
 }
 
-Player::Player(const Player& player) {
+Player::Player(const Player& player) : Ability(player.getAbility()){
     this->name = player.name;
     this->score = player.score;
     this->hand = player.hand;
@@ -138,5 +138,9 @@ Player& Player::operator>>(Card& card) {
     card = this->hand.getCard(0);
     this->hand.removeCard(0);
     return *this;
+}
+
+void Player::useAbility() {
+    // Nothing to do
 }
 
