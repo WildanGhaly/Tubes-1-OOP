@@ -45,6 +45,11 @@ void Game<W>::setPlayers(PlayerList players) {
 }
 
 template <class W>
+void Game<W>::setPlayer(int index, Player player) {
+    this->players[index] = player;
+}
+
+template <class W>
 void Game<W>::setRound(int round) {
     this->round = round;
 }
