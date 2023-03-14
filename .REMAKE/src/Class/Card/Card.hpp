@@ -46,6 +46,7 @@ class Card {
         void setNumberPair(pair<int, string>);
 
         void print();
+        vector<string> setToPrint(vector<string>);
 
         bool isColorValid(string);
         bool isNumberValid(string);
