@@ -46,4 +46,11 @@ class IndexOutOfBoundException : public exception  {
 	}
 };
 
+class FileNotExistException : public exception  {
+	public:
+    const char* what() const throw() {
+		return "Exception: No such filename\n";
+	}
+};
+
 #endif
