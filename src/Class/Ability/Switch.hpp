@@ -3,12 +3,12 @@
 
 
 #include "../Player/ListPlayerVec.hpp"
-#include "../Player/PlayerVec.hpp"
-#include "../Game/GameVec.hpp"
+#include "../Ability/Ability.hpp"
 
-class Switch : public ListPlayerVec ,public GameVec{
+class Switch : public ListPlayerVec, public Ability{
     public:
-        Switch(int, int);
+        Switch();
+        void useAbility(int, int);
 };
 
 
