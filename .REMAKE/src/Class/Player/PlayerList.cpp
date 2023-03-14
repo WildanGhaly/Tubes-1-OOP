@@ -76,7 +76,7 @@ void PlayerList::sortByScoreDesc() {
 void PlayerList::print() const {
     for (int i = 0; i < this->players.size(); i++) {
         cout << this->players[i].getName() << " " << this->players[i].getScore() << endl;
-        cout << "Cards:\n";
+        cout << "   Cards:\n";
         this->players[i].getHand().print();
     }
 }
