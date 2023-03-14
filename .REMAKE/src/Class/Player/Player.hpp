@@ -1,9 +1,11 @@
 #ifndef _PLAYER_HPP_
 #define _PLAYER_HPP_
 
-#include "../Card/CardList.cpp"
+#include "../Card/CardList.hpp"
+#include "../Ability/Ability.hpp"
+using namespace std;
 
-class Player : public Valueable<long int> {
+class Player : public Valueable<long int>, public Ability {
     public:
         Player();
         Player(string);
@@ -26,6 +28,7 @@ class Player : public Valueable<long int> {
         void printHand() const;
         void printCapsa() const;
         void swapCardPosition(int, int);
+        void useAbility();
 
         bool operator==(const Player&) const;
         bool operator!=(const Player&) const;
