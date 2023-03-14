@@ -5,6 +5,7 @@
 #include <vector>
 #include <algorithm>
 #include <utility>
+#include <cctype>
 #include <string>
 #include <cstring>
 #include <random>
@@ -46,6 +47,8 @@ class Card {
 
         void print();
 
+        bool isColorValid(string);
+        bool isNumberValid(string);
         bool operator==(const Card&) const;
         bool operator!=(const Card&) const;
         bool operator>(const Card&) const;

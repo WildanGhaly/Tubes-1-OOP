@@ -28,7 +28,7 @@ class InvalidInputException : public exception  {
 class NameCharOutOfBounds : public exception  {
 	public:
     const char* what() const throw() {
-		return "Exception: Name Length Out of Bounds\n";
+		return "Exception: Length Out of Bounds\n";
 	}
 };
 
@@ -36,6 +36,13 @@ class RuntimeError : public exception  {
 	public:
     const char* what() const throw() {
 		return "Runtime Error\n";
+	}
+};
+
+class IndexOutOfBoundException : public exception  {
+	public:
+    const char* what() const throw() {
+		return "Exception: Index out of bounds\n";
 	}
 };
 
