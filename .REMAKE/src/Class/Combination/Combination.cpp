@@ -27,7 +27,7 @@ Card Combination::getCard(int index) const {
     return this->cards.getCard(index);
 }
 
-float Combination::getPoint() const {
+float Combination::getValue() const {
     return this->point;
 }
 

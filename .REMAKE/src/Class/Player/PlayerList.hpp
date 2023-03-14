@@ -34,7 +34,7 @@ class PlayerList {
         PlayerList& operator<<(const Player&);
         PlayerList& operator>>(Player&);
 
-    private:
+    protected:
         vector<Player> players;
 };
 

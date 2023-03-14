@@ -2,6 +2,7 @@
 #define _CARD_LIST_HPP_
 
 #include "Card.cpp"
+#include "../../Exception/Exception.h"
 
 template <class T>
 class CardList {

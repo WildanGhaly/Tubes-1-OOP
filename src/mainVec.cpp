@@ -3,7 +3,7 @@
 #include <windows.h>
 #include <cstring>
 #include "Class/Game/GameVec.cpp"
-#include "Table/Table.hpp"
+#include "Class/Table/Table.hpp"
 #include <vector>
 using namespace std;
 
@@ -38,12 +38,16 @@ int main(){
             GameVec game(7); // 7 pemain
             game.start(2); // 2 kartu
             game.nextRound();
+            PlayerVec player;
             if (choosegame == 1) {
                 for (int i = 0; i < 7; i++){
                     cout << "Halo player " << i + 1 << " Silahkan Masukkan Nickname Anda ! (Maksimal 100 huruf)" << endl;
                     cout << ">> ";
                     cin >> nickname;
-                    game.getPlayers().getPlayer(i).setNickname(nickname);
+                    player = game.getPlayer(i);
+                    player.setNickname(nickname);
+                    game.setPlayer(i, player);
+                    
                 }
                 for (int i = 3; i > 0; i--){
                     system("CLS");
@@ -62,11 +66,11 @@ int main(){
                                 }
                                 valid = true;
                                 cout << "Sekarang adalah giliran ";
-                                cout << game.getPlayers().getPlayer(i).getNickname();
-                                cout << "Anda memiliki kartu:" << endl;
+                                cout << game.getPlayer(i).getNickname();
+                                cout << " Anda memiliki kartu:" << endl;
                                 game.getPlayer(i).print();
                                 cout << "Kartu di meja :" << endl;
-                                game.getTable().print();
+                                game.Table::print();
                                 cout << ". Double" << endl;
                                 cout << ". Next" << endl;
                                 cout << ". Half" << endl;
@@ -77,16 +81,18 @@ int main(){
                                 cout << ">> ";
                                 cin >> playeropt;
                                 if (playeropt == "Double"){
-                                    temp_actv = "game.getPlayers().getPlayer(i).getNickname() ""melakukan DOUBLE! Poin hadiah naik dari " + to_string(table.getScore()) + " Menjadi " + to_string(table.getScore() * 2);
-                                    table.setScore(table.getScore() * 2);
+                                    temp_actv = game.getPlayer(i).getNickname();
+                                    temp_actv += " melakukan DOUBLE! Poin hadiah naik dari " + to_string(game.getScore()) + " Menjadi " + to_string(game.getScore() * 2);
+                                    game.setScore(game.getScore() * 2);
                                     activity.push_back(temp_actv);
 
 
                                 } else if (playeropt == "Next"){
                                     
                                 } else if (playeropt == "Half"){
-                                    temp_actv = "game.getPlayers().getPlayer(i).getNickname() ""melakukan Half! Poin hadiah turun dari " + to_string(table.getScore()) + " Menjadi " + to_string(table.getScore() / 2);
-                                    table.setScore(table.getScore() / 2);
+                                    temp_actv = game.getPlayer(i).getNickname();
+                                    temp_actv += " melakukan Half! Poin hadiah turun dari " + to_string(game.getScore()) + " Menjadi " + to_string(game.getScore() / 2);
+                                    game.setScore(game.getScore() / 2);
                                     activity.push_back(temp_actv);
 
 
@@ -130,8 +136,9 @@ int main(){
                                             cout << "Ets, tidak bisa. Kamu tidak punya kartu Ability QUADRUPLE."<<endl;
                                             cout<< "Silahkan lakukan perintah lain."<<endl;
                                         }
+                                } 
 
-                                    } else if (playeropt == "REVERSE" && !use) {
+                                    else if (playeropt == "REVERSE" && !use) {
 
                                     } else if (playeropt == "SWAP" && !use){
 
@@ -161,15 +168,17 @@ int main(){
                         system("CLS");
                     }
                 }
-                for (int i = 0; i < game.getPlayers().getTotalPlayer(); i++){ 
+                for (int i = 0; i < game.getTotalPlayer(); i++){ 
                         // Bandingin Rules di sini
                         if ("Max < Rules") {
                             pWin = i;
                             
                         }
                     }
-                game.getPlayers().getPlayer(pWin).setScore(64);
-                for (int i = 0; i < game.getPlayers().getTotalPlayer(); i++){ 
+                player = game.getPlayer(pWin);
+                player.setScore(player.getScore() + game.getScore());
+                game.setPlayer(pWin, player);
+                for (int i = 0; i < game.getTotalPlayer(); i++){ 
                         // Bandingin score
                         if ("some player > 2^32") {
                             end = true;
@@ -177,7 +186,7 @@ int main(){
                         }
                     }
             }
-            for (int i = 0; i < game.getPlayers().getTotalPlayer(); i++){ 
+            for (int i = 0; i < game.getTotalPlayer(); i++){ 
                 system("CLS");
                 cout << "Permainan Telah berakhir! Player " "game.getPlayers().getPlayer(pWin).setNickname(nickname) Memenangkan pertandingan!" << endl;
                 cout << "input apapun untuk melanjutkan..." << endl;
