@@ -17,12 +17,15 @@ class Player : public Valueable<long int> {
         Card getHand(int) const;
     
         void setName(string);
-        void setScore(int);
+        void setScore(long int);
         void setHand(CardList<Card>);
         void addHand(Card);
+        void addScore(long int);
         void removeHand(Card);
         void removeHand(int);
         void printHand() const;
+        void printCapsa() const;
+        void swapCardPosition(int, int);
 
         bool operator==(const Player&) const;
         bool operator!=(const Player&) const;
@@ -37,7 +40,7 @@ class Player : public Valueable<long int> {
 
     private:
         string name;
-        int score;
+        long int score;
         CardList<Card> hand;
 };
 

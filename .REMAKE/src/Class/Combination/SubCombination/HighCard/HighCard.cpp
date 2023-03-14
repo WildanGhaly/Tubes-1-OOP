@@ -18,9 +18,9 @@ HighCard::~HighCard() {
 
 void HighCard::computeScore() {
     for (int i = 0; i < this->getCards().getTotalCard(); i++) {
-        this->setPoint(this->getPoint() > 
+        this->setPoint(this->getValue() > 
         this->getCard(i).getValue() ? 
-        this->getPoint() : 
+        this->getValue() : 
         this->getCard(i).getValue());
     }
 }
