@@ -2,13 +2,13 @@
 #define _SWAP_CARD_HPP_
 
 #include "../Player/ListPlayerVec.hpp"
-#include "../Player/PlayerVec.hpp"
-#include "../Game/GameVec.hpp"
+#include "../Ability/Ability.hpp"
 
-class SwapCard : public ListPlayerVec, public GameVec{
+class SwapCard : public Ability, public ListPlayerVec{
     public:
         /* ctor cctor dtor */
-        SwapCard(int, int, int, int);
+        SwapCard();
+        void useAbility(int, int, int, int);
 
         // int data;
 };
