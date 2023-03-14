@@ -15,16 +15,29 @@ int main(){
     CardList<Card> cards = CardList<Card>();
     int color;
     int number;
+    cin.exceptions(ios_base::failbit);
     while(count<10){
-            count++;
+        count++;
+        cards = CardList<Card>();
         try{
             cout <<"Loop : " <<count << endl;
             Combination *combination;
             for(int i=0; i < 7; i++){
-                cout << "Color : ";
-                cin >> color;
-                cout << "Number: ";
-                cin >> number;
+                while(true){
+                    try{
+                        cout << "Color[" << i+1 << "] : ";
+                        cin >> color;
+                        cout << "Number[" << i+1 <<"] : ";
+                        cin >> number;
+                        if(!cin.fail()){
+                            break;
+                        }
+                    }catch (const ios_base::failure &) {
+                        cout  << "\033[1;31mPlease enter numbers only!\033[0m" << endl;
+                        cin.clear();
+                        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                    }
+                }
                 Card c(color, number);
                 cards << c;
             }
@@ -105,9 +118,7 @@ int main(){
             combination->setPoint(fourOfKind.getPoint());
             combination->computeScore();
             cout << "Straight Flush : " << combination->getPoint() << endl;
-        } catch (CardColorException e){
-            cout << e.what();
-        } catch (CardNumberException e){
+        } catch (exception& e){
             cout << e.what();
         }
     }
