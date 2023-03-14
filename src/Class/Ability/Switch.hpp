@@ -8,7 +8,7 @@
 class Switch : public ListPlayerVec, public Ability{
     public:
         Switch();
-        void useAbility(int, int);
+        void useAbility(int);
 };
 
 
