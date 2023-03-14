@@ -4,6 +4,7 @@ Table::Table() {
     this->round = 0;
     this->cards = std::vector<Card>();
     this -> score = 64;
+    this -> deck = CardDeckVec();
 }
 
 Table::Table(CardDeckVec cd, int round) : round(round) {
@@ -19,6 +20,7 @@ Table::Table(const Table& table) : cards(table.cards) {
     this->round = table.round;
     this->cards = table.cards;
     this -> score = table.score;
+    this -> deck = table.deck;
 }
 
 Table::~Table() {
