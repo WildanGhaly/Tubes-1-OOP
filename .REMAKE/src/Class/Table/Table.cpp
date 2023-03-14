@@ -60,7 +60,7 @@ int Table<V>::getRound() const {
 }
 
 template <class V>
-long int Table<V>::getReward() const {
+long int Table<V>::getValue() const {
     return this->reward;
 }
 
