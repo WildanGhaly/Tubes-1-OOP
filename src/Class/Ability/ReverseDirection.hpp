@@ -3,14 +3,14 @@
 
 #include <iostream>
 #include "../Player/ListPlayerVec.hpp"
-#include "../Player/PlayerVec.hpp"
-#include "../Game/GameVec.hpp"
+#include "Ability.hpp"
 
-class ReverseDirection : public ListPlayerVec, public GameVec{
+class ReverseDirection : public ListPlayerVec, public Ability{
     public:
         /* ctor cctor dtor */
         ReverseDirection();
-        ~ReverseDirection();
+        // ~ReverseDirection();
+        void useAbility();
 
 };
 
