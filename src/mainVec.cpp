@@ -90,20 +90,54 @@ int main(){
                                     activity.push_back(temp_actv);
 
 
-                                } else if (playeropt == "this -> Ability"){
-                                    if (playeropt == "Quadruple"){
+                                } else if (playeropt == "QUADRUPLE" || playeropt == "QUARTER" || playeropt == "RE-ROLL" || playeropt == "REVERSE" || playeropt == "SWAP" || playeropt == "SWITCH" || playeropt == "ABLITYLESS"){
+                                    bool use = game.getPlayer(i).isUsingAbility();
+                                    if (playeropt == "QUADRUPLE"){
+                                        if(game.getPlayer(i).getAbilityID() == 1){
+                                            if(!use){
+
+                                            }else{
+                                                cout << "Ets, tidak bisa. Kamu tidak punya kartu Ability QUADRUPLE."<<endl;
+                                                cout<< "Silahkan lakukan perintah lain."<<endl;
+                                            }
+                                        }else{
+                                            cout << "Ets, tidak bisa. Kamu tidak punya kartu Ability QUADRUPLE."<<endl;
+                                            cout<< "Silahkan lakukan perintah lain."<<endl;
+                                        }
                                         game.getPlayers().getPlayer(i);
-                                    } else if (playeropt == "Quarter"){
+                                    } else if (playeropt == "QUARTER"){
+                                        if(game.getPlayer(i).getAbilityID() == 2){
+                                            if(!use){
+                                                //USE ABILITY
+                                            }else{
+                                                cout << "Ets, tidak bisa. Kamu tidak punya kartu Ability QUARTER."<<endl;
+                                                cout<< "Silahkan lakukan perintah lain."<<endl;
+                                            }
+                                        }else{
+                                            cout << "Ets, tidak bisa. Kamu tidak punya kartu Ability QUARTER."<<endl;
+                                            cout<< "Silahkan lakukan perintah lain."<<endl;
+                                        }
                                         game.getPlayers().getPlayer(i);
-                                    } else if (playeropt == "Reroll"){
+                                    } else if (playeropt == "RE-ROLL"){
+                                        if(game.getPlayer(i).getAbilityID() == 3){
+                                            if(!use){
+                                                //USE ABILITY
+                                            }else{
+                                                cout << "Ets, tidak bisa. Kamu tidak punya kartu Ability RE-ROLL."<<endl;
+                                                cout<< "Silahkan lakukan perintah lain."<<endl;
+                                            }
+                                        }else{
+                                            cout << "Ets, tidak bisa. Kamu tidak punya kartu Ability QUADRUPLE."<<endl;
+                                            cout<< "Silahkan lakukan perintah lain."<<endl;
+                                        }
 
-                                    } else if (playeropt == "Reverse") {
+                                    } else if (playeropt == "REVERSE" && !use) {
 
-                                    } else if (playeropt == "Swap"){
+                                    } else if (playeropt == "SWAP" && !use){
 
-                                    } else if (playeropt == "Switch"){
+                                    } else if (playeropt == "SWITCH" && !use){
 
-                                    } else if (playeropt == "Abilityless" ) {
+                                    } else if (playeropt == "ABLITULESS" && !use ) {
 
                                     }
 
