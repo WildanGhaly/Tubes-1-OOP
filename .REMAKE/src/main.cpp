@@ -49,47 +49,30 @@ int main(){
         StraightFlush straightFlush(cards);
 
         combination = &highCard;
-        combination->computeScore();
         cout << "High Card      : " << combination->getPoint() << endl;
 
         combination = &pair;
-        combination->setPoint(highCard.getPoint());
-        combination->computeScore();
         cout << "Pair           : " << combination->getPoint() << endl;
 
         combination = &twoPair;
-        combination->setPoint(pair.getPoint());
-        combination->computeScore();
         cout << "Two Pair       : " << combination->getPoint() << endl;
 
         combination = &threeOfKind;
-        combination->setPoint(twoPair.getPoint());
-        combination->computeScore();
         cout << "Three of Kind  : " << combination->getPoint() << endl;
 
         combination = &straight;
-        combination->setPoint(threeOfKind.getPoint());
-        combination->computeScore();
         cout << "Straight       : " << combination->getPoint() << endl;
 
         combination = &flush;
-        combination->setPoint(straight.getPoint());
-        combination->computeScore();
         cout << "Flush          : " << combination->getPoint() << endl;
 
         combination = &fullHouse;
-        combination->setPoint(flush.getPoint());
-        combination->computeScore();
         cout << "Full House     : " << combination->getPoint() << endl;
 
         combination = &fourOfKind;
-        combination->setPoint(fullHouse.getPoint());
-        combination->computeScore();
         cout << "Four of Kind   : " << combination->getPoint() << endl;
 
         combination = &straightFlush;
-        combination->setPoint(fourOfKind.getPoint());
-        combination->computeScore();
         cout << "Straight Flush : " << combination->getPoint() << endl;
     
     } catch (CardColorException e){
