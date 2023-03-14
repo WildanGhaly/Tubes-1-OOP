@@ -3,7 +3,7 @@
 
 #include "../Card/CardList.cpp"
 
-class Player {
+class Player : public Valueable<long int> {
     public:
         Player();
         Player(string);
@@ -11,7 +11,7 @@ class Player {
         ~Player();
 
         string getName() const;
-        int getScore() const;
+        long int getValue() const;
         int getHandSize() const;
         CardList<Card> getHand() const;
         Card getHand(int) const;
