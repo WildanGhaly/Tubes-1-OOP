@@ -2,6 +2,7 @@
 // Ini adalah main.cpp
 #include <windows.h>
 #include <cstring>
+#include <fstream>
 #include "Class/Game/GameVec.cpp"
 #include "Table/Table.hpp"
 #include <vector>
@@ -151,6 +152,21 @@ int main(){
                 cin >> enter;
             }
             
+            }
+            if (choosegame == 2) {
+                string filename;
+                cout << "Masukkan nama file: ";
+                cin >> filename;
+                ifstream input(filename);
+                if (!input) {
+                    cerr << "File tidak ditemukan: " << filename << endl;
+                    return 1;
+                }
+                string line;
+                while (getline(input, line)) {
+                    cout << line << endl;
+                }
+                input.close();
             }
         }
     } while(true);
