@@ -76,7 +76,7 @@ void PlayerVec::setCards(std::vector<Card> cards) {
 }
 
 void PlayerVec::setNickname(char* nickname){
-    strcpy(this->nickname, nickname);   
+    strcpy(this->nickname, nickname);  
 }
 
 /* Method untuk menambahkan kartu */
@@ -112,6 +112,7 @@ void PlayerVec::print() const {
     }
 }
 
+
 /* Method untuk mencetak kartu */
 void PlayerVec::print(int index) const {
     this->getCard(index).print();
@@ -136,6 +137,7 @@ PlayerVec& PlayerVec::operator=(const PlayerVec& p) {
     this->ID = p.ID;
     this->score = p.score;
     this->cards = p.cards;
+    strcpy(this->nickname, p.nickname);
     return *this;
 }
 

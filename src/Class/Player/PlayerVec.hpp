@@ -41,7 +41,7 @@ class PlayerVec {
         bool operator!=(const PlayerVec&) const;
         PlayerVec& operator=(const PlayerVec&);
 
-    private:
+    protected:
         int ID;
         float score;
         std::vector<Card> cards;
