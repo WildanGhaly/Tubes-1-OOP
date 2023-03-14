@@ -54,4 +54,12 @@ class FileNotExistException : public exception  {
 	}
 };
 
+class UnmatchedInputTypeException : public exception  {
+	public:
+    const char* what() const throw() {
+		return "\033[1;31mException: Input type invalid\033[0m\n";
+	}
+};
+
+
 #endif
