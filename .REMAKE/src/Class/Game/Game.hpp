@@ -29,6 +29,7 @@ class Game : public PlayerList, public Table<W> {
     
         /* Setter */
         void setPlayers(PlayerList);
+        void setPlayer(int, Player);
         void setDeck(CardList<W>);
         void setTable(Table<W>);
         void setRound(int);
