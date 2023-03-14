@@ -1,8 +1,8 @@
 #ifndef _GAME_HPP_
 #define _GAME_HPP_
 
-// #include "../Player/PlayerList.cpp"
-// #include "../Table/Table.cpp"
+#include "../Player/PlayerList.hpp"
+#include "../Table/Table.hpp"
 
 template <class W>
 class Game : public PlayerList, public Table<W> {
