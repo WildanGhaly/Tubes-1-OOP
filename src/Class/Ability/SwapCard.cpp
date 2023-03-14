@@ -7,6 +7,7 @@ SwapCard::SwapCard() : Ability::Ability(6){
 }
 
 void SwapCard::useAbility(int player1, int player2,int player1CardIdx, int player2CardIdx){
+
     Card player1Card = this->ListPlayerVec::getPlayer(player1).getCard(player1CardIdx);
     Card player2Card = this->ListPlayerVec::getPlayer(player2).getCard(player2CardIdx);
     vector<Card> temp1, temp2;
