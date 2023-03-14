@@ -1,7 +1,7 @@
 #ifndef _PLAYER_LIST_HPP_
 #define _PLAYER_LIST_HPP_
 
-#include "Player.cpp"
+#include "Player.hpp"
 
 class PlayerList {
     public:

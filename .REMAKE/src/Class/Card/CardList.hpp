@@ -1,7 +1,7 @@
 #ifndef _CARD_LIST_HPP_
 #define _CARD_LIST_HPP_
 
-#include "Card.cpp"
+#include "Card.hpp"
 #include "../../Exception/Exception.h"
 
 template <class T>
