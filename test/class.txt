@@ -1,0 +1,16 @@
+
+
+
+                                GAMEVEC
+                                   |
+    -------------------------------------------------------------------
+    |                              |                                  |
+  ListPlayerVec                 CardDeckVec                         Table
+    |
+    Player
+    |
+    Ability
+
+
+
+

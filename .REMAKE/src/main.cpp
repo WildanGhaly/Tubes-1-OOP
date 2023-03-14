@@ -25,7 +25,9 @@ int main(){
         cin >> fileName;
 
         ifstream infile ("../test/" + fileName);
-
+        if(infile.fail()){
+            throw FileNotExistException();
+        }
         for (int i = 0; i < 7; i++){
             infile >> color >> number;
             cards << Card(color, number);
@@ -76,6 +78,8 @@ int main(){
     } catch (CardColorException e){
         cout << e.what();
     } catch (CardNumberException e){
+        cout << e.what();
+    } catch (FileNotExistException e){
         cout << e.what();
     }
 

@@ -3,11 +3,18 @@
 
 using namespace std;
 
-Switch::Switch(int playerNumber, int enemyNumber){
-    vector<Card> enemyCard,playerCard;
-    enemyCard = GameVec::getPlayers().getPlayer(enemyNumber).getCards();
-    playerCard = GameVec::getPlayers().getPlayer(playerNumber).getCards();
+Switch::Switch() : Ability::Ability(6){
+    
+}
 
-    GameVec::getPlayers().getPlayer(enemyNumber).setCards(playerCard);
-    GameVec::getPlayers().getPlayer(playerNumber).setCards(enemyCard);
+
+void Switch::useAbility(int playerNumber, int enemyNumber){
+    vector<Card> enemyCard,playerCard;
+    enemyCard = this->ListPlayerVec::getPlayer(enemyNumber).getCards();
+    playerCard = this->ListPlayerVec::getPlayer(playerNumber).getCards();
+
+    this->ListPlayerVec::getPlayer(enemyNumber).setCards(playerCard);
+    this->ListPlayerVec::getPlayer(playerNumber).setCards(enemyCard);
+
+    Ability::setUsingAbility(true);
 }
