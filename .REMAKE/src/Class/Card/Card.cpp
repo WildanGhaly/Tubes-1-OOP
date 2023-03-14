@@ -1,5 +1,5 @@
 #include "Card.hpp"
-
+#include "../../Exception/Exception.h"
 Card::Card() {
     colors = create_color_map(0);
     color = 0;
@@ -7,9 +7,17 @@ Card::Card() {
 }
 
 Card::Card(int color, int number) {
-    colors = create_color_map(0);
-    this->color = color;
-    this->number = make_pair(number, to_string(number));
+    if (color>=0 && color<=3){
+        colors = create_color_map(0);
+        this->color = color;
+    } else {
+        throw CardColorException();
+    }
+    if(number >= 1 && number <=13){
+        this->number = make_pair(number, to_string(number));
+    } else {
+        throw CardNumberException();
+    }
 }
 
 Card::Card(string color, int number) {
@@ -43,7 +51,7 @@ string Card::getColorString() const {
             return it->first;
         }
     }
-    return "Invalid color";
+    throw CardColorException();
 }
 
 string Card::getNumberString() const {
