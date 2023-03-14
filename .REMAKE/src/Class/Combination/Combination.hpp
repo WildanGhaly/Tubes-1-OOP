@@ -1,7 +1,7 @@
 #ifndef _COMBINATION_HPP_
 #define _COMBINATION_HPP_
 
-#include "../Card/CardList.cpp"
+// #include "../Card/CardList.cpp"
 
 class Combination : public Valueable<float> {
     public:
