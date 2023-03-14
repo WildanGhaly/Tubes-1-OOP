@@ -46,7 +46,7 @@ void Player::setName(string name) {
     this->name = name;
 }
 
-void Player::setScore(int score) {
+void Player::setScore(long int score) {
     this->score = score;
 }
 
@@ -56,6 +56,10 @@ void Player::setHand(CardList<Card> hand) {
 
 void Player::addHand(Card card) {
     this->hand.addCard(card);
+}
+
+void Player::addScore(long int score) {
+    this->score += score;
 }
 
 void Player::removeHand(Card card) {
@@ -70,6 +74,28 @@ void Player::printHand() const {
     for (int i = 0; i < this->hand.getTotalCard(); i++) {
         cout << this->hand.getCard(i) << endl;
     }
+}
+
+void Player::printCapsa() const {
+    cout << left;
+    for (int i = 0; i < 3; i++) {
+        cout << setw(8) << this->hand.getCard(i).getColorString() << setw(10) << this->hand.getCard(i).getNumberString();
+    }
+    cout << endl;
+    for (int i = 3; i < 8; i++) {
+        cout << setw(8) << this->hand.getCard(i).getColorString() << setw(10) << this->hand.getCard(i).getNumberString();
+    }
+    cout << endl;
+    for (int i = 8; i < 13; i++) {
+        cout << setw(8) << this->hand.getCard(i).getColorString() << setw(10) << this->hand.getCard(i).getNumberString();
+    }
+    cout << endl;
+}
+
+void Player::swapCardPosition(int index1, int index2) {
+    Card temp = this->hand.getCard(index1);
+    this->hand.setCard(index1, this->hand.getCard(index2));
+    this->hand.setCard(index2, temp);
 }
 
 bool Player::operator==(const Player& player) const {
