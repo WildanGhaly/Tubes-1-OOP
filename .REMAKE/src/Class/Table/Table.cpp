@@ -94,8 +94,7 @@ void Table<V>::print() const {
     std::cout << "      Reward: " << this->reward << std::endl;
     std::cout << "      Cards: " << std::endl;
     this->cards.print();
-    std::cout << "      Deck: " << std::endl;
-    this->deck.print();
+    
 }
 
 template <class V>

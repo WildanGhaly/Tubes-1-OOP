@@ -25,7 +25,7 @@ class CardList {
         void setCard(int, T);
         void setCards(vector<T>);
         void setCards(CardList<T>);
-        void setCards(CardList<T>, CardList<T>);
+        void setCardsList(CardList<T>, CardList<T>);
 
         /* Method */
         void addCard(T);
