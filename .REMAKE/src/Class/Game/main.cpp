@@ -1,4 +1,5 @@
 // #include "../Card/CardList.cpp"
+#include "../Valueable/Valueable.hpp"
 #include "../Player/PlayerList.cpp"
 #include "../Table/Table.cpp"
 #include "Game.cpp"
