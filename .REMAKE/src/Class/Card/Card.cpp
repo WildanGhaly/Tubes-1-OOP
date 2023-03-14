@@ -1,4 +1,6 @@
 #include "Card.hpp"
+#include "../../Exception/Exception.h"
+
 
 Card::Card() {
     colors = create_color_map(0);
@@ -7,9 +9,17 @@ Card::Card() {
 }
 
 Card::Card(int color, int number) {
-    colors = create_color_map(0);
-    this->color = color;
-    this->number = make_pair(number, to_string(number));
+    if (color>=0 && color<=3){
+        colors = create_color_map(0);
+        this->color = color;
+    } else {
+        throw CardColorException();
+    }
+    if(number >= 1 && number <=13){
+        this->number = make_pair(number, to_string(number));
+    } else {
+        throw CardNumberException();
+    }
 }
 
 Card::Card(string color, int number) {
@@ -43,7 +53,7 @@ string Card::getColorString() const {
             return it->first;
         }
     }
-    return "Invalid color";
+    throw CardColorException();
 }
 
 string Card::getNumberString() const {
@@ -63,19 +73,35 @@ float Card::getValue() const {
 }
 
 void Card::setColor(int color) {
-    this->color = color;
+    if(color >=0 && color <=3){
+        this->color = color;
+    } else {
+        throw CardColorException();
+    }
 }
 
 void Card::setNumber(int number) {
-    this->number = make_pair(number, to_string(number));
+    if(number>=1 && number <=13){
+        this->number = make_pair(number, to_string(number));
+    } else {
+        throw CardNumberException();
+    }
 }
 
 void Card::setColorString(string color) {
-    this->color = colors[color];
+    if(isColorValid(color)){
+        this->color = colors[color];
+    } else {
+        throw CardColorException();
+    }
 }
 
 void Card::setNumberString(string number) {
-    this->number = make_pair(stoi(number), number);
+    if(isNumberValid(number)){
+        this->number = make_pair(stoi(number), number);
+    } else {
+        throw CardNumberException();
+    }
 }
 
 void Card::setColorMap(map<string, int> colors) {
@@ -88,6 +114,17 @@ void Card::setNumberPair(pair<int, string> number) {
 
 void Card::print() {
     cout << this->getColorString() << " " << this->getNumberString() << endl;
+}
+
+bool Card::isColorValid(string color){
+    for (int i =0; i<color.size(); i++) {
+        color[i] = toupper(color[i]);
+    }
+    return (color=="GREEN" || color=="BLUE" || color=="RED" || color=="YELLOW");
+}
+bool Card::isNumberValid(string number){
+    int num=stoi(number);
+    return num>=1 && num <=13;
 }
 
 bool Card::operator==(const Card& card) const {

@@ -52,7 +52,7 @@ void PlayerList::removePlayer(int index) {
 void PlayerList::sortByScore() {
     for (int i = 0; i < this->players.size(); i++) {
         for (int j = i + 1; j < this->players.size(); j++) {
-            if (this->players[i].getScore() > this->players[j].getScore()) {
+            if (this->players[i].getValue() > this->players[j].getValue()) {
                 Player temp = this->players[i];
                 this->players[i] = this->players[j];
                 this->players[j] = temp;
@@ -64,7 +64,7 @@ void PlayerList::sortByScore() {
 void PlayerList::sortByScoreDesc() {
     for (int i = 0; i < this->players.size(); i++) {
         for (int j = i + 1; j < this->players.size(); j++) {
-            if (this->players[i].getScore() < this->players[j].getScore()) {
+            if (this->players[i].getValue() < this->players[j].getValue()) {
                 Player temp = this->players[i];
                 this->players[i] = this->players[j];
                 this->players[j] = temp;
@@ -75,8 +75,8 @@ void PlayerList::sortByScoreDesc() {
 
 void PlayerList::print() const {
     for (int i = 0; i < this->players.size(); i++) {
-        cout << this->players[i].getName() << " " << this->players[i].getScore() << endl;
-        cout << "Cards:\n";
+        cout << this->players[i].getName() << " " << this->players[i].getValue() << endl;
+        cout << "   Cards:\n";
         this->players[i].getHand().print();
     }
 }

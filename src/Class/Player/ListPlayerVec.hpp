@@ -41,7 +41,7 @@ class ListPlayerVec {
         bool operator!=(const ListPlayerVec&) const;
         ListPlayerVec& operator=(const ListPlayerVec&);
 
-    private:
+    protected:
         int ID;
         std::vector<PlayerVec> players;
         // std::string name; BISA PAKAI MAPPING NANTI
