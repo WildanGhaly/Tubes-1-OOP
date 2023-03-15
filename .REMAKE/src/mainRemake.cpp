@@ -87,7 +87,7 @@ int main(){
     do {
         cout << "Pilih Game: " << endl;
         cout << "1. Poker" << endl;
-        cout << "2. cangkul" << endl;
+        cout << "2. Capsa" << endl;
         cout << ">> ";
         cin >> choosegame;
         if (choosegame == 1){
@@ -370,6 +370,165 @@ int main(){
             delete game;
             }
         } else if (choosegame == 2) {
+            
+            int ii = 0;
+            int winnerCapsaPoint;
+            bool done;
+            float value[3];
+            int swap1, swap2;
+            float playerValue[4][3] = {{0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0}};
+            game = new Game<Card>(4, "POKER");
+            game->start(13);
+            while (ii < 4){
+                done = false;
+                while (!done){
+                    cout << "Player " << ii+1 << " turn" << endl;
+                    cout << "Kartu saat in: " << endl;
+                    game->getPlayer(ii).printCapsa();
+                    cout << "Kartu yang akan ditukar: " << endl;
+                    cout << "Urutan kartu: " << endl;
+                    cout << "0  1  2" << endl;
+                    cout << "3  4  5  6  7" << endl;
+                    cout << "8  9  10 11 12" << endl;
+                    cout << "Contoh input: 1 2" << endl;
+                    cout << "Jika tidak ada kartu yang akan ditukar, masukkan 0 0" << endl;
+                    cin >> swap1 >> swap2;
+                    cin.ignore();
+
+                    if (swap1 == 0 && swap2 == 0){
+                        done = true;
+                    } else if (swap1 < -1 || swap1 > 12 || swap2 < -1 || swap2 > 12){
+                        cout << "Input tidak valid" << endl;
+                        // Exception handling
+                    } else {
+                        tempPlayer = game->getPlayer(ii);
+                        tempPlayer.swapCardPosition(swap1, swap2);
+                        game->setPlayer(ii, tempPlayer);
+                    }
+                }
+                for (int j = 0; j < 3; j++){
+                    value[j] = 0.0;
+                }
+
+                for (int k = 0; k < 3; k++){
+                    if (k == 0) {
+                        cards << game->getPlayer(ii).getHand(0) << game->getPlayer(ii).getHand(1) << game->getPlayer(ii).getHand(2);
+                    } else if (k == 1) {
+                        cards << game->getPlayer(ii).getHand(3) << game->getPlayer(ii).getHand(4) << game->getPlayer(ii).getHand(5) << game->getPlayer(ii).getHand(6) << game->getPlayer(ii).getHand(7);
+                    } else if (k == 2) {
+                        cards << game->getPlayer(ii).getHand(8) << game->getPlayer(ii).getHand(9) << game->getPlayer(ii).getHand(10) << game->getPlayer(ii).getHand(11) << game->getPlayer(ii).getHand(12);
+                    }
+
+                    cards.sortByNumberAndColor();
+
+                    combination = &highCard;
+                    combination->setPoint(0);
+                    combination->setCards(cards);
+                    combination->computeScore();
+
+                    combination = &pair;
+                    combination->setPoint(highCard.getValue());
+                    combination->setCards(cards);
+                    combination->computeScore();
+
+                    combination = &twoPair;
+                    combination->setPoint(pair.getValue());
+                    combination->setCards(cards);
+                    combination->computeScore();
+
+                    combination = &threeOfKind;
+                    combination->setPoint(twoPair.getValue());
+                    combination->setCards(cards);
+                    combination->computeScore();
+
+                    combination = &straight;
+                    combination->setPoint(threeOfKind.getValue());
+                    combination->setCards(cards);
+                    combination->computeScore();
+
+                    combination = &flush;
+                    combination->setPoint(straight.getValue());
+                    combination->setCards(cards);
+                    combination->computeScore();
+
+                    combination = &fullHouse;
+                    combination->setPoint(flush.getValue());
+                    combination->setCards(cards);
+                    combination->computeScore();
+
+                    combination = &fourOfKind;
+                    combination->setPoint(fullHouse.getValue());
+                    combination->setCards(cards);
+                    combination->computeScore();
+
+                    combination = &straightFlush;
+                    combination->setPoint(fourOfKind.getValue());
+                    combination->setCards(cards);
+                    combination->computeScore();
+
+                    value[k] = straightFlush.getValue();
+
+                    cards = CardList<Card>(); // clear card
+                }
+
+                if (value[0] <= value[1] && value[1] <= value[2]){
+                    // sesuai aturan capsa
+                    cout << "Sudah sesuai!" << endl;
+                    playerValue[ii][0] = value[0];
+                    playerValue[ii][1] = value[1];
+                    playerValue[ii][2] = value[2];
+                    ii++;
+                } else {
+                    cout << "Kartu belum sesuai aturan capsa" << endl;
+                }
+
+            }
+
+            for (int l = 0; l < 4; l++) {
+                for (int m = 0; m < 4; m++) {
+                    if (l != m) {
+                        for (int n = 0; n < 3; n++) {
+                            if (playerValue[l][n] > playerValue[m][n]) {
+                                tempPlayer = game->getPlayer(l);
+                                tempPlayer.addScore(10);
+                                game->setPlayer(l, tempPlayer);
+                            } else {
+                                // do nothing
+                            }
+                        }
+                    } else {
+                        // do nothing
+                    }
+                }
+            }
+
+            cout << "Hasil akhir: " << endl;
+            for (int o = 0; o < 4; o++) {
+                cout << "Player " << o+1 << ": " << game->getPlayer(o).getValue() << endl;
+                game->getPlayer(o).printCapsa();
+            } 
+
+            winnerCapsaPoint = find_max(game->getPlayer(0).getValue(), game->getPlayer(1).getValue(), game->getPlayer(2).getValue(), game->getPlayer(3).getValue());
+            cout << "Pemenangnya adalah: " << endl;
+            for (int p = 0; p < 4; p++) {
+                if (game->getPlayer(p).getValue() == winnerCapsaPoint) {
+                    cout << "Player " << p+1 << " Dengan poin " << game->getPlayer(p).getValue() << endl;
+                }
+            }
+            
+            cout << "Apakah anda ingin bermain lagi? (Y/N)" << endl;
+            cin >> enter;
+            cin.ignore();
+            if (enter == "Y" || enter == "y") {
+                end = false;
+            } else if (enter == "N" || enter == "n") {
+                end = true;
+            } else {
+                throw InvalidInputException();
+            }
+
+
+            delete game;
             
         }
     } while(!end);
