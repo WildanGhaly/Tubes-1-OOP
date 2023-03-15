@@ -27,7 +27,7 @@ class Table : public Valueable<long int> {
         long int setReward(long int);
 
         /* Method */
-        void print() const;
+        void print();
         void addCard(V);
         void addRound();
         void nextRound();

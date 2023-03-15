@@ -93,7 +93,7 @@ long int Table<V>::setReward(long int reward) {
 
 /* Method */
 template <class V>
-void Table<V>::print() const {
+void Table<V>::print() {
     std::cout << "      Round: " << this->round << std::endl;
     std::cout << "      Reward: " << this->reward << std::endl;
     std::cout << "      Cards: " << std::endl;
