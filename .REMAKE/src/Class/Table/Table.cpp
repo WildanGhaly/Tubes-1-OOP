@@ -130,6 +130,11 @@ void Table<V>::removeCard(int index) {
 }
 
 template <class V>
+void Table<V>::removeDeckFirst() {
+    this->deck.removeCard(0);
+}
+
+template <class V>
 void Table<V>::removeCards() {
     for (int i = 0; i < getTotalCard(); i++) {
         this->cards.removeCard(i);

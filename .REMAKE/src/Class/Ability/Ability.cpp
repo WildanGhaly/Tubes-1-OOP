@@ -9,15 +9,18 @@ Ability::Ability(){
 
 Ability::Ability(int ability_id){
     this -> usingAbility = false;
+    
 }
 
 Ability::Ability(const Ability& Ability){
     this -> usingAbility = Ability.usingAbility;
+    
 }
 
 bool Ability::isUsingAbility() const {
     return this -> usingAbility;
 }
+
 
 void Ability::setUsingAbility(bool usingAbility){
     this -> usingAbility = usingAbility;
