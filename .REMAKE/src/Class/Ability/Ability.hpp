@@ -14,6 +14,7 @@ class Ability {
         bool isUsingAbility() const;
         void setUsingAbility(bool);
         virtual void useAbility() = 0;
+        virtual void useAbilitys(Game<Card>&, int) = 0;
         void printPesan(std::string);
         void printPesan2(std::string);
 

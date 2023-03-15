@@ -56,7 +56,7 @@ void Game<W>::setRound(int round) {
 
 /* Method */
 template <class W>
-void Game<W>::print() const {
+void Game<W>::print() {
     PlayerList::print();
     Table<W>::print();
 }

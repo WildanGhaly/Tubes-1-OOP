@@ -35,7 +35,7 @@ class Game : public PlayerList, public Table<W> {
         void setRound(int);
     
         /* Method */
-        void print() const;
+        void print();
         // void addPlayer(Player);
         // void removePlayer(Player);
         // void removePlayer(int);
