@@ -7,7 +7,7 @@ Reroll::Reroll() : Ability::Ability(1) {
 
 bool Reroll::useAbility(Game<Card>& game, int playerAbility, int players){
     Player player;
-    if (playerAbility == 1){
+    if (playerAbility == 1 || playerAbility == 0 || playerAbility == -1){
         if (Reroll::isUsingAbility() == false){
             player = game.getPlayer(players);
             for (int i = 0; i < 2; i++){
@@ -21,8 +21,10 @@ bool Reroll::useAbility(Game<Card>& game, int playerAbility, int players){
             game.setPlayer(players,player);
             Ability::setUsingAbility(true);
             return true;
-        } else {
+        } else if(playerAbility ==-1){
             printPesan2("RE-ROLL");
+        }else if(playerAbility == 0){
+            printPesan3("RE-ROLL");
         }
     } else {
         printPesan("RE-ROLL");

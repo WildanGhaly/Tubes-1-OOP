@@ -9,7 +9,7 @@ SwapCard::SwapCard() : Ability::Ability(6){
 bool SwapCard::useAbility(Game<Card>& game, int playerAbility, int playerNumber){
 
 
-    if (playerAbility == 5){
+    if (playerAbility == 5 || playerAbility == 0 || playerAbility == -1){
         if (SwapCard::isUsingAbility() == false){
             cout<<game.getPlayer(playerNumber).getName()<<" Melakukan SWAPCARD"<<endl;
             cout << "Silahkan pilih pemain yang kartunya ingin anda tukar:" << endl;
@@ -71,8 +71,10 @@ bool SwapCard::useAbility(Game<Card>& game, int playerAbility, int playerNumber)
 
             Ability::setUsingAbility(true);
             return true;
-        } else {
+        } else if(playerAbility ==-1) {
             printPesan2("SWAP");
+        } else if(playerAbility == 0) {
+            printPesan3("SWAP");
         }
     } else {
         printPesan("SWAP");
