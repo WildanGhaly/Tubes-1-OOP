@@ -70,11 +70,23 @@ void Player::removeHand(int index) {
     this->hand.removeCard(index);
 }
 
-void Player::printHand() const {
-    for (int i = 0; i < this->hand.getTotalCard(); i++) {
-        cout << this->hand.getCard(i) << endl;
+
+void Player::printHand() {
+    vector<string> prints(5);
+    for (int i = 0; i < getHandSize(); i++) {
+        prints=getHand(i).setToPrint(prints);
+    }
+    for (int i=0; i< 5;i++){
+        cout << prints[i] << endl;
     }
 }
+
+void Player::removeHand() {
+    for (int i = 0; i < this->hand.getTotalCard(); i++) {
+        this->hand.removeCard(i);
+    }
+}
+
 
 void Player::printCapsa() const {
     cout << left;

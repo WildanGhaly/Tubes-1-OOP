@@ -25,10 +25,11 @@ class Player : public Valueable<long int>, public Ability {
         void addScore(long int);
         void removeHand(Card);
         void removeHand(int);
-        void printHand() const;
+        void printHand();
         void printCapsa() const;
         void swapCardPosition(int, int);
         void useAbility();
+        void removeHand();
 
         bool operator==(const Player&) const;
         bool operator!=(const Player&) const;
