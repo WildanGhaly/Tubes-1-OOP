@@ -22,10 +22,12 @@ class CardList {
         vector<T> getCards() const;
 
         /* Setter */
-        void setCard(int, Card);
-        void setCards(vector<Card>);
-        void setCards(CardList);
-        void setCards(CardList, CardList);
+
+        void setCard(int, T);
+        void setCards(vector<T>);
+        void setCards(CardList<T>);
+        void setCardsList(CardList<T>, CardList<T>);
+
 
         /* Method */
         void addCard(Card);
