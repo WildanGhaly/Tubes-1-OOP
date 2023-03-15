@@ -31,7 +31,6 @@ int main(){
     Game<Card> game(4, "POKER");
     cout << "MASUK" << endl;
 
-
     int swap1, swap2;
     Player tempPlayer;
     float maxValue;
@@ -68,10 +67,10 @@ int main(){
             cout << "0  1  2" << endl;
             cout << "3  4  5  6  7" << endl;
             cout << "8  9  10 11 12" << endl;
-
             cout << "Contoh input: 1 2" << endl;
             cout << "Jika tidak ada kartu yang akan ditukar, masukkan 0 0" << endl;
             cin >> swap1 >> swap2;
+            cin.ignore();
 
             if (swap1 == 0 && swap2 == 0){
                 done = true;
@@ -96,6 +95,8 @@ int main(){
             } else if (k == 2) {
                 cards << game.getPlayer(i).getHand(8) << game.getPlayer(i).getHand(9) << game.getPlayer(i).getHand(10) << game.getPlayer(i).getHand(11) << game.getPlayer(i).getHand(12);
             }
+
+            cards.sortByNumberAndColor();
 
             combination = &highCard;
             combination->setPoint(0);

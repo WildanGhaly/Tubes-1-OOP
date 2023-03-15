@@ -1,18 +1,18 @@
 #include "Player.hpp"
 
-Player::Player() : Ability(0) {
+Player::Player() {
     this->name = "Player";
     this->score = 0;
     this->hand = CardList<Card>();
 }
 
-Player::Player(string name) : Ability(0) {
+Player::Player(string name) {
     this->name = name;
     this->score = 0;
     this->hand = CardList<Card>();
 }
 
-Player::Player(const Player& player) : Ability(player.getAbility()){
+Player::Player(const Player& player) {
     this->name = player.name;
     this->score = player.score;
     this->hand = player.hand;
@@ -26,7 +26,7 @@ string Player::getName() const {
     return this->name;
 }
 
-long int Player::getValue() const {
+long long int Player::getValue() const {
     return this->score;
 }
 
@@ -46,7 +46,7 @@ void Player::setName(string name) {
     this->name = name;
 }
 
-void Player::setScore(long int score) {
+void Player::setScore(long long int score) {
     this->score = score;
 }
 
@@ -58,7 +58,7 @@ void Player::addHand(Card card) {
     this->hand.addCard(card);
 }
 
-void Player::addScore(long int score) {
+void Player::addScore(long long int score) {
     this->score += score;
 }
 
@@ -70,7 +70,6 @@ void Player::removeHand(int index) {
     this->hand.removeCard(index);
 }
 
-
 void Player::printHand() {
     vector<string> prints(5);
     for (int i = 0; i < getHandSize(); i++) {
@@ -80,13 +79,6 @@ void Player::printHand() {
         cout << prints[i] << endl;
     }
 }
-
-void Player::removeHand() {
-    for (int i = 0; i < this->hand.getTotalCard(); i++) {
-        this->hand.removeCard(i);
-    }
-}
-
 
 void Player::printCapsa() const {
     cout << left;
@@ -150,9 +142,5 @@ Player& Player::operator>>(Card& card) {
     card = this->hand.getCard(0);
     this->hand.removeCard(0);
     return *this;
-}
-
-void Player::useAbility() {
-    // Nothing to do
 }
 

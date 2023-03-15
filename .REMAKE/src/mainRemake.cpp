@@ -46,6 +46,7 @@ void clear_screen(){
 
 
 int main(){
+    Player tempPlayer;
     int choosegame=0;
     int round=1;
     string next;
@@ -70,7 +71,7 @@ int main(){
     FourOfKind fourOfKind;
     StraightFlush straightFlush;
     CardList<Card> cards = CardList<Card>();
-    CardList<Card> default_deck = CardList<Card>();
+    CardList<Card> default_deck("POKER");
     float max;
     // Ability *ability;
     // Quadruple quadruple;
@@ -95,7 +96,7 @@ int main(){
             cout << ">> ";
             cin >> choosegame;
             Game<Card> game(4, "POKER"); // 7 pemain
-            default_deck = game.getDeck();
+            // default_deck = game.getDeck();
 
             for (int i = 1; i <= 7; i++){
                 abilityId.push_back(i);
@@ -344,7 +345,12 @@ int main(){
                 activity.clear();
                 default_deck.shuffle();
                 game.setDeck(default_deck);
-                game.removeCards();
+                game.setTable(CardList<Card>());
+                for (int i = 0; i < game.getTotalPlayer(); i++){
+                    tempPlayer = game.getPlayer(i);
+                    tempPlayer.setHand(CardList<Card>());
+                    game.setPlayer(i, tempPlayer);
+                }
                 game.setRound(0);
                 round = 1;
                 

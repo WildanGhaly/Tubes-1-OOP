@@ -60,7 +60,7 @@ int Table<V>::getRound() const {
 }
 
 template <class V>
-long int Table<V>::getValue() const {
+long long int Table<V>::getValue() const {
     return this->reward;
 }
 template <class V>
@@ -86,7 +86,7 @@ int Table<V>::setRound(int round) {
 }
 
 template <class V>
-long int Table<V>::setReward(long int reward) {
+long long int Table<V>::setReward(long long int reward) {
     this->reward = reward;
     return this->reward;
 }
