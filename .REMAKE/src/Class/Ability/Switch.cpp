@@ -8,33 +8,50 @@ Switch::Switch() : Ability::Ability(6){
 }
 
 
-void Switch::useAbility(int playerNumber){
-    cout << PlayerList::getPlayer(playerNumber).getName() << " melakukan Switch" << endl;
-    cout << "Kartumu sekarang adalah : "<<endl;
-    PlayerList::getPlayer(playerNumber).printHand();
-    cout << "Silahkan pilih pemain yang kartunya ingin anda tukar:" << endl;
-    int count=1;
-    for(int i=0;i<PlayerList::getPlayers().size();i++){
-        if(i != playerNumber){
-            cout<< count <<"." << PlayerList::getPlayer(i).getName();
-            count++;
+bool Switch::useAbility(Game<Card>& game, int playerAbility, int playerNumber){
+    if (playerAbility == 6 || playerAbility == 0 || playerAbility == -1){
+        if (playerAbility == 6){
+            cout << game.getPlayer(playerNumber).getName() << " melakukan Switch" << endl;
+            cout << "Kartumu sekarang adalah : "<<endl;
+            game.getPlayer(playerNumber).printHand();
+            cout << "Silahkan pilih pemain yang kartunya ingin anda tukar:" << endl;
+            int count=1;
+            for(int i=0;i<game.getPlayers().size();i++){
+                if(i != playerNumber){
+                    cout<< i+1 <<"." << game.getPlayer(i).getName()<<endl;
+                }
+            }
+            cout<<">";
+            int enemyNumber;
+            cin >> enemyNumber;
+            enemyNumber--;
+            
+            cout<<"Kedua kartu " << game.getPlayer(playerNumber).getName() <<" telah ditukar dengan "<< game.getPlayer(enemyNumber).getName()<<"!"<<endl;
+
+            CardList<Card> enemyCard,playerCard;
+            enemyCard = game.getPlayer(enemyNumber).getHand();
+            playerCard = game.getPlayer(playerNumber).getHand();
+
+            Player player,enemy;
+            player = game.getPlayer(playerNumber);
+            enemy = game.getPlayer(enemyNumber);
+            enemy.setHand(playerCard);
+            player.setHand(enemyCard);
+            player.setAbility(-1);
+            game.setPlayer(playerNumber,player);
+            game.setPlayer(enemyNumber,enemy);
+
+            cout << "Kartumu sekarang adalah : "<<endl;
+            game.getPlayer(playerNumber).printHand();
+            Ability::setUsingAbility(true);
+            return true;
+        } else if(playerAbility ==-1){
+            printPesan2("SWITCH");
+        }else if(playerAbility ==0){
+            printPesan3("SWITCH");
         }
+    } else {
+        printPesan("SWITCH");
     }
-    cout<<">";
-    int enemyNumber;
-    cin >> enemyNumber;
-    
-    cout<<"Kedua kartu " << PlayerList::getPlayer(playerNumber).getName() <<" telah ditukar dengan "<< PlayerList::getPlayer(enemyNumber).getName()<<"!";
-
-    CardList<Card> enemyCard,playerCard;
-    enemyCard = this->PlayerList::getPlayer(enemyNumber).getHand();
-    playerCard = this->PlayerList::getPlayer(playerNumber).getHand();
-
-    this->PlayerList::getPlayer(enemyNumber).setHand(playerCard);
-    this->PlayerList::getPlayer(playerNumber).setHand(enemyCard);
-
-    Ability::setUsingAbility(true);
-
-    cout << "Kartumu sekarang adalah : "<<endl;
-    PlayerList::getPlayer(playerNumber).printHand();
+    return false;
 }
