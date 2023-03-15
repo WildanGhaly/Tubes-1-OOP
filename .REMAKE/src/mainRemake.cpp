@@ -155,10 +155,10 @@ int main(){
                     int index = rand() % abilityId.size();
                     selectedAbility.push_back(abilityId[index]);
                     player = game->getPlayer(i);
-                    player.setAbility(selectedAbility[i]);
+                    player.setAbility(selectedAbility[i]+1);
                     // player.setAbility(7);
                     game->setPlayer(i,player);
-                    abilityId.erase(abilityId.begin() + index);
+                    abilityId.erase(abilityId.begin()+index);
                 }
                 while(!end) {
                 // Reset
@@ -185,7 +185,8 @@ int main(){
                                 cout << ". Next" << endl;
                                 cout << ". Half" << endl;
                                 if (round >= 2){
-                                cout << ". Ability" << endl; 
+                                cout << ". Ability"<< endl; 
+                                cout <<game->getPlayer(i).getAbility()<<endl;
                                 }
                                 cout << " Pilih opsi anda! " << endl;
                                 cout << ">> ";
@@ -201,7 +202,7 @@ int main(){
                                     temp_actv += " melakukan Half! Poin hadiah turun dari " + to_string(game->getValue()) + " Menjadi " + to_string(game->getValue() / 2);
                                     game->setReward(game->getValue() / 2);
                                     activity.push_back(temp_actv);
-                                } else if (playeropt == "QUADRUPLE" || playeropt == "QUARTER" || playeropt == "RE-ROLL" || playeropt == "REVERSE" || playeropt == "SWAP" || playeropt == "SWITCH" || playeropt == "ABLITYLESS"){
+                                } else if (playeropt == "QUADRUPLE" || playeropt == "QUARTER" || playeropt == "RE-ROLL" || playeropt == "REVERSE" || playeropt == "SWAP" || playeropt == "SWITCH" || playeropt == "ABILITYLESS"){
                                     if (playeropt == "QUADRUPLE"){
                                         ability=&quadruple;
                                         bool use = ability->useAbility(*game, game->getPlayer(i % game->getTotalPlayer()).getAbility(),i % game->getTotalPlayer());
@@ -234,6 +235,7 @@ int main(){
                                             valid = false;
                                         }
                                     } else if (playeropt == "REVERSE") {
+
                                         ability=&reverseDirection;
                                         bool use = ability->useAbility(*game, game->getPlayer(i % game->getTotalPlayer()).getAbility(),i % game->getTotalPlayer());
                                         if(use){
@@ -244,6 +246,7 @@ int main(){
                                             cout << locateReverse << endl;
                                         } else {
                                             valid = false;
+
                                         }
                                     } else if (playeropt == "SWAP"){
                                         ability=&swapCard;
@@ -265,7 +268,7 @@ int main(){
                                         }else{
                                             valid = false;
                                         }
-                                    } else if (playeropt == "AIBLITYLESS") {
+                                    } else if (playeropt == "ABILITYLESS") {
                                         ability=&abilityless;
                                         bool use = ability->useAbility(*game, game->getPlayer(i % game->getTotalPlayer()).getAbility(),i % game->getTotalPlayer());
                                         if(use){
@@ -306,6 +309,8 @@ int main(){
 
                 if (round < 5) {
                     game->nextRound();
+                } else {
+                    game->addRound();
                 }
                 clear_screen();  
                 round++;
