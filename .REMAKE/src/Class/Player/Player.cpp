@@ -16,6 +16,8 @@ Player::Player(const Player& player) {
     this->name = player.name;
     this->score = player.score;
     this->hand = player.hand;
+    this->ability_id = player.ability_id;
+    this->usingAbility = player.usingAbility;
 }
 
 Player::~Player() {
@@ -82,16 +84,28 @@ void Player::printHand() {
 
 void Player::printCapsa() const {
     cout << left;
+    vector<string> prints(5);
     for (int i = 0; i < 3; i++) {
-        cout << setw(8) << this->hand.getCard(i).getColorString() << setw(10) << this->hand.getCard(i).getNumberString();
+         prints=getHand(i).setToPrint(prints);
+    }
+    for (int i=0; i< 5;i++){
+        cout << prints[i] << endl;
     }
     cout << endl;
+    vector<string> prints1(5);
     for (int i = 3; i < 8; i++) {
-        cout << setw(8) << this->hand.getCard(i).getColorString() << setw(10) << this->hand.getCard(i).getNumberString();
+        prints1=getHand(i).setToPrint(prints1);
+    }
+    for (int i=0; i< 5;i++){
+        cout << prints1[i] << endl;
     }
     cout << endl;
+    vector<string> prints2(5);
     for (int i = 8; i < 13; i++) {
-        cout << setw(8) << this->hand.getCard(i).getColorString() << setw(10) << this->hand.getCard(i).getNumberString();
+        prints2=getHand(i).setToPrint(prints2);
+    }
+    for (int i=0; i< 5;i++){
+        cout << prints2[i] << endl;
     }
     cout << endl;
 }
@@ -130,6 +144,8 @@ Player& Player::operator=(const Player& player) {
     this->name = player.name;
     this->score = player.score;
     this->hand = player.hand;
+    this->ability_id = player.ability_id;
+    this->usingAbility = player.usingAbility;
     return *this;
 }
 

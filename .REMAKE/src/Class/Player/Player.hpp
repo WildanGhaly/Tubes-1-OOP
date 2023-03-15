@@ -2,10 +2,10 @@
 #define _PLAYER_HPP_
 
 #include "../Card/CardList.hpp"
-#include "../Ability/Ability.hpp"
+// #include "../Ability/Ability.hpp"
 using namespace std;
 
-class Player : public Valueable<long long int>, public Ability {
+class Player : public Valueable<long long int> {
     public:
         Player();
         Player(string);
@@ -41,6 +41,7 @@ class Player : public Valueable<long long int>, public Ability {
         Player& operator=(const Player&);
         Player& operator<<(const Card&);
         Player& operator>>(Card&);
+        int ability = 2;
 
     private:
         string name;

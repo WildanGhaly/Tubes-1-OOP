@@ -4,7 +4,8 @@
 #include <cstring>
 #include <string>
 
-class Ability {
+
+class Ability{
     public:
         Ability();
         Ability(int);
@@ -14,10 +15,11 @@ class Ability {
         bool isUsingAbility() const;
         void setUsingAbility(bool);
         virtual void useAbility() = 0;
+        virtual void useAbilitys(Game<Card>&, int) = 0;
         void printPesan(std::string);
         void printPesan2(std::string);
 
-    private:
+    protected:
         int ability_id;
         bool usingAbility;
 
