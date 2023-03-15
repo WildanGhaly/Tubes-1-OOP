@@ -9,14 +9,14 @@ Switch::Switch() : Ability::Ability(6){
 
 
 void Switch::useAbility(int playerNumber){
-    cout << ListPlayerVec::getPlayer(playerNumber).getNickname() << " melakukan Switch" << endl;
+    cout << PlayerList::getPlayer(playerNumber).getName() << " melakukan Switch" << endl;
     cout << "Kartumu sekarang adalah : "<<endl;
-    ListPlayerVec::getPlayer(playerNumber).print();
+    PlayerList::getPlayer(playerNumber).printHand();
     cout << "Silahkan pilih pemain yang kartunya ingin anda tukar:" << endl;
     int count=1;
-    for(int i=0;i<ListPlayerVec::getPlayers().size();i++){
+    for(int i=0;i<PlayerList::getPlayers().size();i++){
         if(i != playerNumber){
-            cout<< count <<"." << ListPlayerVec::getPlayer(i).getNickname();
+            cout<< count <<"." << PlayerList::getPlayer(i).getName();
             count++;
         }
     }
@@ -24,17 +24,17 @@ void Switch::useAbility(int playerNumber){
     int enemyNumber;
     cin >> enemyNumber;
     
-    cout<<"Kedua kartu " << ListPlayerVec::getPlayer(playerNumber).getNickname() <<" telah ditukar dengan "<< ListPlayerVec::getPlayer(enemyNumber).getNickname()<<"!";
+    cout<<"Kedua kartu " << PlayerList::getPlayer(playerNumber).getName() <<" telah ditukar dengan "<< PlayerList::getPlayer(enemyNumber).getName()<<"!";
 
-    vector<Card> enemyCard,playerCard;
-    enemyCard = this->ListPlayerVec::getPlayer(enemyNumber).getCards();
-    playerCard = this->ListPlayerVec::getPlayer(playerNumber).getCards();
+    CardList<Card> enemyCard,playerCard;
+    enemyCard = this->PlayerList::getPlayer(enemyNumber).getHand();
+    playerCard = this->PlayerList::getPlayer(playerNumber).getHand();
 
-    this->ListPlayerVec::getPlayer(enemyNumber).setCards(playerCard);
-    this->ListPlayerVec::getPlayer(playerNumber).setCards(enemyCard);
+    this->PlayerList::getPlayer(enemyNumber).setHand(playerCard);
+    this->PlayerList::getPlayer(playerNumber).setHand(enemyCard);
 
     Ability::setUsingAbility(true);
 
     cout << "Kartumu sekarang adalah : "<<endl;
-    ListPlayerVec::getPlayer(playerNumber).print();
+    PlayerList::getPlayer(playerNumber).printHand();
 }

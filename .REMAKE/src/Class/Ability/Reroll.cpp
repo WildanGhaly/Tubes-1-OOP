@@ -7,7 +7,7 @@ Reroll::Reroll() : Ability::Ability(1) {
 
 void Reroll::useAbility(){
     for (int i = 0; i < 2; i++){
-        PlayerVec::removeCard(i);
+        Player::removeCard(i);
     }
     Ability::setUsingAbility(true);
 }
