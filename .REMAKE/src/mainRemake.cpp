@@ -91,6 +91,7 @@ int main(){
     PlayerList tempPlayers;
     vector<Player> temp2Players;
     int locateReverse = 0;
+    Combination *combinations[9] = {&highCard, &pair, &twoPair, &threeOfKind, &straight, &flush, &fullHouse, &fourOfKind, &straightFlush};
     
     //buat file
     int color;
@@ -244,6 +245,7 @@ int main(){
                                             cout << "Mengubah arah putaran" << endl;
                                             locateReverse = i % game->getTotalPlayer();
                                             cout << locateReverse << endl;
+                                            valid = false;
                                         } else {
                                             valid = false;
 
@@ -300,7 +302,6 @@ int main(){
                             rotate(temp2Players.begin(), temp2Players.begin() + 1, temp2Players.end());
                             game->setPlayers(temp2Players);
                             isReversed = true;
-                            cout << "MASUK" << endl;
                         }
 
                         temp2Players = game->getPlayers();
@@ -319,50 +320,13 @@ int main(){
                 }
                 for (int i = 0; i < game->getTotalPlayer(); i++){ 
                     cards.setCardsList(game->getPlayer(i).getHand(), game->getCards());
-                    combination = &highCard;
-                    combination->setPoint(0);
-                    combination->setCards(cards);
-                    combination->computeScore();
-
-                    combination = &pair;
-                    combination->setPoint(highCard.getValue());
-                    combination->setCards(cards);
-                    combination->computeScore();
-
-                    combination = &twoPair;
-                    combination->setPoint(pair.getValue());
-                    combination->setCards(cards);
-                    combination->computeScore();
-
-                    combination = &threeOfKind;
-                    combination->setPoint(twoPair.getValue());
-                    combination->setCards(cards);
-                    combination->computeScore();
-
-                    combination = &straight;
-                    combination->setPoint(threeOfKind.getValue());
-                    combination->setCards(cards);
-                    combination->computeScore();
-
-                    combination = &flush;
-                    combination->setPoint(straight.getValue());
-                    combination->setCards(cards);
-                    combination->computeScore();
-
-                    combination = &fullHouse;
-                    combination->setPoint(flush.getValue());
-                    combination->setCards(cards);
-                    combination->computeScore();
-
-                    combination = &fourOfKind;
-                    combination->setPoint(fullHouse.getValue());
-                    combination->setCards(cards);
-                    combination->computeScore();
-
-                    combination = &straightFlush;
-                    combination->setPoint(fourOfKind.getValue());
-                    combination->setCards(cards);
-                    combination->computeScore();
+                    
+                    for (int i = 0; i < 9; i++){
+                        combination = combinations[i];
+                        combination->setCards(cards);
+                        combination->setPoint(i > 0 ? combinations[i-1]->getValue() : 0);
+                        combination->computeScore();
+                    }
                         
                     if (i == 0){
                         max = combination->getValue();
@@ -471,52 +435,14 @@ int main(){
 
                     cards.sortByNumberAndColor();
 
-                    combination = &highCard;
-                    combination->setPoint(0);
-                    combination->setCards(cards);
-                    combination->computeScore();
+                    for (int l = 0; l < 9; l++){
+                        combination = combinations[l];
+                        combination->setCards(cards);
+                        combination->setPoint(l > 0 ? combinations[l-1]->getValue() : 0);
+                        combination->computeScore();
+                    }
 
-                    combination = &pair;
-                    combination->setPoint(highCard.getValue());
-                    combination->setCards(cards);
-                    combination->computeScore();
-
-                    combination = &twoPair;
-                    combination->setPoint(pair.getValue());
-                    combination->setCards(cards);
-                    combination->computeScore();
-
-                    combination = &threeOfKind;
-                    combination->setPoint(twoPair.getValue());
-                    combination->setCards(cards);
-                    combination->computeScore();
-
-                    combination = &straight;
-                    combination->setPoint(threeOfKind.getValue());
-                    combination->setCards(cards);
-                    combination->computeScore();
-
-                    combination = &flush;
-                    combination->setPoint(straight.getValue());
-                    combination->setCards(cards);
-                    combination->computeScore();
-
-                    combination = &fullHouse;
-                    combination->setPoint(flush.getValue());
-                    combination->setCards(cards);
-                    combination->computeScore();
-
-                    combination = &fourOfKind;
-                    combination->setPoint(fullHouse.getValue());
-                    combination->setCards(cards);
-                    combination->computeScore();
-
-                    combination = &straightFlush;
-                    combination->setPoint(fourOfKind.getValue());
-                    combination->setCards(cards);
-                    combination->computeScore();
-
-                    value[k] = straightFlush.getValue();
+                    value[k] = combination->getValue();
 
                     cards = CardList<Card>(); // clear card
                 }
