@@ -14,6 +14,7 @@
 #include "Class/Game/game.cpp"
 #include "Class/Ability/Ability.cpp"
 #include "Class/Ability/Quadruple.cpp"
+#include <fstream>
 // #include "Class/Ability/Quarter.cpp"
 // #include "Class/Ability/Reroll.cpp"
 // #include "Class/Ability/SwapCard.cpp"
@@ -48,6 +49,7 @@ void clear_screen(){
 int main(){
     Player tempPlayer;
     int choosegame=0;
+    int path=0;
     int round=1;
     string next;
     char* nickname;
@@ -76,7 +78,6 @@ int main(){
     Game<Card> *game;
     Ability *ability;
     Quadruple quadruple;
-
     // Quarter quarter;
     // Reroll reroll;
     // SwapCard swapCard;
@@ -84,23 +85,51 @@ int main(){
     // ReverseDirection reverseDirection;  
     vector<int> abilityId;
     vector<int> selectedAbility;
+    
+    //buat file
+    int color;
+    int number;
+    string fileName;
+    //buat file
+
 
     do {
-        cout << "Pilih Game: " << endl;
-        cout << "1. Poker" << endl;
-        cout << "2. Capsa" << endl;
+        cout << "Pilih opsi untuk membentuk deck!" << endl;
+        cout << "1. Random" << endl;
+        cout << "2. Input dari file" << endl;
         cout << ">> ";
-        cin >> choosegame;
-        if (choosegame == 1){
-            cout << "Pilih opsi untuk membentuk deck!" << endl;
-            cout << "1. Random" << endl;
-            cout << "2. Input dari file" << endl;
-            cout << ">> ";
-            cin >> choosegame;
+        cin >> path;
+        if (path == 1){
             game = new Game<Card>(7, "POKER"); // 7 pemain
             // default_deck = game->getDeck();
+        } else if(path==2){
+            cout << "Masukkan nama file: ";
+            cin >> fileName;
+
+            ifstream infile ("../test/" + fileName);
+            if(infile.fail()){
+                throw FileNotExistException();
+            }
+            if(infile.is_open()){
+                while(!infile.eof()){
+                    infile >> color >> number;
+                    cards << Card(color, number);
+                }
+                infile.close();
+            }
+            cout << "=== Daftar Kartu ===" << endl;
+            cards.sortByNumberAndColor();
+            cards.print();
+            game = new Game<Card>(7, "POKER");
+            game->setDeck(cards);   
+            }
             Player player;
-            if (choosegame == 1) {
+            cout << "Pilih Game: " << endl;
+            cout << "1. Poker" << endl;
+            cout << "2. Capsa" << endl;
+            cout << ">> ";
+            cin >> choosegame;
+            if (choosegame== 1) {
                 for (int i = 0; i < game->getTotalPlayer(); i++){
                     cout << "Halo player " << i + 1 << " Silahkan Masukkan Nickname Anda ! (Maksimal 100 huruf)" << endl;
                     cout << ">> ";
@@ -125,8 +154,8 @@ int main(){
                 game->setPlayer(i,player);
                 abilityId.erase(abilityId.begin() + index);
                 
-            }
-            while(!end) {
+                }
+                while(!end) {
                 // Reset
                 game->start(2); // 2 kartu
                 game->nextRound();
@@ -155,7 +184,6 @@ int main(){
                                 }
                                 cout << " Pilih opsi anda! " << endl;
                                 cout << ">> ";
-                                cout << "-><><><><-"<< game->getPlayer(i).getAbility();
                                 cin >> playeropt;
                                 if (playeropt == "Double"){
                                     temp_actv = game->getPlayer(i).getName();
@@ -169,103 +197,97 @@ int main(){
                                     game->setReward(game->getValue() / 2);
                                     activity.push_back(temp_actv);
                                 } else if (playeropt == "QUADRUPLE" || playeropt == "QUARTER" || playeropt == "RE-ROLL" || playeropt == "REVERSE" || playeropt == "SWAP" || playeropt == "SWITCH" || playeropt == "ABLITYLESS"){
-                                    bool use = game->getPlayer(i).isUsingAbility();
+                                    // bool use = game->getPlayer(i).isUsingAbility();
                                     if (playeropt == "QUADRUPLE"){
-                                        if(game->getPlayer(i).getAbility() == 2){
-                                            if(!use){
-                                                quadruple = game;
-                                                temp_actv = game->getPlayer(i).getName();
-                                                temp_actv += " melakukan QUADRUPLE! Poin hadiah naik dari " + to_string(game->getValue()) + " Menjadi " + to_string(game->getValue() * 4);
-                                                ability->useAbility();
-                                                //use ability here
-                                                // game->getPlayer(i).useAbility();
-                                                activity.push_back(temp_actv);
-                                            }else{
-                                                game->getPlayer(i).printPesan2(playeropt);
-                                                valid = false;
-                                            }
+                                        ability=&quadruple;
+                                        bool use = ability->useAbility(*game, game->getPlayer(i).getAbility(),i);
+                                        if(use){
+                                            temp_actv = game->getPlayer(i).getName();
+                                            temp_actv += " melakukan QUADRUPLE! Poin hadiah naik dari " + to_string(game->getValue()/4) + " Menjadi " + to_string(game->getValue());
+                                            activity.push_back(temp_actv);
                                         }else{
-                                            game->getPlayer(i).printPesan(playeropt);
                                             valid = false;
                                         }
                                         
                                     } else if (playeropt == "QUARTER"){
-                                        if(game->getPlayer(i).getAbility() == 3){
-                                            if(!use){
-                                                // ability = &quarter;
-                                                // ability->useAbility();
-                                                temp_actv = game->getPlayer(i).getName();
-                                                temp_actv += " melakukan QUARTER! Poin hadiah naik dari " + to_string(game->getValue()) + " Menjadi " + to_string(game->getValue() / 4);
-                                                //USE ABILITY
-                                            }else{
-                                                game->getPlayer(i).printPesan2(playeropt);
-                                                valid = false;
-                                            }
-                                        }else{
-                                            game->getPlayer(i).printPesan(playeropt);
-                                        }
+
+                                        // if(game->getPlayer(i).getAbility() == 3){
+                                        //     if(!use){
+                                        //         // ability = &quarter;
+                                        //         // ability->useAbility();
+                                        //         temp_actv = game->getPlayer(i).getName();
+                                        //         temp_actv += " melakukan QUARTER! Poin hadiah naik dari " + to_string(game->getValue()) + " Menjadi " + to_string(game->getValue() / 4);
+                                        //         //USE ABILITY
+                                        //     }else{
+                                        //         game->getPlayer(i).printPesan2(playeropt);
+                                        //         valid = false;
+                                        //     }
+                                        // }else{
+                                        //     game->getPlayer(i).printPesan(playeropt);
+                                        // }
                                     } else if (playeropt == "RE-ROLL"){
-                                        if(game->getPlayer(i).getAbility() == 1){
-                                            if(!use){
-                                                // ability = &reroll;
-                                                // ability->useAbility();
-                                                //USE ABILITY
-                                            }else{
-                                                game->getPlayer(i).printPesan2(playeropt);
-                                                valid = false;
-                                            }
-                                        }else{
-                                            game->getPlayer(i).printPesan(playeropt);
-                                            valid = false;
-                                        }
-                                    } else if (playeropt == "REVERSE" && !use) {
-                                        if(game->getPlayer(i).getAbility() == 4){
-                                            if(!use){
-                                                //USE ABILITY
-                                            }else{
-                                                game->getPlayer(i).printPesan2(playeropt);
-                                                valid = false;
-                                            }
-                                        }else{
-                                            game->getPlayer(i).printPesan(playeropt);
-                                            valid = false;
-                                        }
-                                    } else if (playeropt == "SWAP" && !use){
-                                        if(game->getPlayer(i).getAbility() == 5){
-                                            if(!use){
-                                                //USE ABILITY
-                                            }else{
-                                                game->getPlayer(i).printPesan2(playeropt);
-                                                valid = false;
-                                            }
-                                        }else{
-                                            game->getPlayer(i).printPesan(playeropt);
-                                            valid = false;
-                                        }
-                                    } else if (playeropt == "SWITCH" && !use){
-                                        if(game->getPlayer(i).getAbility() == 6){
-                                            if(!use){
-                                                //USE ABILITY
-                                            }else{
-                                                game->getPlayer(i).printPesan2(playeropt);
-                                                valid = false;
-                                            }
-                                        }else{
-                                            game->getPlayer(i).printPesan(playeropt);
-                                            valid = false;
-                                        }
-                                    } else if (playeropt == "ABLITYLESS" && !use ) {
-                                        if(game->getPlayer(i).getAbility() == 7){
-                                            if(!use){
-                                                //USE ABILITY
-                                            }else{
-                                                game->getPlayer(i).printPesan2(playeropt);
-                                                valid = false;
-                                            }
-                                        }else{
-                                            game->getPlayer(i).printPesan(playeropt);
-                                            valid = false;
-                                        }
+                                        
+                                        // if(game->getPlayer(i).getAbility() == 1){
+                                        //     if(!use){
+                                        //         // ability = &reroll;
+                                        //         // ability->useAbility();
+                                        //         //USE ABILITY
+                                        //     }else{
+                                        //         game->getPlayer(i).printPesan2(playeropt);
+                                        //         valid = false;
+                                        //     }
+                                        // }else{
+                                        //     game->getPlayer(i).printPesan(playeropt);
+                                        //     valid = false;
+                                        // }
+                                    } else if (playeropt == "REVERSE") {
+                                        // if(game->getPlayer(i).getAbility() == 4){
+                                        //     if(!use){
+                                        //         //USE ABILITY
+                                        //     }else{
+                                        //         game->getPlayer(i).printPesan2(playeropt);
+                                        //         valid = false;
+                                        //     }
+                                        // }else{
+                                        //     game->getPlayer(i).printPesan(playeropt);
+                                        //     valid = false;
+                                        // }
+                                    } else if (playeropt == "SWAP"){
+                                        // if(game->getPlayer(i).getAbility() == 5){
+                                        //     if(!use){
+                                        //         //USE ABILITY
+                                        //     }else{
+                                        //         game->getPlayer(i).printPesan2(playeropt);
+                                        //         valid = false;
+                                        //     }
+                                        // }else{
+                                        //     game->getPlayer(i).printPesan(playeropt);
+                                        //     valid = false;
+                                        // }
+                                    } else if (playeropt == "SWITCH"){
+                                        // if(game->getPlayer(i).getAbility() == 6){
+                                        //     if(!use){
+                                        //         //USE ABILITY
+                                        //     }else{
+                                        //         game->getPlayer(i).printPesan2(playeropt);
+                                        //         valid = false;
+                                        //     }
+                                        // }else{
+                                        //     game->getPlayer(i).printPesan(playeropt);
+                                        //     valid = false;
+                                        // }
+                                    } else if (playeropt == "ABLITYLESS") {
+                                        // if(game->getPlayer(i).getAbility() == 7){
+                                        //     if(!use){
+                                        //         //USE ABILITY
+                                        //     }else{
+                                        //         game->getPlayer(i).printPesan2(playeropt);
+                                        //         valid = false;
+                                        //     }
+                                        // }else{
+                                        //     game->getPlayer(i).printPesan(playeropt);
+                                        //     valid = false;
+                                        // }
                                     }
 
                                 } else {
@@ -395,8 +417,7 @@ int main(){
                 throw InvalidInputException();
             }
             delete game;
-            }
-        } else if (choosegame == 2) {
+            } else if (choosegame == 2) {
             
             int ii = 0;
             int winnerCapsaPoint;
