@@ -19,7 +19,7 @@
 #include "Class/Ability/Reroll.cpp"
 #include "Class/Ability/SwapCard.cpp"
 #include "Class/Ability/Switch.cpp"
-// #include "Class/Ability/ReverseDirection.cpp"
+#include "Class/Ability/ReverseDirection.cpp"
 #include "Class/Ability/Abilityless.cpp"
 #include "Class/Combination/Combination.cpp"
 #include "Class/Combination/SubCombination/HighCard/HighCard.cpp"
@@ -82,10 +82,15 @@ int main(){
     Reroll reroll;
     SwapCard swapCard;
     Switch switch_;
-    // ReverseDirection reverseDirection;  
+    ReverseDirection reverseDirection;  
     Abilityless abilityless;
     vector<int> abilityId;
     vector<int> selectedAbility;
+    bool isReversed = false;
+    bool antiReversed = false;
+    PlayerList tempPlayers;
+    vector<Player> temp2Players;
+    int locateReverse = 0;
     
     //buat file
     int color;
@@ -163,7 +168,7 @@ int main(){
                 game_total++;
                 activity.push_back("Game ke-" + to_string(game_total));
                 while(round<7){ 
-                        for (int i = round - 1; i < game->getTotalPlayer() + round - 1; i++){
+                        for (int i = isReversed ? game->getTotalPlayer() - 1 : 0; ((!isReversed) && (i < game->getTotalPlayer())) || ((isReversed) && (i >= 0)); i = i + (isReversed ? -1 : 1)){
                             valid = false;
                             while(!valid){
                                 for (auto i = activity.begin(); i != activity.end(); ++i){
@@ -200,7 +205,7 @@ int main(){
                                 } else if (playeropt == "QUADRUPLE" || playeropt == "QUARTER" || playeropt == "RE-ROLL" || playeropt == "REVERSE" || playeropt == "SWAP" || playeropt == "SWITCH" || playeropt == "ABILITYLESS"){
                                     if (playeropt == "QUADRUPLE"){
                                         ability=&quadruple;
-                                        bool use = ability->useAbility(*game, game->getPlayer(i % game->getTotalPlayer()).getAbility(),i);
+                                        bool use = ability->useAbility(*game, game->getPlayer(i % game->getTotalPlayer()).getAbility(),i % game->getTotalPlayer());
                                         if(use){
                                             temp_actv = game->getPlayer(i % game->getTotalPlayer()).getName();
                                             temp_actv += " melakukan QUADRUPLE! Poin hadiah naik dari " + to_string(game->getValue()/4) + " Menjadi " + to_string(game->getValue());
@@ -211,7 +216,7 @@ int main(){
                                         
                                     } else if (playeropt == "QUARTER"){
                                         ability=&quarter;
-                                        bool use = ability->useAbility(*game, game->getPlayer(i % game->getTotalPlayer()).getAbility(),i);
+                                        bool use = ability->useAbility(*game, game->getPlayer(i % game->getTotalPlayer()).getAbility(),i % game->getTotalPlayer());
                                         if(use){
                                             temp_actv = game->getPlayer(i % game->getTotalPlayer()).getName();
                                             temp_actv += " melakukan QUARTER! Poin hadiah turun dari " + to_string(game->getValue()*4) + " Menjadi " + to_string(game->getValue());
@@ -221,7 +226,7 @@ int main(){
                                         }
                                     } else if (playeropt == "RE-ROLL"){
                                         ability=&reroll;
-                                        bool use = ability->useAbility(*game, game->getPlayer(i % game->getTotalPlayer()).getAbility(),i);
+                                        bool use = ability->useAbility(*game, game->getPlayer(i % game->getTotalPlayer()).getAbility(),i % game->getTotalPlayer());
                                         if(use){
                                             cout << "Melakukan pembuangan kartu yang sedang dimiliki"<<endl;
                                             cout << "Kamu mendapatkan 2 kartu baru yaitu: "<< endl;
@@ -230,22 +235,18 @@ int main(){
                                             valid = false;
                                         }
                                     } else if (playeropt == "REVERSE") {
-                                        // if(game->getPlayer(i).getAbility() == 4){
-                                        //     if(!use){
-                                        //         //USE ABILITY
-                                        //     }else{
-                                        //         game->getPlayer(i).printPesan2(playeropt);
-                                        //         valid = false;
-                                        //     }
-                                        // }else{
-                                        //     game->getPlayer(i).printPesan(playeropt);
-                                        //     valid = false;
-                                        // }
-                                        if(game->getPlayer(i).getAbility()==4){
-                                            
-                                                cout<<"REVERSE"<<endl;
-                                        }else{
-                                            cout<<"Ability tidak punya"<<endl;
+
+                                        ability=&reverseDirection;
+                                        bool use = ability->useAbility(*game, game->getPlayer(i % game->getTotalPlayer()).getAbility(),i % game->getTotalPlayer());
+                                        if(use){
+                                            //USE ABILITY
+                                            antiReversed = !antiReversed;
+                                            cout << "Mengubah arah putaran" << endl;
+                                            locateReverse = i % game->getTotalPlayer();
+                                            cout << locateReverse << endl;
+                                        } else {
+                                            valid = false;
+
                                         }
                                     } else if (playeropt == "SWAP"){
                                         ability=&swapCard;
@@ -286,11 +287,26 @@ int main(){
                                 cout << "input apapun untuk melanjutkan..." << endl;
                                 cout << ">> ";
                                 cin >> enter;
+                                
                                 Sleep(1000);
                                 clear_screen();
                             }
                             
                         }
+                        
+                        if (!isReversed && antiReversed) {
+                            temp2Players = game->getPlayers();
+                            reverse(temp2Players.begin() + locateReverse + 1, temp2Players.end());
+                            rotate(temp2Players.begin(), temp2Players.begin() + 1, temp2Players.end());
+                            game->setPlayers(temp2Players);
+                            isReversed = true;
+                            cout << "MASUK" << endl;
+                        }
+
+                        temp2Players = game->getPlayers();
+                        rotate(temp2Players.begin(), temp2Players.begin() + 1, temp2Players.end());
+                        game->setPlayers(temp2Players);
+
                 if (round < 5) {
                     game->nextRound();
                 } else {
