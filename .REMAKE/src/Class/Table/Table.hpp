@@ -35,6 +35,7 @@ class Table : public Valueable<long long int> {
         void removeCard(int);
         void removeCards();
         void shuffle();
+        void removeDeckFirst();
 
         /* Operator */
         bool operator==(const Table&) const;
