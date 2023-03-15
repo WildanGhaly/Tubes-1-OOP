@@ -29,6 +29,7 @@ class Player : public Valueable<long int>, public Ability {
         void printCapsa() const;
         void swapCardPosition(int, int);
         void useAbility();
+        void removeHand();
 
         bool operator==(const Player&) const;
         bool operator!=(const Player&) const;
