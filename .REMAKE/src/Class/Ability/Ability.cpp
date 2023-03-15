@@ -32,11 +32,11 @@ void Ability::printPesan(string ability){
 }
 
 void Ability::printPesan2(string ability){
-    std::cout << "Oops, kartu ability"<< ability << "mu telah digunakan sebelumnya:(."<<std::endl;
+    std::cout << "Oops, kartu ability "<< ability << " mu telah digunakan sebelumnya:(."<<std::endl;
     std::cout<< "Silahkan lakukan perintah lain."<<std::endl;
 }
 
 void Ability::printPesan3(string ability){
-    std::cout << "Oops, kartu ability"<< ability << "mu telah digunakan sebelumnya:(."<<std::endl;
+    std::cout << "Oops, kartu ability "<< ability << " mu telah digunakan sebelumnya:(."<<std::endl;
     std::cout<< "Silahkan lakukan perintah lain."<<std::endl;
 }
