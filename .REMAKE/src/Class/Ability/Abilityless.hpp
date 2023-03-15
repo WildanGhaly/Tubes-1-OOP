@@ -8,7 +8,7 @@
 class Abilityless : public PlayerList, public Ability {
     public :
     Abilityless();
-    void useAbility();
+    void useAbility(int);
 };  
 
 

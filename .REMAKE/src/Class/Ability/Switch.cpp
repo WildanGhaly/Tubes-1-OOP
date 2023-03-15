@@ -33,8 +33,8 @@ void Switch::useAbility(int playerNumber){
     this->PlayerList::getPlayer(enemyNumber).setHand(playerCard);
     this->PlayerList::getPlayer(playerNumber).setHand(enemyCard);
 
-    Ability::setUsingAbility(true);
 
     cout << "Kartumu sekarang adalah : "<<endl;
     PlayerList::getPlayer(playerNumber).printHand();
+    Ability::setUsingAbility(true);
 }
