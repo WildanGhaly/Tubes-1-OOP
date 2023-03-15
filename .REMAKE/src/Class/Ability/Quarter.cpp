@@ -9,7 +9,7 @@ Quarter::Quarter() : Ability::Ability(3){
 bool Quarter::useAbility(Game<Card>& game, int playerAbility, int player){
     Player players;
     if (playerAbility == 3 || playerAbility == 0 || playerAbility == -1){
-        if (Quarter::isUsingAbility() == false){
+        if (playerAbility == 3){
             game.setReward(game.getValue() / 4);
             players = game.getPlayer(player);
             players.setAbility(-1);
