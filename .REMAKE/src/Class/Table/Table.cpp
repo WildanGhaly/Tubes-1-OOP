@@ -46,7 +46,7 @@ CardList<V> Table<V>::getCards() const {
 
 template <class V>
 int Table<V>::getTotalCard() const {
-    return this->cards.size();
+    return this->cards.getTotalCard();
 }
 
 template <class V>
@@ -62,6 +62,10 @@ int Table<V>::getRound() const {
 template <class V>
 long int Table<V>::getValue() const {
     return this->reward;
+}
+template <class V>
+CardList<V> Table<V>::getDeck() const{
+    return this->deck;
 }
 
 /* Setter */
@@ -94,8 +98,7 @@ void Table<V>::print() const {
     std::cout << "      Reward: " << this->reward << std::endl;
     std::cout << "      Cards: " << std::endl;
     this->cards.print();
-    std::cout << "      Deck: " << std::endl;
-    this->deck.print();
+    
 }
 
 template <class V>
@@ -124,6 +127,13 @@ void Table<V>::removeCard(V card) {
 template <class V>
 void Table<V>::removeCard(int index) {
     this->cards.removeCard(index);
+}
+
+template <class V>
+void Table<V>::removeCards() {
+    for (int i = 0; i < getTotalCard(); i++) {
+        this->cards.removeCard(i);
+    }
 }
 
 template <class V>
