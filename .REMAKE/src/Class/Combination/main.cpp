@@ -1,4 +1,6 @@
 #include "Combination.cpp"
+#include "../Card/CardList.cpp"
+#include "../Card/Card.cpp"
 #include "SubCombination/HighCard/HighCard.cpp"
 #include "SubCombination/Pair/Pair.cpp"
 #include "SubCombination/TwoPair/TwoPair.cpp"
@@ -77,47 +79,47 @@ int main(){
 
             combination = &highCard;
             combination->computeScore();
-            cout << "High Card      : " << combination->getPoint() << endl;
+            cout << "High Card      : " << combination->getValue() << endl;
 
             combination = &pair;
-            combination->setPoint(highCard.getPoint());
+            combination->setPoint(highCard.getValue());
             combination->computeScore();
-            cout << "Pair           : " << combination->getPoint() << endl;
+            cout << "Pair           : " << combination->getValue() << endl;
 
             combination = &twoPair;
-            combination->setPoint(pair.getPoint());
+            combination->setPoint(pair.getValue());
             combination->computeScore();
-            cout << "Two Pair       : " << combination->getPoint() << endl;
+            cout << "Two Pair       : " << combination->getValue() << endl;
 
             combination = &threeOfKind;
-            combination->setPoint(twoPair.getPoint());
+            combination->setPoint(twoPair.getValue());
             combination->computeScore();
-            cout << "Three of Kind  : " << combination->getPoint() << endl;
+            cout << "Three of Kind  : " << combination->getValue() << endl;
 
             combination = &straight;
-            combination->setPoint(threeOfKind.getPoint());
+            combination->setPoint(threeOfKind.getValue());
             combination->computeScore();
-            cout << "Straight       : " << combination->getPoint() << endl;
+            cout << "Straight       : " << combination->getValue() << endl;
 
             combination = &flush;
-            combination->setPoint(straight.getPoint());
+            combination->setPoint(straight.getValue());
             combination->computeScore();
-            cout << "Flush          : " << combination->getPoint() << endl;
+            cout << "Flush          : " << combination->getValue() << endl;
 
             combination = &fullHouse;
-            combination->setPoint(flush.getPoint());
+            combination->setPoint(flush.getValue());
             combination->computeScore();
-            cout << "Full House     : " << combination->getPoint() << endl;
+            cout << "Full House     : " << combination->getValue() << endl;
 
             combination = &fourOfKind;
-            combination->setPoint(fullHouse.getPoint());
+            combination->setPoint(fullHouse.getValue());
             combination->computeScore();
-            cout << "Four of Kind   : " << combination->getPoint() << endl;
+            cout << "Four of Kind   : " << combination->getValue() << endl;
 
             combination = &straightFlush;
-            combination->setPoint(fourOfKind.getPoint());
+            combination->setPoint(fourOfKind.getValue());
             combination->computeScore();
-            cout << "Straight Flush : " << combination->getPoint() << endl;
+            cout << "Straight Flush : " << combination->getValue() << endl;
         } catch (exception& e){
             cout << e.what();
         }
