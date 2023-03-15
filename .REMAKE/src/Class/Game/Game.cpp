@@ -35,8 +35,8 @@ void Game<W>::setDeck(CardList<W> deck) {
 }
 
 template <class W>
-void Game<W>::setTable(Table<W> table) {
-    this->table = table;
+void Game<W>::setTable(CardList<W> table) {
+    this->cards = table;
 }
 
 template <class W>
