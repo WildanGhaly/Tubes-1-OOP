@@ -1,7 +1,7 @@
 #ifndef _TABLE_HPP_
 #define _TABLE_HPP_
 
-// #include "../Card/CardList.cpp"
+#include "../Card/CardList.hpp"
 
 template <class V>
 class Table : public Valueable<long int> {
@@ -14,6 +14,7 @@ class Table : public Valueable<long int> {
 
         /* Getter */
         CardList<V> getCards() const;
+        CardList<V> getDeck() const;
         int getTotalCard() const;
         V getCard(int) const;
         int getRound() const;
@@ -32,6 +33,7 @@ class Table : public Valueable<long int> {
         void nextRound();
         void removeCard(V);
         void removeCard(int);
+        void removeCards();
         void shuffle();
 
         /* Operator */
