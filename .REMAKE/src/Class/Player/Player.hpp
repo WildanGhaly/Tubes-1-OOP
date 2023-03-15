@@ -5,7 +5,7 @@
 #include "../Ability/Ability.hpp"
 using namespace std;
 
-class Player : public Valueable<long int>, public Ability {
+class Player : public Valueable<long long int>, public Ability {
     public:
         Player();
         Player(string);
@@ -13,23 +13,23 @@ class Player : public Valueable<long int>, public Ability {
         ~Player();
 
         string getName() const;
-        long int getValue() const;
+        long long int getValue() const;
         int getHandSize() const;
         CardList<Card> getHand() const;
         Card getHand(int) const;
     
         void setName(string);
-        void setScore(long int);
+        void setScore(long long int);
         void setHand(CardList<Card>);
         void addHand(Card);
-        void addScore(long int);
+        void addScore(long long int);
         void removeHand(Card);
         void removeHand(int);
         void printHand();
         void printCapsa() const;
         void swapCardPosition(int, int);
-        void useAbility();
-        void removeHand();
+        void useAbility() {};
+        void removeHand() {};
 
         bool operator==(const Player&) const;
         bool operator!=(const Player&) const;
@@ -44,7 +44,7 @@ class Player : public Valueable<long int>, public Ability {
 
     private:
         string name;
-        long int score;
+        long long int score;
         CardList<Card> hand;
 };
 

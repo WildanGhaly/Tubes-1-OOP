@@ -6,6 +6,7 @@
 
 class Ability {
     public:
+        Ability();
         Ability(int);
         Ability(const Ability&);
         int getAbility() const;

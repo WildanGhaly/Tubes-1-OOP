@@ -4,7 +4,7 @@
 #include "../Card/CardList.hpp"
 
 template <class V>
-class Table : public Valueable<long int> {
+class Table : public Valueable<long long int> {
     public:
         Table();
         Table(CardList<V>, int);
@@ -18,13 +18,13 @@ class Table : public Valueable<long int> {
         int getTotalCard() const;
         V getCard(int) const;
         int getRound() const;
-        long int getValue() const;
+        long long int getValue() const;
 
         /* Setter */
         void setDeck(CardList<V>);
         void setCards(CardList<V>);
         int setRound(int);
-        long int setReward(long int);
+        long long int setReward(long long int);
 
         /* Method */
         void print();
@@ -45,7 +45,7 @@ class Table : public Valueable<long int> {
 
     protected:
         int round;
-        long int reward;
+        long long int reward;
         CardList<V> cards;
         CardList<V> deck;
 };

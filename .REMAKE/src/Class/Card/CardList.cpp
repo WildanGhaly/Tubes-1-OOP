@@ -292,7 +292,10 @@ const Card& CardList<T>::operator[](int index) const {
 
 template <class T>
 CardList<T>& CardList<T>::operator=(const CardList& cardList) {
-    this->cards = cardList.cards;
+    this->cards.clear();
+    for (int i = 0; i < cardList.cards.size(); i++) {
+        this->cards.push_back(cardList.cards[i]);
+    } 
     return *this;
 }
 
