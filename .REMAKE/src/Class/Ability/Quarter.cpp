@@ -1,13 +1,22 @@
 #include "Quarter.hpp"
 using namespace std;
 
-template <class T>
-Quarter<T>::Quarter() : Ability::Ability(3){
+
+Quarter::Quarter() : Ability::Ability(3){
 
 }
 
-template <class T>
-T Quarter<T>::useAbility(T score){
-    Ability::setUsingAbility(true);
-    return score / 4;
+bool Quarter::useAbility(Game<Card>& game, int playerAbility, int player){
+    if (playerAbility == 3){
+        if (Quarter::isUsingAbility() == false){
+            game.setReward(game.getValue() / 4);
+            Ability::setUsingAbility(true);
+            return true;
+        } else {
+            printPesan("QUARTER");
+        }
+    } else {
+        printPesan2("QUARTER");
+    }
+    return false;
 }

@@ -5,17 +5,18 @@ using namespace std;
 Quadruple::Quadruple() : Ability::Ability(2) {
     
 }
-void Quadruple::useAbility(){
-    // Table<Card>::setReward(Table<Card>::getValue() * 4);
-    // Ability::setUsingAbility(true);
-}
 
-void Quadruple::useAbilitys(Game<Card>& game, int playerAbility){
+bool Quadruple::useAbility(Game<Card>& game, int playerAbility, int player){
     if (playerAbility == 2){
-        cout << "Ability berhasil digunakan" << endl;
-        game.setReward(game.getValue() * 4);
-        Ability::setUsingAbility(true);
+        if (Quadruple::isUsingAbility() == false){
+            game.setReward(game.getValue() * 4);
+            Ability::setUsingAbility(true);
+            return true;
+        } else {
+            printPesan("QUADRUPLE");
+        }
     } else {
-        cout << "Ability gagal digunakan" << endl;
+        printPesan2("QUADRUPLE");
     }
+    return false;
 }
