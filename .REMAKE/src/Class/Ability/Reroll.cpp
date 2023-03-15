@@ -8,7 +8,7 @@ Reroll::Reroll() : Ability::Ability(1) {
 bool Reroll::useAbility(Game<Card>& game, int playerAbility, int players){
     Player player;
     if (playerAbility == 1 || playerAbility == 0 || playerAbility == -1){
-        if (Reroll::isUsingAbility() == false){
+        if (playerAbility == 1){
             player = game.getPlayer(players);
             for (int i = 0; i < 2; i++){
                 player.removeHand(0);
