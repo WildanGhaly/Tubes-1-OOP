@@ -5,10 +5,11 @@
 #include "Ability.hpp"
 #include "../Table/Table.hpp"
 
-class Quarter : public Table<Card>, public Ability  {
+template<class T>
+class Quarter : public Ability<T>  {
     public :
         Quarter();
-        void useAbility();
+        T useAbility(T);
 };
 
 
