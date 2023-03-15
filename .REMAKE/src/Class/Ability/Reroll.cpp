@@ -5,26 +5,27 @@ Reroll::Reroll() : Ability::Ability(1) {
 
 }
 
-bool Reroll::useAbility(Game<Card>& game, int playerAbility, int player){
+bool Reroll::useAbility(Game<Card>& game, int playerAbility, int players){
     Player player;
     if (playerAbility == 1){
         if (Reroll::isUsingAbility() == false){
-            player = game->getPlayer(player);
+            player = game.getPlayer(players);
             for (int i = 0; i < 2; i++){
-                player.removeCard(i);
+                player.removeHand(0);
             }
             for (int i = 0; i < 2; i++){
-                player.addCard(game->Table<Card>::getDeck()[0]);
-                game->Table<Card>::removeCard(0);
+                player.addHand(game.getDeck().getCard(0));
+                game.removeDeckFirst();
             }
-            game->setPlayer(i,player);
+            player.setAbility(-1);
+            game.setPlayer(players,player);
             Ability::setUsingAbility(true);
             return true;
         } else {
-            printPesan("RE-ROLL");
+            printPesan2("RE-ROLL");
         }
     } else {
-        printPesan2("RE-ROLL");
+        printPesan("RE-ROLL");
     }
     return false;
 }
