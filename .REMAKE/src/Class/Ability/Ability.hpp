@@ -19,6 +19,7 @@ class Ability{
 
     protected:
         bool usingAbility;
+        
 
 };
 

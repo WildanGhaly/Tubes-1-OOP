@@ -3,12 +3,13 @@
 
 #include "../Player/PlayerList.hpp"
 #include "Ability.hpp"
+#include "../Game/Game.hpp"
 
-class SwapCard : public Ability, public PlayerList{
+class SwapCard : public Ability{
     public:
         /* ctor cctor dtor */
         SwapCard();
-        void useAbility(int, int, int, int);
+        bool useAbility(Game<Card>&, int, int);
 
         // int data;
 };
