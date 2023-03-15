@@ -84,6 +84,19 @@ void CardDeckVec::sortByNumber() {
     }
 }
 
+void CardDeckVec::sortByNmuberDesc() {
+    // sort by number desc
+    for (int i = 0; i < this->totalCard - 1; i++) {
+        for (int j = i + 1; j < this->totalCard; j++) {
+            if (this->cards[i].getNumber() < this->cards[j].getNumber()) {
+                Card temp = this->cards[i];
+                this->cards[i] = this->cards[j];
+                this->cards[j] = temp;
+            }
+        }
+    }
+}
+
 void CardDeckVec::sortByColor() {
     for (int i = 0; i < this->totalCard - 1; i++) {
         for (int j = i + 1; j < this->totalCard; j++) {

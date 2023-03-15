@@ -1,22 +1,29 @@
 #include "PlayerVec.hpp"
 
+
 int PlayerVec::totalPlayer = 0;
 
 /* Default Constructor */
 PlayerVec::PlayerVec() : ID(++totalPlayer) {
     this->cards = std::vector<Card>();
     this->score = 0;
+    this -> nickname = new char[100];
+    
 }
 
-PlayerVec::PlayerVec(int score) : ID(++totalPlayer) {
+PlayerVec::PlayerVec(int score, char* nickname) : ID(++totalPlayer) {
     this->cards = std::vector<Card>();
     this->score = score;
+    this-> nickname = new char[100];
+    strcpy(this->nickname, nickname);
 }
 
 /* Copy Constructor */
 PlayerVec::PlayerVec(const PlayerVec& p) : ID(totalPlayer) {
     this->cards = p.cards;
     this->score = p.score;
+    this -> nickname = new char[100];
+    strcpy(this->nickname, p.nickname);
 }
 
 /* Destructor */
@@ -49,6 +56,10 @@ int PlayerVec::getTotalCard() const {
     return this->cards.size();
 }
 
+char* PlayerVec::getNickname() const {
+    return this->nickname;
+}
+
 /* Setter untuk ID */
 void PlayerVec::setID(int ID) {
     this->ID = ID;
@@ -62,6 +73,10 @@ void PlayerVec::setScore(int score) {
 /* Setter untuk cards */
 void PlayerVec::setCards(std::vector<Card> cards) {
     this->cards = cards;
+}
+
+void PlayerVec::setNickname(char* nickname){
+    strcpy(this->nickname, nickname);  
 }
 
 /* Method untuk menambahkan kartu */
@@ -97,6 +112,7 @@ void PlayerVec::print() const {
     }
 }
 
+
 /* Method untuk mencetak kartu */
 void PlayerVec::print(int index) const {
     this->getCard(index).print();
@@ -121,6 +137,7 @@ PlayerVec& PlayerVec::operator=(const PlayerVec& p) {
     this->ID = p.ID;
     this->score = p.score;
     this->cards = p.cards;
+    strcpy(this->nickname, p.nickname);
     return *this;
 }
 

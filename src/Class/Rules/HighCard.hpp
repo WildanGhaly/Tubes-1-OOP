@@ -1,5 +1,8 @@
-#include "Rules.cpp"
+#ifndef __HIGHCARD_HPP__
+#define __HIGHCARD_HPP__
 
+#include "Rules.hpp"
+#include "GenericRules.hpp"
 class HighCard : public Rules {
     static int IDcounter;
     public:
@@ -10,16 +13,16 @@ class HighCard : public Rules {
 
         /* Getter */
         int getID() const;
-        int getScore() const;
+        float getScore() const;
         std::string getName() const;
         const float getMin() const;
 
         /* Setter */
         void setID(int);
-        void setScore(int);
+        void setScore(float);
         
         /* Method */
-        void addScore(int);
+        void addScore(float);
         void computeScore();
 
         /* Operator */
@@ -32,3 +35,5 @@ class HighCard : public Rules {
         int ID;
         std::string name;
 };
+
+#endif

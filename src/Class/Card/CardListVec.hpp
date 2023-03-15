@@ -5,6 +5,7 @@
 #include <vector>
 #include <algorithm>
 #include <iostream>
+#include "time.h"
 using namespace std;
 
 class CardDeckVec {
@@ -28,6 +29,7 @@ class CardDeckVec {
         void removeCard(int);
         void shuffle();
         void sortByNumber();
+        void sortByNmuberDesc();
         void sortByColor();
         void sortByID();
         void print() const;

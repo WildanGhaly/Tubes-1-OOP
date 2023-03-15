@@ -1,4 +1,8 @@
-#include "../Game/GameVec.cpp"
+#ifndef __RULES_HPP__
+#define __RULES_HPP__
+
+#include "../Game/GameVec.hpp"
+#include "GenericRules.hpp"
 
 class Rules {
     static int IDcounter;
@@ -44,3 +48,5 @@ class Rules {
         PlayerVec player;
         std::vector<Card> cards;
 };
+
+#endif

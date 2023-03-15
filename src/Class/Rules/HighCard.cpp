@@ -27,6 +27,10 @@ int HighCard::getID() const {
     return this->ID;
 }
 
+float HighCard::getScore() const{
+    return this->Rules::getScore();
+}
+
 string HighCard::getName() const {
     return this->name;
 }
@@ -40,18 +44,34 @@ void HighCard::setID(int ID) {
     this->ID = ID;
 }
 
-void HighCard::setScore(int score) {
+void HighCard::setScore(float score) {
     this->Rules::setScore(score);
 }
 
 /* Method */
 void HighCard::computeScore() {
-    float score = this->Rules::getPlayer().getCard(0).getScore() > 
-                this->Rules::getPlayer().getCard(1).getScore() ? 
-                this->Rules::getPlayer().getCard(0).getScore() : 
-                this->Rules::getPlayer().getCard(1).getScore();
-    if (score > this->Rules::getPlayer().getScore())
-        this->Rules::setScore(score);
+    float score =0;
+    int size = this->Rules::getCombination();
+    int arr[size];
+    for (int i = 0; i < size; i++)
+    {
+        arr[i]= this->Rules::getCard(i).getNumber();
+    }
+    int max = 13;
+    std::vector<int> result = countElements(arr, size, max);
+    int number=0;
+    for(int i = 0; i < max+1; i++){
+        if(result[i]==1){
+            number=i;
+        }
+    }
+    int color=0;
+    for (int i=0; i < this->Rules::getCombination(); i++){
+        if((this->getCard(i).getNumber()==number) && (color < this->getCard(i).getColor())){
+            color = this->getCard(i).getColor();
+        }
+    }
+    score= (number*0.1) + (0.3*color);
     this->Rules::setScore(score);
 }
 
