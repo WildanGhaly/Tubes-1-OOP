@@ -3,6 +3,7 @@
 #include <windows.h>
 #include <cstring>
 #include <time.h>
+#include <math.h>
 #include "Function/MaxMinAvg.hpp"
 #include "Class/Valueable/Valueable.hpp"
 #include "Class/Player/PlayerList.cpp"
@@ -12,6 +13,13 @@
 #include "Class/Table/Table.cpp"
 #include "Class/Game/Game.cpp"
 #include "Class/Ability/Ability.cpp"
+// #include "Class/Ability/Quadruple.cpp"
+// #include "Class/Ability/Quarter.cpp"
+// #include "Class/Ability/Reroll.cpp"
+// #include "Class/Ability/SwapCard.cpp"
+// #include "Class/Ability/Switch.cpp"
+// #include "Class/Ability/ReverseDirection.cpp"
+// #include "Class/Ability/Abilityless.cpp"
 #include "Class/Combination/Combination.cpp"
 #include "Class/Combination/SubCombination/HighCard/HighCard.cpp"
 #include "Class/Combination/SubCombination/Pair/Pair.cpp"
@@ -62,7 +70,17 @@ int main(){
     FourOfKind fourOfKind;
     StraightFlush straightFlush;
     CardList<Card> cards = CardList<Card>();
+    CardList<Card> default_deck = CardList<Card>();
     float max;
+    // Ability *ability;
+    // Quadruple quadruple;
+    // Quarter quarter;
+    // Reroll reroll;
+    // // SwapCard swapCard;
+    // // Switch switch_;
+    // ReverseDirection reverseDirection;  
+    vector<int> abilityId;
+    vector<int> selectedAbility;
 
     do {
         cout << "Pilih Game: " << endl;
@@ -76,18 +94,28 @@ int main(){
             cout << "2. Input dari file" << endl;
             cout << ">> ";
             cin >> choosegame;
-            Game<Card> game(7, "POKER"); // 7 pemain
-            game.start(2); // 2 kartu
-            game.nextRound();
+            Game<Card> game(4, "POKER"); // 7 pemain
+            default_deck = game.getDeck();
+
+            for (int i = 1; i <= 7; i++){
+                abilityId.push_back(i);
+            }
+            for (int i = 0; i < 7; i++){
+                int index = rand() % abilityId.size();
+                selectedAbility.push_back(abilityId[index]);
+                abilityId.erase(abilityId.begin() + index);
+            }
+            
             Player player;
             if (choosegame == 1) {
-                for (int i = 0; i < 7; i++){
+                for (int i = 0; i < game.getTotalPlayer(); i++){
                     cout << "Halo player " << i + 1 << " Silahkan Masukkan Nickname Anda ! (Maksimal 100 huruf)" << endl;
                     cout << ">> ";
                     cin >> nickname;
                     player = game.getPlayer(i);
                     player.setName(nickname);
                     game.setPlayer(i,player);
+                    
                 }
                 for (int i = 3; i > 0; i--){
                     clear_screen();
@@ -95,10 +123,14 @@ int main(){
                     Sleep(1000);
                 }
             while(!end) {
+                // Reset
+                game.start(2); // 2 kartu
+                game.nextRound();
+
                 game_total++;
                 activity.push_back("Game ke-" + to_string(game_total));
-                while(round<2){ 
-                        for (int i = 0; i < 7; i++){
+                while(round<7){ 
+                        for (int i = 0; i < game.getTotalPlayer(); i++){
                             valid = false;
                             while(!valid){
                                 for (auto i = activity.begin(); i != activity.end(); ++i){
@@ -136,7 +168,8 @@ int main(){
                                     if (playeropt == "QUADRUPLE"){
                                         if(game.getPlayer(i).getAbility() == 2){
                                             if(!use){
-
+                                                //use ability here
+                                                // game.getPlayer(i).useAbility();
                                             }else{
                                                 game.getPlayer(i).printPesan2(playeropt);
                                             }
@@ -219,18 +252,20 @@ int main(){
                         }
 
                     
-                    cout << "Next Round: (Y/n)" << endl;
-                    cin >> next;
-                    if(next=="Y" || next=="y"){
-                        round++;
-                        
-                    }
+                    // cout << "Next Round: (Y/n)" << endl;
+                    // cin >> next;
+                    // if(next=="Y" || next=="y"){
+                    // }
+                if (round < 5) {
+                    game.nextRound();
                 }
-                
+                clear_screen();  
+                round++;
+                activity.clear(); 
+                activity.push_back(temp_actv);
+                }
                 for (int i = 0; i < game.getTotalPlayer(); i++){ 
                     cards.setCardsList(game.getPlayer(i).getHand(), game.getCards());
-                    cards.print();
-                    cin >> enter;
                     combination = &highCard;
                     combination->setPoint(0);
                     combination->setCards(cards);
@@ -281,21 +316,38 @@ int main(){
                         pWin = i;
                     }
                     else if (max < combination->getValue()) {
+                            max = combination->getValue();
                             pWin = i;
                             // Bandingin Rules di sini
                         }
                     }
+                // Setscore
+                cout << "Player " << game.getPlayer(pWin).getName() << " memenangkan pertandingan!" << endl;
                 player = game.getPlayer(pWin);
                 player.setScore(player.getValue() + game.getValue());
+                cout << "Player " << player.getName() << " mendapatkan " << game.getValue() << " poin!" << endl;
                 game.setPlayer(pWin, player);
                 
-                for (int i = 0; i < game.getTotalPlayer(); i++){ 
-                        
-                        if ("some player > 2^32") {
+                for (int i = 0; i < game.getTotalPlayer(); i++){
+                    cout << "Score Player " << game.getPlayer(i).getName() << " : " << game.getPlayer(i).getValue() << endl;
+                        if (game.getPlayer(i).getValue() >= pow(2, 32)) {
                             end = true;
                             break;
                         }
+                    player = game.getPlayer(i);
+                    player.removeHand();
+                    game.setPlayer(i,player);
                     }
+
+                // Reset
+                game.setReward(64);
+                activity.clear();
+                default_deck.shuffle();
+                game.setDeck(default_deck);
+                game.removeCards();
+                game.setRound(0);
+                round = 1;
+                
             }
             for (int i = 0; i < game.getTotalPlayer(); i++){ 
                 clear_screen();
@@ -303,6 +355,7 @@ int main(){
                 cout << "input apapun untuk melanjutkan..." << endl;
                 cout << ">> ";
                 cin >> enter;
+                end = true;
             }
             
             }

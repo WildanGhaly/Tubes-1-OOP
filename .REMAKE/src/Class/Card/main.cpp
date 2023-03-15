@@ -1,4 +1,5 @@
 #include "CardList.cpp"
+#include "Card.cpp"
 #include <iostream>
 using namespace std;
 
@@ -9,14 +10,14 @@ int main(){
     cardList.shuffle();
     // cardList.sortByNumber();
     // cardList.sortByColor();
-    for (int i = 0; i < 10; i++)
-    {
-        printCard=cardList.getCard(i).setToPrint(printCard);
-    }
-    for (int i = 0; i < printCard.size(); i++)
-    {
-        cout << printCard[i] << endl;
-    }
+    // for (int i = 0; i < 10; i++)
+    // {
+    //     printCard=cardList.getCard(i).setToPrint(printCard);
+    // }
+    // for (int i = 0; i < printCard.size(); i++)
+    // {
+    //     cout << printCard[i] << endl;
+    // }
     cardList.print();
     cout << "Hello\n";
     return 0;
