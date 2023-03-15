@@ -31,7 +31,7 @@ class Game : public PlayerList, public Table<W> {
         void setPlayers(PlayerList);
         void setPlayer(int, Player);
         void setDeck(CardList<W>);
-        void setTable(Table<W>);
+        void setTable(CardList<W>);
         void setRound(int);
     
         /* Method */
