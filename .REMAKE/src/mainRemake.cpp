@@ -11,7 +11,7 @@
 #include "Class/Card/CardList.cpp"
 #include "Class/Card/Card.cpp"
 #include "Class/Table/Table.cpp"
-#include "Class/Game/Game.cpp"
+#include "Class/Game/game.cpp"
 #include "Class/Ability/Ability.cpp"
 // #include "Class/Ability/Quadruple.cpp"
 // #include "Class/Ability/Quarter.cpp"
@@ -73,6 +73,7 @@ int main(){
     CardList<Card> cards = CardList<Card>();
     CardList<Card> default_deck("POKER");
     float max;
+    Game<Card> *game;
     // Ability *ability;
     // Quadruple quadruple;
     // Quarter quarter;
@@ -95,8 +96,8 @@ int main(){
             cout << "2. Input dari file" << endl;
             cout << ">> ";
             cin >> choosegame;
-            Game<Card> game(4, "POKER"); // 7 pemain
-            // default_deck = game.getDeck();
+            game = new Game<Card>(4, "POKER"); // 7 pemain
+            // default_deck = game->getDeck();
 
             for (int i = 1; i <= 7; i++){
                 abilityId.push_back(i);
@@ -109,13 +110,13 @@ int main(){
             
             Player player;
             if (choosegame == 1) {
-                for (int i = 0; i < game.getTotalPlayer(); i++){
+                for (int i = 0; i < game->getTotalPlayer(); i++){
                     cout << "Halo player " << i + 1 << " Silahkan Masukkan Nickname Anda ! (Maksimal 100 huruf)" << endl;
                     cout << ">> ";
                     cin >> nickname;
-                    player = game.getPlayer(i);
+                    player = game->getPlayer(i);
                     player.setName(nickname);
-                    game.setPlayer(i,player);
+                    game->setPlayer(i,player);
                     
                 }
                 for (int i = 3; i > 0; i--){
@@ -125,13 +126,13 @@ int main(){
                 }
             while(!end) {
                 // Reset
-                game.start(2); // 2 kartu
-                game.nextRound();
+                game->start(2); // 2 kartu
+                game->nextRound();
 
                 game_total++;
                 activity.push_back("Game ke-" + to_string(game_total));
                 while(round<7){ 
-                        for (int i = 0; i < game.getTotalPlayer(); i++){
+                        for (int i = 0; i < game->getTotalPlayer(); i++){
                             valid = false;
                             while(!valid){
                                 for (auto i = activity.begin(); i != activity.end(); ++i){
@@ -139,11 +140,11 @@ int main(){
                                 }
                                 valid = true;
                                 cout << "Sekarang adalah giliran ";
-                                cout << game.getPlayer(i).getName();
+                                cout << game->getPlayer(i).getName();
                                 cout << " Anda memiliki kartu:" << endl;
-                                game.getPlayer(i).printHand();
+                                game->getPlayer(i).printHand();
                                 cout << "Kartu di meja :" << endl;
-                                game.Table::print();
+                                game->Table::print();
                                 cout << ". Double" << endl;
                                 cout << ". Next" << endl;
                                 cout << ". Half" << endl;
@@ -154,89 +155,89 @@ int main(){
                                 cout << ">> ";
                                 cin >> playeropt;
                                 if (playeropt == "Double"){
-                                    temp_actv = game.getPlayer(i).getName();
-                                    temp_actv += " melakukan DOUBLE! Poin hadiah naik dari " + to_string(game.getValue()) + " Menjadi " + to_string(game.getValue() * 2);
-                                    game.setReward(game.getValue() * 2);
+                                    temp_actv = game->getPlayer(i).getName();
+                                    temp_actv += " melakukan DOUBLE! Poin hadiah naik dari " + to_string(game->getValue()) + " Menjadi " + to_string(game->getValue() * 2);
+                                    game->setReward(game->getValue() * 2);
                                     activity.push_back(temp_actv);
                                 } else if (playeropt == "Next"){
                                 } else if (playeropt == "Half"){
-                                    temp_actv = game.getPlayer(i).getName();
-                                    temp_actv += " melakukan Half! Poin hadiah turun dari " + to_string(game.getValue()) + " Menjadi " + to_string(game.getValue() / 2);
-                                    game.setReward(game.getValue() / 2);
+                                    temp_actv = game->getPlayer(i).getName();
+                                    temp_actv += " melakukan Half! Poin hadiah turun dari " + to_string(game->getValue()) + " Menjadi " + to_string(game->getValue() / 2);
+                                    game->setReward(game->getValue() / 2);
                                     activity.push_back(temp_actv);
                                 } else if (playeropt == "QUADRUPLE" || playeropt == "QUARTER" || playeropt == "RE-ROLL" || playeropt == "REVERSE" || playeropt == "SWAP" || playeropt == "SWITCH" || playeropt == "ABLITYLESS"){
-                                    bool use = game.getPlayer(i).isUsingAbility();
+                                    bool use = game->getPlayer(i).isUsingAbility();
                                     if (playeropt == "QUADRUPLE"){
-                                        if(game.getPlayer(i).getAbility() == 2){
+                                        if(game->getPlayer(i).getAbility() == 2){
                                             if(!use){
                                                 //use ability here
-                                                // game.getPlayer(i).useAbility();
+                                                // game->getPlayer(i).useAbility();
                                             }else{
-                                                game.getPlayer(i).printPesan2(playeropt);
+                                                game->getPlayer(i).printPesan2(playeropt);
                                             }
                                         }else{
-                                            game.getPlayer(i).printPesan(playeropt);
+                                            game->getPlayer(i).printPesan(playeropt);
                                         }
                                         
                                     } else if (playeropt == "QUARTER"){
-                                        if(game.getPlayer(i).getAbility() == 3){
+                                        if(game->getPlayer(i).getAbility() == 3){
                                             if(!use){
                                                 //USE ABILITY
                                             }else{
-                                                game.getPlayer(i).printPesan2(playeropt);
+                                                game->getPlayer(i).printPesan2(playeropt);
                                             }
                                         }else{
-                                            game.getPlayer(i).printPesan(playeropt);
+                                            game->getPlayer(i).printPesan(playeropt);
                                         }
                                     } else if (playeropt == "RE-ROLL"){
-                                        if(game.getPlayer(i).getAbility() == 1){
+                                        if(game->getPlayer(i).getAbility() == 1){
                                             if(!use){
                                                 //USE ABILITY
                                             }else{
-                                                game.getPlayer(i).printPesan2(playeropt);
+                                                game->getPlayer(i).printPesan2(playeropt);
                                             }
                                         }else{
-                                            game.getPlayer(i).printPesan(playeropt);
+                                            game->getPlayer(i).printPesan(playeropt);
                                         }
                                     } else if (playeropt == "REVERSE" && !use) {
-                                        if(game.getPlayer(i).getAbility() == 4){
+                                        if(game->getPlayer(i).getAbility() == 4){
                                             if(!use){
                                                 //USE ABILITY
                                             }else{
-                                                game.getPlayer(i).printPesan2(playeropt);
+                                                game->getPlayer(i).printPesan2(playeropt);
                                             }
                                         }else{
-                                            game.getPlayer(i).printPesan(playeropt);
+                                            game->getPlayer(i).printPesan(playeropt);
                                         }
                                     } else if (playeropt == "SWAP" && !use){
-                                        if(game.getPlayer(i).getAbility() == 5){
+                                        if(game->getPlayer(i).getAbility() == 5){
                                             if(!use){
                                                 //USE ABILITY
                                             }else{
-                                                game.getPlayer(i).printPesan2(playeropt);
+                                                game->getPlayer(i).printPesan2(playeropt);
                                             }
                                         }else{
-                                            game.getPlayer(i).printPesan(playeropt);
+                                            game->getPlayer(i).printPesan(playeropt);
                                         }
                                     } else if (playeropt == "SWITCH" && !use){
-                                        if(game.getPlayer(i).getAbility() == 6){
+                                        if(game->getPlayer(i).getAbility() == 6){
                                             if(!use){
                                                 //USE ABILITY
                                             }else{
-                                                game.getPlayer(i).printPesan2(playeropt);
+                                                game->getPlayer(i).printPesan2(playeropt);
                                             }
                                         }else{
-                                            game.getPlayer(i).printPesan(playeropt);
+                                            game->getPlayer(i).printPesan(playeropt);
                                         }
                                     } else if (playeropt == "ABLITYLESS" && !use ) {
-                                        if(game.getPlayer(i).getAbility() == 7){
+                                        if(game->getPlayer(i).getAbility() == 7){
                                             if(!use){
                                                 //USE ABILITY
                                             }else{
-                                                game.getPlayer(i).printPesan2(playeropt);
+                                                game->getPlayer(i).printPesan2(playeropt);
                                             }
                                         }else{
-                                            game.getPlayer(i).printPesan(playeropt);
+                                            game->getPlayer(i).printPesan(playeropt);
                                         }
                                     }
 
@@ -258,15 +259,15 @@ int main(){
                     // if(next=="Y" || next=="y"){
                     // }
                 if (round < 5) {
-                    game.nextRound();
+                    game->nextRound();
                 }
                 clear_screen();  
                 round++;
                 activity.clear(); 
                 activity.push_back(temp_actv);
                 }
-                for (int i = 0; i < game.getTotalPlayer(); i++){ 
-                    cards.setCardsList(game.getPlayer(i).getHand(), game.getCards());
+                for (int i = 0; i < game->getTotalPlayer(); i++){ 
+                    cards.setCardsList(game->getPlayer(i).getHand(), game->getCards());
                     combination = &highCard;
                     combination->setPoint(0);
                     combination->setCards(cards);
@@ -323,49 +324,54 @@ int main(){
                         }
                     }
                 // Setscore
-                cout << "Player " << game.getPlayer(pWin).getName() << " memenangkan pertandingan!" << endl;
-                player = game.getPlayer(pWin);
-                player.setScore(player.getValue() + game.getValue());
-                cout << "Player " << player.getName() << " mendapatkan " << game.getValue() << " poin!" << endl;
-                game.setPlayer(pWin, player);
+                cout << "Player " << game->getPlayer(pWin).getName() << " memenangkan pertandingan!" << endl;
+                player = game->getPlayer(pWin);
+                player.setScore(player.getValue() + game->getValue());
+                cout << "Player " << player.getName() << " mendapatkan " << game->getValue() << " poin!" << endl;
+                game->setPlayer(pWin, player);
                 
-                for (int i = 0; i < game.getTotalPlayer(); i++){
-                    cout << "Score Player " << game.getPlayer(i).getName() << " : " << game.getPlayer(i).getValue() << endl;
-                        if (game.getPlayer(i).getValue() >= pow(2, 32)) {
+                for (int i = 0; i < game->getTotalPlayer(); i++){
+                    cout << "Score Player " << game->getPlayer(i).getName() << " : " << game->getPlayer(i).getValue() << endl;
+                        if (game->getPlayer(i).getValue() >= pow(2, 32)) {
                             end = true;
                             break;
                         }
-                    player = game.getPlayer(i);
+                    player = game->getPlayer(i);
                     player.removeHand();
-                    game.setPlayer(i,player);
+                    game->setPlayer(i,player);
                     }
 
                 // Reset
-                game.setReward(64);
+                game->setReward(64);
                 activity.clear();
                 default_deck.shuffle();
-                game.setDeck(default_deck);
-                game.setTable(CardList<Card>());
-                for (int i = 0; i < game.getTotalPlayer(); i++){
-                    tempPlayer = game.getPlayer(i);
+                game->setDeck(default_deck);
+                game->setTable(CardList<Card>());
+                for (int i = 0; i < game->getTotalPlayer(); i++){
+                    tempPlayer = game->getPlayer(i);
                     tempPlayer.setHand(CardList<Card>());
-                    game.setPlayer(i, tempPlayer);
+                    game->setPlayer(i, tempPlayer);
                 }
-                game.setRound(0);
+                game->setRound(0);
                 round = 1;
-                
-            }
-            for (int i = 0; i < game.getTotalPlayer(); i++){ 
-                clear_screen();
-                cout << "Permainan Telah berakhir! Player " << game.getPlayer(pWin).getName() <<  "Memenangkan pertandingan!" << endl;
-                cout << "input apapun untuk melanjutkan..." << endl;
-                cout << ">> ";
-                cin >> enter;
-                end = true;
             }
             
+            clear_screen();
+            cout << "Permainan Telah berakhir! Player " << game->getPlayer(pWin).getName() <<  "Memenangkan pertandingan!" << endl;
+            cout << ">> ";
+            cin >> enter;
+            if (enter == "Y" || enter == "y") {
+                end = false;
+            } else if (enter == "N" || enter == "n") {
+                end = true;
+            } else {
+                throw InvalidInputException();
             }
+            delete game;
+            }
+        } else if (choosegame == 2) {
+            
         }
-    } while(true);
+    } while(!end);
     return 0;
 }
