@@ -16,6 +16,7 @@ class Ability{
         virtual bool useAbility(Game<Card>&, int, int) = 0;
         void printPesan(std::string);
         void printPesan2(std::string);
+        void printPesan3(std::string);
 
     protected:
         bool usingAbility;

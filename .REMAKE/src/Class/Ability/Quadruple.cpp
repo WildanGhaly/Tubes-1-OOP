@@ -8,8 +8,8 @@ Quadruple::Quadruple() : Ability::Ability(2) {
 
 bool Quadruple::useAbility(Game<Card>& game, int playerAbility, int player){
     Player players;
-    if (playerAbility == 2){
-        if (Quadruple::isUsingAbility() == false){
+    if (playerAbility == 2 || playerAbility == 0 || playerAbility == -1){
+        if (playerAbility == 2){
             game.setReward(game.getValue() * 4);
             players = game.getPlayer(player);
             players.setAbility(-1);
@@ -17,7 +17,9 @@ bool Quadruple::useAbility(Game<Card>& game, int playerAbility, int player){
             Ability::setUsingAbility(true);
             
             return true;
-        } else {
+        } else if(playerAbility ==-1){
+            printPesan2("QUADRUPLE");
+        }else if(playerAbility == 0){
             printPesan2("QUADRUPLE");
         }
     } else {

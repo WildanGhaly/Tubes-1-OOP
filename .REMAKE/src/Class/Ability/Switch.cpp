@@ -9,8 +9,8 @@ Switch::Switch() : Ability::Ability(6){
 
 
 bool Switch::useAbility(Game<Card>& game, int playerAbility, int playerNumber){
-    if (playerAbility == 6){
-        if (Switch::isUsingAbility() == false){
+    if (playerAbility == 6 || playerAbility == 0 || playerAbility == -1){
+        if (playerAbility == 6){
             cout << game.getPlayer(playerNumber).getName() << " melakukan Switch" << endl;
             cout << "Kartumu sekarang adalah : "<<endl;
             game.getPlayer(playerNumber).printHand();
@@ -45,8 +45,10 @@ bool Switch::useAbility(Game<Card>& game, int playerAbility, int playerNumber){
             game.getPlayer(playerNumber).printHand();
             Ability::setUsingAbility(true);
             return true;
-        } else {
+        } else if(playerAbility ==-1){
             printPesan2("SWITCH");
+        }else if(playerAbility ==0){
+            printPesan3("SWITCH");
         }
     } else {
         printPesan("SWITCH");
