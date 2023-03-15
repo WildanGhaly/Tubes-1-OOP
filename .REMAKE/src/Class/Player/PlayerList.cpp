@@ -32,6 +32,18 @@ vector<Player> PlayerList::getPlayers() const {
     return this->players;
 }
 
+PlayerList PlayerList::getPlayerss() const {
+    return *this;
+}
+
+void PlayerList::setPlayers(vector<Player> players) {
+    this->players = players;
+}
+
+void PlayerList::setPlayer(int index, Player player) {
+    this->players[index] = player;
+}
+
 void PlayerList::addPlayer(Player player) {
     this->players.push_back(player);
 }

@@ -28,7 +28,7 @@ class Game : public PlayerList, public Table<W> {
         // Table getTable() const;
     
         /* Setter */
-        void setPlayers(PlayerList);
+        void setPlayers(vector<Player>);
         void setPlayer(int, Player);
         void setDeck(CardList<W>);
         void setTable(CardList<W>);
