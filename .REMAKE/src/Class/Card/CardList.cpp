@@ -64,12 +64,12 @@ vector<T> CardList<T>::getCards() const {
 }
 
 template <class T>
-void CardList<T>::setCard(int index, T card) {
+void CardList<T>::setCard(int index, Card card) {
     this->cards[index] = card;
 }
 
 template <class T>
-void CardList<T>::setCards(vector<T> cards) {
+void CardList<T>::setCards(vector<Card> cards) {
     this->cards = cards;
 }
 
@@ -90,12 +90,12 @@ void CardList<T>::setCardsList(CardList<T> cards1, CardList<T> cards2) {
 }
 
 template <class T>
-void CardList<T>::addCard(T card) {
+void CardList<T>::addCard(Card card) {
     this->cards.push_back(card);
 }
 
 template <class T>
-void CardList<T>::removeCard(T card) {
+void CardList<T>::removeCard(Card card) {
     for (int i = 0; i < this->cards.size(); i++) {
         if (this->cards[i] == card) {
             this->cards.erase(this->cards.begin() + i);
@@ -106,7 +106,7 @@ void CardList<T>::removeCard(T card) {
 
 template <class T>
 void CardList<T>::removeCard(int index) {
-    if(index>=0 && index <= this->cards.size()-1){
+    if(index>=0 && index<=this->cards.size()-1){
         this->cards.erase(this->cards.begin() + index);
     } else {
         throw IndexOutOfBoundException();
@@ -257,9 +257,13 @@ void CardList<T>::sortByColorAndNumberDesc() {
 }
 
 template <class T>
-void CardList<T>::print() const {
+void CardList<T>::print() {
+    vector<string> prints(5);
     for (int i = 0; i < this->cards.size(); i++) {
-        cout << this->cards[i] << endl;
+        prints=cards[i].setToPrint(prints);
+    }
+    for (int i=0; i< 5;i++){
+        cout << prints[i] << endl;
     }
 }
 

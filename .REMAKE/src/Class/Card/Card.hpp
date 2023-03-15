@@ -11,6 +11,7 @@
 #include <random>
 #include <map>
 #include <iomanip>
+#include "../Valueable/Valueable.hpp"
 using namespace std;
 
 template <typename T>
@@ -22,7 +23,6 @@ map<string, T>create_color_map(T a) {
     colors["Red"] = a + 3;
     return colors;
 }
-
 class Card : public Valueable<float> {
     public:
         Card();
