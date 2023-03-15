@@ -19,6 +19,7 @@ bool SwapCard::useAbility(Game<Card>& game, int playerAbility, int playerNumber)
                     cout<< i+1 <<"." << game.getPlayer(i).getName()<<endl;
                 }
             }
+            cout<<">>";
             cin>>player1;
             player1--;
             cout << "Silahkan pilih pemain lain yang kartunya ingin anda tukar:" << endl;
@@ -27,15 +28,18 @@ bool SwapCard::useAbility(Game<Card>& game, int playerAbility, int playerNumber)
                     cout<< i+1 <<"." << game.getPlayer(i).getName()<<endl;
                 }
             }
+            cout<<">>";
             cin>>player2;
             player2--;
 
             cout<< "Silahkan pilih kartu kanan/kiri "<< game.getPlayer(player1).getName() << endl;
-            cout<<"1. Kiri\n2.Kanan"<<endl;
+            cout<<"1. Kiri\n2. Kanan"<<endl;
+            cout<<">>";
             cin>>player1CardIdx;
             player1CardIdx--;
             cout<< "Silahkan pilih kartu kanan/kiri "<< game.getPlayer(player2).getName() << endl;
-            cout<<"1. Kiri\n2.Kanan"<<endl;
+            cout<<"1. Kiri\n2. Kanan"<<endl;
+            cout<<">>";
             cin>>player2CardIdx;
             player2CardIdx--;
 
@@ -67,7 +71,7 @@ bool SwapCard::useAbility(Game<Card>& game, int playerAbility, int playerNumber)
             playerr3.setAbility(-1);
             game.setPlayer(player1,playerr1);
             game.setPlayer(player2,playerr2);
-            game.setPlayer(player2,playerr3);
+            game.setPlayer(playerNumber,playerr3);
 
             Ability::setUsingAbility(true);
             return true;

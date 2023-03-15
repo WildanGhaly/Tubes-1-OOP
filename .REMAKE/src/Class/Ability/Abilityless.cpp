@@ -5,15 +5,22 @@ Abilityless::Abilityless() : Ability::Ability(7){
 
 }
 bool Abilityless::useAbility(Game<Card>& game, int playerAbility, int player){
-    bool allUse = false;
+    bool allUse;
+    int count = 0;
     for(int i=0;i<game.getPlayers().size();i++){
-        if(game.getPlayer(i).getAbility()<=0){
-            allUse = true;
-            break;
+        if(player != i){
+            if(game.getPlayer(i).getAbility()<=0){
+                count++;
+            }
         }
     }
+    if(count == game.getPlayers().size()-1){
+        allUse = true;
+    }else{
+        allUse = false;
+    }
     if (playerAbility == 7 || playerAbility == 0 || playerAbility == -1){
-        if (Abilityless::isUsingAbility() == false){
+        if (playerAbility == 7){
             if(!allUse){
                 cout<< game.getPlayer(player).getName()<<" akan mematikan kartu ablity lawan!"<<endl;
                 cout<<"Silahkan pilih pemain yang kartu abilitynya ingin dimatikan: "<<endl;
