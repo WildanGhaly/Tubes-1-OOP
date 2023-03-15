@@ -70,6 +70,12 @@ void Player::removeHand(int index) {
     this->hand.removeCard(index);
 }
 
+void Player::removeHand() {
+    for (int i = 0; i < this->hand.getTotalCard(); i++) {
+        this->hand.removeCard(i);
+    }
+}
+
 void Player::printHand() const {
     for (int i = 0; i < this->hand.getTotalCard(); i++) {
         cout << this->hand.getCard(i) << endl;
