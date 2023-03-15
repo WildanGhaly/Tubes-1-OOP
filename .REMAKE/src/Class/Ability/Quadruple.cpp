@@ -1,11 +1,29 @@
 #include "Quadruple.hpp"
 using namespace std;
 
+
 Quadruple::Quadruple() : Ability::Ability(2) {
     
 }
-void Quadruple::useAbility(){
-    Table::setScore(Table::getScore() * 4);
-    Ability::setUsingAbility(true);
-}
 
+bool Quadruple::useAbility(Game<Card>& game, int playerAbility, int player){
+    Player players;
+    if (playerAbility == 2 || playerAbility == 0 || playerAbility == -1){
+        if (Quadruple::isUsingAbility() == false){
+            game.setReward(game.getValue() * 4);
+            players = game.getPlayer(player);
+            players.setAbility(-1);
+            game.setPlayer(player, players);
+            Ability::setUsingAbility(true);
+            
+            return true;
+        } else if(playerAbility ==-1){
+            printPesan2("QUADRUPLE");
+        }else if(playerAbility == 0){
+            printPesan2("QUADRUPLE");
+        }
+    } else {
+        printPesan("QUADRUPLE");
+    }
+    return false;
+}

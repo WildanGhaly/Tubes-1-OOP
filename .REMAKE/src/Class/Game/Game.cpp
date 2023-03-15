@@ -40,7 +40,7 @@ void Game<W>::setTable(CardList<W> table) {
 }
 
 template <class W>
-void Game<W>::setPlayers(PlayerList players) {
+void Game<W>::setPlayers(vector<Player> players) {
     this->players = players;
 }
 
@@ -56,7 +56,7 @@ void Game<W>::setRound(int round) {
 
 /* Method */
 template <class W>
-void Game<W>::print() const {
+void Game<W>::print() {
     PlayerList::print();
     Table<W>::print();
 }

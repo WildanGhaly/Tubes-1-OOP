@@ -2,10 +2,10 @@
 #define _PLAYER_HPP_
 
 #include "../Card/CardList.hpp"
-#include "../Ability/Ability.hpp"
+// #include "../Ability/Ability.hpp"
 using namespace std;
 
-class Player : public Valueable<long long int>, public Ability {
+class Player : public Valueable<long long int> {
     public:
         Player();
         Player(string);
@@ -17,10 +17,12 @@ class Player : public Valueable<long long int>, public Ability {
         int getHandSize() const;
         CardList<Card> getHand() const;
         Card getHand(int) const;
+        int getAbility() const;
     
         void setName(string);
         void setScore(long long int);
         void setHand(CardList<Card>);
+        void setAbility(int);
         void addHand(Card);
         void addScore(long long int);
         void removeHand(Card);
@@ -28,7 +30,6 @@ class Player : public Valueable<long long int>, public Ability {
         void printHand();
         void printCapsa() const;
         void swapCardPosition(int, int);
-        void useAbility() {};
         void removeHand() {};
 
         bool operator==(const Player&) const;
@@ -46,6 +47,7 @@ class Player : public Valueable<long long int>, public Ability {
         string name;
         long long int score;
         CardList<Card> hand;
+        int ability;
 };
 
 #endif
