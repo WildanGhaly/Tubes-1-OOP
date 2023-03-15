@@ -1,6 +1,12 @@
 // Halo ges pakabar?
 // Ini adalah main.cpp
-#include <windows.h>
+#ifdef WIN64
+    #include <windows.h>
+    #define DELAYSCR Sleep(1000)
+#else
+    #include <unistd.h>
+    #define DELAYSCR usleep(1000);
+#endif
 #include <cstring>
 #include <time.h>
 #include <math.h>
@@ -36,11 +42,11 @@
 using namespace std;
 
 void clear_screen(){
-    #ifdef __linux__
+    #ifdef WIN64
+        system("CLS");
+    #else
         printf("\033[2J");
     	printf("\033[0;0f");
-    #else
-        system("CLS");
     #endif
 }
 
@@ -54,10 +60,10 @@ int main(){
     nickname = new char[100];
     string playeropt;
     string temp_actv;
-    boolean valid = false;
+    bool valid = false;
     vector <string> activity;
     string enter;
-    boolean end = false;
+    bool end = false;
     int pWin;
     int game_total = 0;
     Combination *combination;
@@ -122,7 +128,7 @@ int main(){
                 for (int i = 3; i > 0; i--){
                     clear_screen();
                     cout << "Game will start in " << i << endl;
-                    Sleep(1000);
+                    DELAYSCR;
                 }
             while(!end) {
                 // Reset
@@ -382,6 +388,7 @@ int main(){
             while (ii < 4){
                 done = false;
                 while (!done){
+                    clear_screen();
                     cout << "Player " << ii+1 << " turn" << endl;
                     cout << "Kartu saat in: " << endl;
                     game->getPlayer(ii).printCapsa();
