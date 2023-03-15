@@ -1,11 +1,13 @@
 #include "Quarter.hpp"
 using namespace std;
 
-Quarter::Quarter() : Ability::Ability(3){
+template <class T>
+Quarter<T>::Quarter() : Ability::Ability(3){
 
 }
 
-void Quarter::useAbility(){
-    Table::setScore(Table::getScore() / 4);
+template <class T>
+T Quarter<T>::useAbility(T score){
     Ability::setUsingAbility(true);
+    return score / 4;
 }

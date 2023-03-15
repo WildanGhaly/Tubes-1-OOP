@@ -16,6 +16,8 @@ Player::Player(const Player& player) {
     this->name = player.name;
     this->score = player.score;
     this->hand = player.hand;
+    this->ability_id = player.ability_id;
+    this->usingAbility = player.usingAbility;
 }
 
 Player::~Player() {
@@ -142,6 +144,8 @@ Player& Player::operator=(const Player& player) {
     this->name = player.name;
     this->score = player.score;
     this->hand = player.hand;
+    this->ability_id = player.ability_id;
+    this->usingAbility = player.usingAbility;
     return *this;
 }
 

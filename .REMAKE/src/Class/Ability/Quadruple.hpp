@@ -4,6 +4,8 @@
 #include <iostream>
 #include "Ability.hpp"
 #include "../Table/Table.hpp"
+#include "../Game/Game.hpp"
+
 
 class Quadruple : public Ability {
     public :
@@ -11,6 +13,7 @@ class Quadruple : public Ability {
         void useAbility();
         void useAbilitys(Game<Card>&, int);
 };
+    
 
 
 #endif
