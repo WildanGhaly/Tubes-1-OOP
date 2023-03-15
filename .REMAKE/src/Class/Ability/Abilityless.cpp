@@ -12,7 +12,7 @@ bool Abilityless::useAbility(Game<Card>& game, int playerAbility, int player){
             break;
         }
     }
-    if (playerAbility == 7 ){
+    if (playerAbility == 7 || playerAbility == 0 || playerAbility == -1){
         if (Abilityless::isUsingAbility() == false){
             if(!allUse){
                 cout<< game.getPlayer(player).getName()<<" akan mematikan kartu ablity lawan!"<<endl;
@@ -48,7 +48,9 @@ bool Abilityless::useAbility(Game<Card>& game, int playerAbility, int player){
                 cout<<"Eits, ternyata semua pemain sudah memakai kartu kemampuan. Yah kamu kena sendiri deh, kemampuanmu menjadi abilityless. Yah, pengunaan kartu ini sia-sia"<<endl;
             }
             
-        } else {
+        } else if(playerAbility ==-1) {
+            printPesan2("ABILITYLESS");
+        } else if(playerAbility == 0){
             printPesan2("ABILITYLESS");
         }
     } else {
