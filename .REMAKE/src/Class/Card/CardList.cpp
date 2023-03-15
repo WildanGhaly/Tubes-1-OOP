@@ -64,12 +64,12 @@ vector<T> CardList<T>::getCards() const {
 }
 
 template <class T>
-void CardList<T>::setCard(int index, Card card) {
+void CardList<T>::setCard(int index, T card) {
     this->cards[index] = card;
 }
 
 template <class T>
-void CardList<T>::setCards(vector<Card> cards) {
+void CardList<T>::setCards(vector<T> cards) {
     this->cards = cards;
 }
 
