@@ -17,7 +17,12 @@ class PlayerList {
         int getTotalPlayer() const;
         Player getPlayer(int) const;
         vector<Player> getPlayers() const;
+        PlayerList getPlayerss() const;
 
+        /* Setter */
+        void setPlayers(vector<Player>);
+        void setPlayer(int, Player);
+        
         /* Method */
         void addPlayer(Player);
         void removePlayer(Player);
