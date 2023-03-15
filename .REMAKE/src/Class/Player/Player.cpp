@@ -4,18 +4,23 @@ Player::Player() {
     this->name = "Player";
     this->score = 0;
     this->hand = CardList<Card>();
+    this -> ability = 0;
 }
 
 Player::Player(string name) {
     this->name = name;
     this->score = 0;
     this->hand = CardList<Card>();
+    this -> ability = 0;
 }
 
 Player::Player(const Player& player) {
     this->name = player.name;
     this->score = player.score;
     this->hand = player.hand;
+    this -> ability = player.ability;
+    // this->ability_id = player.ability_id;
+    // this->usingAbility = player.usingAbility;
 }
 
 Player::~Player() {
@@ -42,6 +47,10 @@ Card Player::getHand(int index) const {
     return this->hand.getCard(index);
 }
 
+int Player::getAbility() const {
+    return this->ability;
+}
+
 void Player::setName(string name) {
     this->name = name;
 }
@@ -52,6 +61,10 @@ void Player::setScore(long long int score) {
 
 void Player::setHand(CardList<Card> hand) {
     this->hand = hand;
+}
+
+void Player::setAbility(int ability) {
+    this->ability = ability;
 }
 
 void Player::addHand(Card card) {
@@ -142,6 +155,9 @@ Player& Player::operator=(const Player& player) {
     this->name = player.name;
     this->score = player.score;
     this->hand = player.hand;
+    this -> ability = player.ability;
+    // this->ability_id = player.ability_id;
+    // this->usingAbility = player.usingAbility;
     return *this;
 }
 

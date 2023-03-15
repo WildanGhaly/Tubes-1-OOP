@@ -3,11 +3,12 @@
 
 #include "../Player/PlayerList.hpp"
 #include "Ability.hpp"
+#include "../Game/Game.hpp"
 
-class Reroll : public PlayerList, public Ability {
+class Reroll : public Ability {
     public :
     Reroll();
-    void useAbility();
+    bool useAbility(Game<Card>&, int, int);
 };  
 
 
