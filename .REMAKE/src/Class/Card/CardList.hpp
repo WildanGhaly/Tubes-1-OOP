@@ -22,14 +22,16 @@ class CardList {
         vector<T> getCards() const;
 
         /* Setter */
+
         void setCard(int, T);
         void setCards(vector<T>);
         void setCards(CardList<T>);
         void setCardsList(CardList<T>, CardList<T>);
 
+
         /* Method */
-        void addCard(T);
-        void removeCard(T);
+        void addCard(Card);
+        void removeCard(Card);
         void removeCard(int);
         void shuffle();
         void sortByNumber();
@@ -40,7 +42,7 @@ class CardList {
         void sortByNumberAndColorDesc();
         void sortByColorAndNumber();
         void sortByColorAndNumberDesc();
-        void print() const;
+        void print();
 
         /* Operator */
         bool operator==(const CardList&) const;
