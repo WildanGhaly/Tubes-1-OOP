@@ -3,13 +3,13 @@
 
 #include <iostream>
 #include "Ability.hpp"
-#include "../Table/Table.hpp"
+#include "../Game/Game.hpp"
 
-template<class T>
-class Quarter : public Ability<T>  {
+
+class Quarter : public Ability  {
     public :
         Quarter();
-        T useAbility(T);
+        bool useAbility(Game<Card>&, int , int);
 };
 
 

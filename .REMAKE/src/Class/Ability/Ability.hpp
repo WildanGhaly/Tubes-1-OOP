@@ -10,17 +10,14 @@ class Ability{
         Ability();
         Ability(int);
         Ability(const Ability&);
-        int getAbility() const;
-        void setAbility(int);
         bool isUsingAbility() const;
         void setUsingAbility(bool);
-        virtual void useAbility() = 0;
-        virtual void useAbilitys(Game<Card>&, int) = 0;
+        // virtual void useAbility() = 0;
+        virtual bool useAbility(Game<Card>&, int, int) = 0;
         void printPesan(std::string);
         void printPesan2(std::string);
 
     protected:
-        int ability_id;
         bool usingAbility;
 
 };

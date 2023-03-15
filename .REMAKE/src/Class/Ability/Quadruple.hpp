@@ -10,8 +10,7 @@
 class Quadruple : public Ability {
     public :
         Quadruple();
-        void useAbility();
-        void useAbilitys(Game<Card>&, int);
+        bool useAbility(Game<Card>&, int, int);
 };
     
 
