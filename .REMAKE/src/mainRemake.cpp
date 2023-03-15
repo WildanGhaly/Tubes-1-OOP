@@ -294,6 +294,7 @@ int main(){
                         if (!isReversed && antiReversed) {
                             temp2Players = game->getPlayers();
                             reverse(temp2Players.begin() + locateReverse + 1, temp2Players.end());
+                            rotate(temp2Players.begin(), temp2Players.begin() + 1, temp2Players.end());
                             game->setPlayers(temp2Players);
                             isReversed = true;
                             cout << "MASUK" << endl;
@@ -302,7 +303,7 @@ int main(){
                         temp2Players = game->getPlayers();
                         rotate(temp2Players.begin(), temp2Players.begin() + 1, temp2Players.end());
                         game->setPlayers(temp2Players);
-                        
+
                 if (round < 5) {
                     game->nextRound();
                 }
