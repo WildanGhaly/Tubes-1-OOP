@@ -244,7 +244,6 @@ int main(){
                                             antiReversed = !antiReversed;
                                             cout << "Mengubah arah putaran" << endl;
                                             locateReverse = i % game->getTotalPlayer();
-                                            cout << locateReverse << endl;
                                             valid = false;
                                         } else {
                                             valid = false;
