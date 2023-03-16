@@ -70,6 +70,14 @@ class CardRedundancyException : public exception  {
 	}
 };
 
+class NotFoundException : public exception  {
+	public:
+    const char* what() const throw() {
+		return "\033[1;31mException: Not found\n"
+		"Please insert proper deck\033[0m\n";
+	}
+};
+
 template <typename T>
 void Input(T& input){
 	cin.exceptions(ios_base::failbit);
