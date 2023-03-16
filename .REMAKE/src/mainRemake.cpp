@@ -56,7 +56,7 @@ int main(){
     system("");
     bool valid = false, end = false, isReversed = false, antiReversed = false, isfile;
     int choosegame = 0, path = 0, round = 1, pWin, game_total = 0, locateReverse = 0, color, number;
-    float max;
+    float max, tempMax;
     string next, playeropt, temp_actv, enter, fileName;
     vector <string> activity;
     vector<int> abilityId;
@@ -133,9 +133,9 @@ int main(){
             cout << ">> ";
             Input(choosegame);
             if (choosegame== 1) {
-                if(cards.getTotalCard()<19 && isfile){
+                if(cards.getTotalCard()<21 && isfile){
                     cards=CardList<Card>();
-                    cout << "\033[1;31mException: Minimum cards for poker is 19\033[0m\n";
+                    cout << "\033[1;31mException: Minimum cards for poker is 21\033[0m\n";
                     throw CardInsufficientException();
                 }
                 for (int i = 0; i < game->getTotalPlayer(); i++){
@@ -162,6 +162,8 @@ int main(){
                     abilityId.erase(abilityId.begin()+index);
                 }
                 while(!end) {
+                    isReversed = false;
+                    antiReversed = false;
                 // Reset
                 game->start(2); // 2 kartu
                 game->nextRound();
@@ -313,20 +315,26 @@ int main(){
                 }
                 for (int i = 0; i < game->getTotalPlayer(); i++){ 
                     cards.setCardsList(game->getPlayer(i).getHand(), game->getCards());
-                    for (int i = 0; i < 9; i++){
-                        combination = combinations[i];
-                        combination->setCards(cards);
-                        combination->setPoint(i > 0 ? combinations[i-1]->getValue() : 0);
+                    tempMax = 0;
+                    for (int j = 0; j < 9; j++){
+                        combination = combinations[j];
+                        if (j == 0){
+                            combination->setCards(game->getPlayer(i).getHand());
+                        } else {
+                            cards.sortByNumberAndColor();
+                            combination->setCards(cards);
+                        }
+                        combination->setPoint(0);
                         combination->computeScore();
+                        tempMax += combination->getValue();
                     }
                     if (i == 0){
-                        max = combination->getValue();
+                        max = tempMax;
+                        pWin = i;
+                    } else if (max < tempMax) {
+                        max = tempMax;
                         pWin = i;
                     }
-                    else if (max < combination->getValue()) {
-                            max = combination->getValue();
-                            pWin = i;
-                        }
                     }
                 // Setscore
                 cout << "Player " << game->getPlayer(pWin).getName() << " memenangkan pertandingan!" << endl;
