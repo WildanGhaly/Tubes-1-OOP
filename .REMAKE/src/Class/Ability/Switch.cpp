@@ -23,7 +23,7 @@ bool Switch::useAbility(Game<Card>& game, int playerAbility, int playerNumber){
             }
             cout<<">";
             int enemyNumber;
-            InputEs(enemyNumber);
+            Input(enemyNumber);
             enemyNumber--;
             
             cout<<"Kedua kartu " << game.getPlayer(playerNumber).getName() <<" telah ditukar dengan "<< game.getPlayer(enemyNumber).getName()<<"!"<<endl;

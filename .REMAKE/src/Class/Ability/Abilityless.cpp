@@ -33,7 +33,7 @@ bool Abilityless::useAbility(Game<Card>& game, int playerAbility, int player){
 
                 cout<<">";
                 int enemyNumber;
-                InputEs(enemyNumber);
+                Input(enemyNumber);
                 enemyNumber--;
                 Playermati = game.getPlayer(enemyNumber);
                 playerPengguna = game.getPlayer(player);
