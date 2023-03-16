@@ -1,3 +1,6 @@
+#ifndef __MAXMINAVG_HPP__
+#define __MAXMINAVG_HPP__
+
 #include <iostream>
 #include <algorithm>
 
@@ -47,3 +50,5 @@ template<typename T, typename... Args>
 T find_avg(T arg, Args... args) {
     return (arg + find_avg(args...)) / 2;
 }
+
+#endif
