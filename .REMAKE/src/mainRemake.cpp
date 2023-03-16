@@ -1,12 +1,12 @@
 // Halo ges pakabar?
 // Ini adalah main.cpp
 #pragma 
-#ifdef WIN64
-    #include <windows.h>
-    #define DELAYSCR Sleep(1000)
-#else
+#ifdef _linux_
     #include <unistd.h>
     #define DELAYSCR usleep(1000000)
+#else
+    #include <windows.h>
+    #define DELAYSCR Sleep(1000)
 #endif
 #include <cstring>
 #include <time.h>
