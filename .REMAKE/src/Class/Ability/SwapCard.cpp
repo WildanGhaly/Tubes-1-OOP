@@ -9,8 +9,8 @@ SwapCard::SwapCard() : Ability::Ability(6){
 bool SwapCard::useAbility(Game<Card>& game, int playerAbility, int playerNumber){
 
 
-    if (playerAbility == 5 || playerAbility == 0 || playerAbility == -1){
-        if (SwapCard::isUsingAbility() == false){
+    if (playerAbility == 5 || playerAbility == 0 || playerAbility == -5){
+        if (playerAbility == 5){
             cout<<game.getPlayer(playerNumber).getName()<<" Melakukan SWAPCARD"<<endl;
             cout << "Silahkan pilih pemain yang kartunya ingin anda tukar:" << endl;
             int player1,player2,player1CardIdx,player2CardIdx;
@@ -68,14 +68,14 @@ bool SwapCard::useAbility(Game<Card>& game, int playerAbility, int playerNumber)
             playerr3 = game.getPlayer(playerNumber);
             playerr2.setHand(temp1);
             playerr1.setHand(temp2);
-            playerr3.setAbility(-1);
+            playerr3.setAbility(-5);
             game.setPlayer(player1,playerr1);
             game.setPlayer(player2,playerr2);
             game.setPlayer(playerNumber,playerr3);
 
             Ability::setUsingAbility(true);
             return true;
-        } else if(playerAbility ==-1) {
+        } else if(playerAbility ==-5) {
             printPesan2("SWAP");
         } else if(playerAbility == 0) {
             printPesan3("SWAP");
