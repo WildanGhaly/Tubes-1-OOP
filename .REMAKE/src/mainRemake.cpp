@@ -7,7 +7,6 @@
 #else
     #include <unistd.h>
     #define DELAYSCR usleep(1000000)    
-    
 #endif
 #include <cstring>
 #include <time.h>
@@ -53,24 +52,19 @@ void clear_screen(){
     #endif
 }
 
-
 int main(){
     system("");
+    bool valid = false, end = false, isReversed = false, antiReversed = false, isfile;
+    int choosegame = 0, path = 0, round = 1, pWin, game_total = 0, locateReverse = 0, color, number;
+    float max;
+    string next, playeropt, temp_actv, enter, fileName;
+    vector <string> activity;
+    vector<int> abilityId;
+    vector<int> selectedAbility;
+    vector<Player> temp2Players;
     Player tempPlayer;
-    int choosegame=0;
-    int path=0;
-    int round=1;
-    string next;
     char* nickname;
     nickname = new char[100];
-    string playeropt;
-    string temp_actv;
-    bool valid = false;
-    vector <string> activity;
-    string enter;
-    bool end = false;
-    int pWin;
-    int game_total = 0;
     Combination *combination;
     HighCard highCard;
     Pair pair;
@@ -81,9 +75,9 @@ int main(){
     FullHouse fullHouse;
     FourOfKind fourOfKind;
     StraightFlush straightFlush;
+    Combination *combinations[9] = {&highCard, &pair, &twoPair, &threeOfKind, &straight, &flush, &fullHouse, &fourOfKind, &straightFlush};
     CardList<Card> cards = CardList<Card>();
     CardList<Card> default_deck("POKER");
-    float max;
     Game<Card> *game;
     Ability *ability;
     Quadruple quadruple;
@@ -93,22 +87,7 @@ int main(){
     Switch switch_;
     ReverseDirection reverseDirection;  
     Abilityless abilityless;
-    vector<int> abilityId;
-    vector<int> selectedAbility;
-    bool isReversed = false;
-    bool antiReversed = false;
     PlayerList tempPlayers;
-    vector<Player> temp2Players;
-    int locateReverse = 0;
-    bool isfile;
-    Combination *combinations[9] = {&highCard, &pair, &twoPair, &threeOfKind, &straight, &flush, &fullHouse, &fourOfKind, &straightFlush};
-    
-    //buat file
-    int color;
-    int number;
-    string fileName;
-    //buat file
-
 
     do {
         try{
@@ -120,12 +99,10 @@ int main(){
         if (path == 1){
             isfile=false;
             game = new Game<Card>(7, "POKER"); // 7 pemain
-            // default_deck = game->getDeck();
         } else if(path==2){
             isfile=true;
             cout << "Masukkan nama file: ";
             cin >> fileName;
-
             ifstream infile ("../test/" + fileName);
             if(infile.fail()){
                 throw FileNotExistException();
@@ -169,7 +146,6 @@ int main(){
                     player.setName(nickname);
                     game->setPlayer(i,player);
                     abilityId.push_back(i);
-                    
                 }
                 for (int i = 3; i > 0; i--){
                     clear_screen();
@@ -189,7 +165,6 @@ int main(){
                 // Reset
                 game->start(2); // 2 kartu
                 game->nextRound();
-
                 game_total++;
                 activity.push_back("Game ke-" + to_string(game_total));
                 while(round<7){ 
@@ -238,7 +213,6 @@ int main(){
                                         }else{
                                             valid = false;
                                         }
-                                        
                                     } else if (playeropt == "QUARTER"){
                                         ability=&quarter;
                                         bool use = ability->useAbility(*game, game->getPlayer(i % game->getTotalPlayer()).getAbility(),i % game->getTotalPlayer());
@@ -260,7 +234,6 @@ int main(){
                                             valid = false;
                                         }
                                     } else if (playeropt == "REVERSE") {
-
                                         ability=&reverseDirection;
                                         bool use = ability->useAbility(*game, game->getPlayer(i % game->getTotalPlayer()).getAbility(),i % game->getTotalPlayer());
                                         if(use){
@@ -271,7 +244,6 @@ int main(){
                                             valid = false;
                                         } else {
                                             valid = false;
-
                                         }
                                     } else if (playeropt == "SWAP"){
                                         ability=&swapCard;
@@ -304,21 +276,17 @@ int main(){
                                             valid = false;
                                         }
                                     }
-
                                 } else {
                                     cout << "Command tidak valid atau ability tersebut bukan punyamu!" << endl;
                                     valid = false;
                                 }
                                 cout << "input apapun untuk melanjutkan..." << endl;
                                 cout << ">> ";
-                                cin >> enter;
-                                
+                                cin >> enter;   
                                 DELAYSCR;
                                 clear_screen();
-                            }
-                            
+                            }   
                         }
-                        
                         if (!isReversed && antiReversed) {
                             temp2Players = game->getPlayers();
                             reverse(temp2Players.begin() + locateReverse + 1, temp2Players.end());
@@ -326,11 +294,9 @@ int main(){
                             game->setPlayers(temp2Players);
                             isReversed = true;
                         }
-
                         temp2Players = game->getPlayers();
                         rotate(temp2Players.begin(), temp2Players.begin() + 1, temp2Players.end());
                         game->setPlayers(temp2Players);
-
                 if (round < 5) {
                     game->nextRound();
                 } else {
@@ -343,14 +309,12 @@ int main(){
                 }
                 for (int i = 0; i < game->getTotalPlayer(); i++){ 
                     cards.setCardsList(game->getPlayer(i).getHand(), game->getCards());
-                    
                     for (int i = 0; i < 9; i++){
                         combination = combinations[i];
                         combination->setCards(cards);
                         combination->setPoint(i > 0 ? combinations[i-1]->getValue() : 0);
                         combination->computeScore();
                     }
-                        
                     if (i == 0){
                         max = combination->getValue();
                         pWin = i;
@@ -358,7 +322,6 @@ int main(){
                     else if (max < combination->getValue()) {
                             max = combination->getValue();
                             pWin = i;
-                            // Bandingin Rules di sini
                         }
                     }
                 // Setscore
@@ -367,7 +330,6 @@ int main(){
                 player.setScore(player.getValue() + game->getValue());
                 cout << "Player " << player.getName() << " mendapatkan " << game->getValue() << " poin!" << endl;
                 game->setPlayer(pWin, player);
-                
                 for (int i = 0; i < game->getTotalPlayer(); i++){
                     cout << "Score Player " << game->getPlayer(i).getName() << " : " << game->getPlayer(i).getValue() << endl;
                         if (game->getPlayer(i).getValue() >= pow(2, 32)) {
@@ -378,7 +340,6 @@ int main(){
                     player.removeHand();
                     game->setPlayer(i,player);
                     }
-
                 // Reset
                 game->setReward(64);
                 activity.clear();
@@ -393,7 +354,6 @@ int main(){
                 game->setRound(0);
                 round = 1;
             }
-            
             clear_screen();
             cout << "Permainan Telah berakhir! Player " << game->getPlayer(pWin).getName() <<  "Memenangkan pertandingan!" << endl;
             cout << ">> ";
@@ -435,7 +395,6 @@ int main(){
                     cout << "8  9  10 11 12" << endl;
                     cout << "Contoh input: 1 2" << endl;
                     cout << "Jika tidak ada kartu yang akan ditukar, masukkan 0 0" << endl;
-                    // cin >> swap1 >> swap2;
                     Input(swap1);
                     Input(swap2);
                     cin.ignore();
@@ -458,7 +417,6 @@ int main(){
                 for (int j = 0; j < 3; j++){
                     value[j] = 0.0;
                 }
-
                 for (int k = 0; k < 3; k++){
                     if (k == 0) {
                         cards << game->getPlayer(ii).getHand(0) << game->getPlayer(ii).getHand(1) << game->getPlayer(ii).getHand(2);
@@ -467,21 +425,16 @@ int main(){
                     } else if (k == 2) {
                         cards << game->getPlayer(ii).getHand(8) << game->getPlayer(ii).getHand(9) << game->getPlayer(ii).getHand(10) << game->getPlayer(ii).getHand(11) << game->getPlayer(ii).getHand(12);
                     }
-
                     cards.sortByNumberAndColor();
-
                     for (int l = 0; l < 9; l++){
                         combination = combinations[l];
                         combination->setCards(cards);
                         combination->setPoint(l > 0 ? combinations[l-1]->getValue() : 0);
                         combination->computeScore();
                     }
-
                     value[k] = combination->getValue();
-
                     cards = CardList<Card>(); // clear card
                 }
-
                 if (value[0] <= value[1] && value[1] <= value[2]){
                     // sesuai aturan capsa
                     cout << "Sudah sesuai!" << endl;
@@ -492,9 +445,7 @@ int main(){
                 } else {
                     cout << "Kartu belum sesuai aturan capsa" << endl;
                 }
-
             }
-
             for (int l = 0; l < 4; l++) {
                 for (int m = 0; m < 4; m++) {
                     if (l != m) {
@@ -503,22 +454,16 @@ int main(){
                                 tempPlayer = game->getPlayer(l);
                                 tempPlayer.addScore(10);
                                 game->setPlayer(l, tempPlayer);
-                            } else {
-                                // do nothing
-                            }
+                            } 
                         }
-                    } else {
-                        // do nothing
                     }
                 }
             }
-
             cout << "Hasil akhir: " << endl;
             for (int o = 0; o < 4; o++) {
                 cout << "Player " << o+1 << ": " << game->getPlayer(o).getValue() << endl;
                 game->getPlayer(o).printCapsa();
             } 
-
             winnerCapsaPoint = find_max(game->getPlayer(0).getValue(), game->getPlayer(1).getValue(), game->getPlayer(2).getValue(), game->getPlayer(3).getValue());
             cout << "Pemenangnya adalah: " << endl;
             for (int p = 0; p < 4; p++) {
@@ -526,7 +471,6 @@ int main(){
                     cout << "Player " << p+1 << " Dengan poin " << game->getPlayer(p).getValue() << endl;
                 }
             }
-            
             cout << "Apakah anda ingin bermain lagi? (Y/N)" << endl;
             cin >> enter;
             cin.ignore();
@@ -537,10 +481,7 @@ int main(){
             } else {
                 throw InvalidInputException();
             }
-
-
-            delete game;
-            
+            delete game;   
         } else {
             throw InvalidInputException();
         }
