@@ -11,7 +11,7 @@ bool ReverseDirection::useAbility(Game<Card>& game, int playerAbility, int playe
     if (playerAbility == 4 || playerAbility == 0 || playerAbility == -1){
         if (playerAbility == 4){
             player = game.getPlayer(players);
-            player.setAbility(-1);
+            player.setAbility(-4);
             playerList = game.getPlayers();
             reverse(playerList.begin() + players + 1, playerList.end());
             game.setPlayers(playerList);

@@ -5,6 +5,7 @@ Player::Player() {
     this->score = 0;
     this->hand = CardList<Card>();
     this -> ability = 0;
+    this->abilityName = create_player_ability(0);
 }
 
 Player::Player(string name) {
@@ -12,6 +13,7 @@ Player::Player(string name) {
     this->score = 0;
     this->hand = CardList<Card>();
     this -> ability = 0;
+    this->abilityName = create_player_ability(0);
 }
 
 Player::Player(const Player& player) {
@@ -19,6 +21,7 @@ Player::Player(const Player& player) {
     this->score = player.score;
     this->hand = player.hand;
     this -> ability = player.ability;
+    this->abilityName = player.abilityName;
     // this->ability_id = player.ability_id;
     // this->usingAbility = player.usingAbility;
 }
@@ -49,6 +52,15 @@ Card Player::getHand(int index) const {
 
 int Player::getAbility() const {
     return this->ability;
+}
+
+string Player::getAbilityName() const {
+    for (auto it = abilityName.begin(); it != abilityName.end(); it++) {
+        if (it->first == this->ability) {
+            return "Abilitymu " + it->second;
+        }
+    }
+    return "Exception";
 }
 
 void Player::setName(string name) {
@@ -156,6 +168,7 @@ Player& Player::operator=(const Player& player) {
     this->score = player.score;
     this->hand = player.hand;
     this -> ability = player.ability;
+    this->abilityName = player.abilityName;
     // this->ability_id = player.ability_id;
     // this->usingAbility = player.usingAbility;
     return *this;
