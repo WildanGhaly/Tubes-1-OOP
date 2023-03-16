@@ -167,6 +167,10 @@ int main(){
                 game->nextRound();
                 game_total++;
                 activity.push_back("Game ke-" + to_string(game_total));
+                for (int z = 0; z < 9; z++){
+                    combination = combinations[z];
+                    combination->setPoint(0);
+                }
                 while(round<7){ 
                         for (int i = isReversed ? game->getTotalPlayer() - 1 : 0; ((!isReversed) && (i < game->getTotalPlayer())) || ((isReversed) && (i >= 0)); i = i + (isReversed ? -1 : 1)){
                             valid = false;
