@@ -4,6 +4,7 @@
 #include <cstring>
 #include <string>
 
+#include "../Game/Game.hpp"
 
 class Ability{
     public:

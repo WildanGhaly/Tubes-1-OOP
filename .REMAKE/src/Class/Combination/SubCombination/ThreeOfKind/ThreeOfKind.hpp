@@ -1,7 +1,7 @@
 #ifndef _THREE_OF_KIND_HPP_
 #define _THREE_OF_KIND_HPP_
 
-// #include "../../Combination.cpp"
+#include "../../Combination.hpp"
 
 class ThreeOfKind : public Combination {
     public:

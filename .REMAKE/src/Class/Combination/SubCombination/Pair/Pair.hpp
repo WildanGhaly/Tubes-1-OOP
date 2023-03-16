@@ -1,7 +1,7 @@
 #ifndef _PAIR_HPP_
 #define _PAIR_HPP_
 
-// #include "../../Combination.cpp"
+#include "../../Combination.hpp"
 
 class Pair : public Combination {
     public:

@@ -11,6 +11,7 @@
 #include <random>
 #include <map>
 #include <iomanip>
+#include "../../Exception/Exception.h"
 #include "../Valueable/Valueable.hpp"
 using namespace std;
 

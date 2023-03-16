@@ -15,7 +15,7 @@ Game<W>::Game(int totalPlayer, string name) : PlayerList(totalPlayer), Table<W>(
 template <class W>
 Game<W>::Game(const Game& game) {
     this->deck = game.deck;
-    this->table = game.table;
+    this->cards = game.cards;
     this->players = game.players;
     this->round = game.round;
     this->reward = game.reward;
@@ -87,3 +87,5 @@ template <class W>
 void Game<W>::nextRound() {
     this->Table<W>::nextRound();
 }
+
+template class Game<Card>;

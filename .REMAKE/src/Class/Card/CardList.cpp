@@ -311,3 +311,5 @@ CardList<T>& CardList<T>::operator>>(Card& card) {
     this->cards.pop_back();
     return *this;
 }
+
+template class CardList<Card>;

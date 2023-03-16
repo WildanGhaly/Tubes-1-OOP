@@ -1,5 +1,5 @@
-#ifndef EXCEPTION_H
-#define EXCEPTION_H
+#ifndef _EXCEPTIONS_HPP_
+#define _EXCEPTIONS_HPP_
 
 #include<exception>
 using namespace std;
@@ -71,7 +71,7 @@ class CardRedundancyException : public exception  {
 };
 
 template <typename T>
-void Input(T& input){
+void InputEs(T& input){
 	cin.exceptions(ios_base::failbit);
 	while(true){
         try{
@@ -89,7 +89,7 @@ void Input(T& input){
 }
 
 template<>
-void Input(char*& input){
+void InputEs(char*& input){
 	char* temp=new char[1000];
 	cin >> temp;
 	while(true){
