@@ -2,12 +2,13 @@
 Tubes 1 OOP K3 SubjectOriented 2023
 
 # Kelompok SubjectOriented
-13521010 / Muhamad Salman Hakim Alfarisi
-13521011 / Afnan Edsa Ramadhan
-13521012 / Haikal Ardzi Shofiyyurrohman
-13521015 / Hidayatullah Wildan Ghaly B.
-13521025 / Muhammad Haidar Akita Tresnadi
-13521026 / Kartini Copa
+1. 13521010 / Muhamad Salman Hakim Alfarisi
+2. 13521011 / Afnan Edsa Ramadhan
+3. 13521012 / Haikal Ardzi Shofiyyurrohman
+4. 13521015 / Hidayatullah Wildan Ghaly B.
+5. 13521025 / Muhammad Haidar Akita Tresnadi
+6. 13521026 / Kartini Copa
+
 ## Table of Contents
 * [Deskripsi](#deskripsi)
 * [Fitur](#fitur)
