@@ -21,10 +21,10 @@ bool Abilityless::useAbility(Game<Card>& game, int playerAbility, int player){
     }
     if (playerAbility == 7 || playerAbility == 0 || playerAbility == -7){
         if (playerAbility == 7){
+            Player Playermati, playerPengguna;
             if(!allUse){
                 cout<< game.getPlayer(player).getName()<<" akan mematikan kartu ablity lawan!"<<endl;
                 cout<<"Silahkan pilih pemain yang kartu abilitynya ingin dimatikan: "<<endl;
-                Player Playermati, playerPengguna;
                 for(int i=0;i<game.getPlayers().size();i++){
                     if(i != player){
                         cout<< i+1 <<". " << game.getPlayer(i).getName()<<endl;
@@ -52,18 +52,27 @@ bool Abilityless::useAbility(Game<Card>& game, int playerAbility, int player){
                 if(game.getPlayer(enemyNumber).getAbility()>0){
                     Playermati.setAbility(0);
                     cout<<"Kartu ability " << game.getPlayer(enemyNumber).getName() <<" telah dimatikan."<<endl;
+                    playerPengguna.setAbility(-7);
                     game.setPlayer(enemyNumber,Playermati);
-                    playerPengguna.setAbility(-1);
                     game.setPlayer(player,playerPengguna);
+                    Ability::setUsingAbility(true);
+                    return true;
                 }else{
                     cout<<"Kartu ability "<< game.getPlayer(enemyNumber).getName() <<" telah dipakai sebelumnya. Yah, sayang penggunaan kartu ini sia-sia"<<endl;
                     playerPengguna.setAbility(-7);
                     game.setPlayer(player,playerPengguna);
+                    Ability::setUsingAbility(true);
+                    return true;
                 }
-                Ability::setUsingAbility(true);
             }else{
                 cout<<"Eits, ternyata semua pemain sudah memakai kartu kemampuan. Yah kamu kena sendiri deh, kemampuanmu menjadi abilityless. Yah, pengunaan kartu ini sia-sia"<<endl;
+                playerPengguna = game.getPlayer(player);
+                playerPengguna.setAbility(-7);
+                game.setPlayer(player,playerPengguna);
+                Ability::setUsingAbility(true);
+                return true;
             }
+            Ability::setUsingAbility(true);
             return true;
             
         } else if(playerAbility ==-7) {
