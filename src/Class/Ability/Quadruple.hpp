@@ -2,15 +2,17 @@
 #define _QUADRUPLE_HPP
 
 #include <iostream>
-#include "../Ability/Ability.hpp"
+#include "Ability.hpp"
 #include "../Table/Table.hpp"
+#include "../Game/Game.hpp"
 
-class Quadruple : public Ability, public Table {
+
+class Quadruple : public Ability {
     public :
         Quadruple();
-        void useAbility();
-    
+        bool useAbility(Game<Card>&, int, int);
 };
+    
 
 
 #endif

@@ -1,118 +1,133 @@
 #include "CardList.hpp"
 
-/* Static ID counter */
-int CardDeck::totalDeck = 0;
+template <class T>
+CardList<T>::CardList() {
+    this->cards = vector<Card>();
+}
 
-/* Default Constructor */
-CardDeck::CardDeck() : ID(totalDeck++) {
-    this->totalCard = 52;
-    this->cards = new Card[this->totalCard];
-    for (int i = 0; i < this->totalCard; i++) {
-        this->cards[i] = Card(i % 13 + 1, i / 13);
+template <class T>
+CardList<T>::CardList(int totalCard) {
+    this->cards = vector<Card>(totalCard);
+}
+
+template <class T>
+CardList<T>::CardList(string name) {
+    this->cards = vector<Card>();
+    for(int i=0; i< name.size();i++){
+        name[i]=toupper(name[i]);
+    }
+    if (name == "POKER") {
+        for (int i = 0; i < 4; i++) {
+            for (int j = 1; j <= 13; j++) {
+                this->cards.push_back(Card(i, j));
+            }
+        }
+    } else {
+        throw InvalidInputException();
     }
 }
 
-/* Constructor with total card */
-CardDeck::CardDeck(int totalCard) : ID(totalDeck++) {
-    this->totalCard = totalCard;
-    this->cards = new Card[this->totalCard];
-    for (int i = 0; i < this->totalCard; i++) {
-        this->cards[i].input();
+template <class T>
+CardList<T>::CardList(const CardList<T> cardList, const CardList<T> cardList2) {
+    this->cards = vector<Card>();
+    for (int i = 0; i < cardList.getTotalCard(); i++) {
+        this->cards.push_back(cardList.getCard(i));
+    }
+    for (int i = 0; i < cardList2.getTotalCard(); i++) {
+        this->cards.push_back(cardList2.getCard(i));
     }
 }
 
-/* Copy Constructor */
-CardDeck::CardDeck(const CardDeck& cd) : ID(totalDeck++) {
-    this->totalCard = cd.totalCard;
-    delete[] this->cards;
-    this->cards = new Card[this->totalCard];
-    for (int i = 0; i < this->totalCard; i++) {
-        this->cards[i] = cd.cards[i];
-    }
+template <class T>
+CardList<T>::CardList(const CardList& cardList) {
+    this->cards = cardList.cards;
 }
 
-/* Destructor */
-CardDeck::~CardDeck() {
-    delete[] this->cards;
+template <class T>
+CardList<T>::~CardList() {
+    // Nothing to do
 }
 
-int CardDeck::getTotalCard() const {
-    return this->totalCard;
+template <class T>
+int CardList<T>::getTotalCard() const {
+    return this->cards.size();
 }
 
-int CardDeck::getID() const {
-    return this->ID;
-}
-
-Card CardDeck::getCard(int index) const {
+template <class T>
+T CardList<T>::getCard(int index) const {
     return this->cards[index];
 }
 
-/* Add card to deck */
-void CardDeck::addCard(Card c) {
-    Card* temp = new Card[this->totalCard + 1];
-    for (int i = 0; i < this->totalCard; i++) {
-        temp[i] = this->cards[i];
-    }
-    temp[this->totalCard] = c;
-    delete[] this->cards;
-    this->cards = temp;
-    this->totalCard++;
+template <class T>
+vector<T> CardList<T>::getCards() const {
+    return this->cards;
 }
 
-/* Remove card from deck */
-void CardDeck::removeCard(Card c) {
-    int index = -1;
-    for (int i = 0; i < this->totalCard; i++) {
-        if (this->cards[i].getID() == c.getID()) {
-            index = i;
+template <class T>
+void CardList<T>::setCard(int index, T card) {
+    this->cards[index] = card;
+}
+
+template <class T>
+void CardList<T>::setCards(vector<T> cards) {
+    this->cards = cards;
+}
+
+template <class T>
+void CardList<T>::setCards(CardList<T> cardList) {
+    this->cards = cardList.cards;
+}
+
+template <class T>
+void CardList<T>::setCardsList(CardList<T> cards1, CardList<T> cards2) {
+    this->cards = vector<Card>();
+    for (int i = 0; i < cards1.getTotalCard(); i++) {
+        this->cards.push_back(cards1.getCard(i));
+    }
+    for (int i = 0; i < cards2.getTotalCard(); i++) {
+        this->cards.push_back(cards2.getCard(i));
+    }
+}
+
+template <class T>
+void CardList<T>::addCard(Card card) {
+    this->cards.push_back(card);
+}
+
+template <class T>
+void CardList<T>::removeCard(Card card) {
+    for (int i = 0; i < this->cards.size(); i++) {
+        if (this->cards[i] == card) {
+            this->cards.erase(this->cards.begin() + i);
             break;
         }
     }
-    if (index != -1) {
-        Card* temp = new Card[this->totalCard - 1];
-        for (int i = 0; i < index; i++) {
-            temp[i] = this->cards[i];
-        }
-        for (int i = index; i < this->totalCard - 1; i++) {
-            temp[i] = this->cards[i + 1];
-        }
-        delete[] this->cards;
-        this->cards = temp;
-        this->totalCard--;
+}
+
+template <class T>
+void CardList<T>::removeCard(int index) {
+    if(index>=0 && index<=this->cards.size()-1){
+        this->cards.erase(this->cards.begin() + index);
+    } else {
+        throw IndexOutOfBoundException();
     }
 }
 
-void CardDeck::removeCard(int index) {
-    if (index >= 0 && index < this->totalCard) {
-        Card* temp = new Card[this->totalCard - 1];
-        for (int i = 0; i < index; i++) {
-            temp[i] = this->cards[i];
-        }
-        for (int i = index; i < this->totalCard - 1; i++) {
-            temp[i] = this->cards[i + 1];
-        }
-        delete[] this->cards;
-        this->cards = temp;
-        this->totalCard--;
-    }
-}
-
-/* Shuffle the deck */
-void CardDeck::shuffle() {
+template <class T>
+void CardList<T>::shuffle() {
     srand(time(NULL));
-    for (int i = 0; i < this->totalCard; i++) {
-        int index = rand() % this->totalCard;
+    for (int i = 0; i < this->cards.size(); i++) {
+        int randomIndex = rand() % this->cards.size();
         Card temp = this->cards[i];
-        this->cards[i] = this->cards[index];
-        this->cards[index] = temp;
+        this->cards[i] = this->cards[randomIndex];
+        this->cards[randomIndex] = temp;
     }
 }
 
-/* Sort the deck by Number*/
-void CardDeck::sortByNumber() {
-    for (int i = 0; i < this->totalCard; i++) {
-        for (int j = i + 1; j < this->totalCard; j++) {
+template <class T>
+void CardList<T>::sortByNumber() {
+    for (int i = 0; i < this->cards.size(); i++) {
+        for (int j = i + 1; j < this->cards.size(); j++) {
             if (this->cards[i].getNumber() > this->cards[j].getNumber()) {
                 Card temp = this->cards[i];
                 this->cards[i] = this->cards[j];
@@ -122,10 +137,23 @@ void CardDeck::sortByNumber() {
     }
 }
 
-/* Sort the deck by Color */
-void CardDeck::sortByColor() {
-    for (int i = 0; i < this->totalCard; i++) {
-        for (int j = i + 1; j < this->totalCard; j++) {
+template <class T>
+void CardList<T>::sortByNumberDesc() {
+    for (int i = 0; i < this->cards.size(); i++) {
+        for (int j = i + 1; j < this->cards.size(); j++) {
+            if (this->cards[i].getNumber() < this->cards[j].getNumber()) {
+                Card temp = this->cards[i];
+                this->cards[i] = this->cards[j];
+                this->cards[j] = temp;
+            }
+        }
+    }
+}
+
+template <class T>
+void CardList<T>::sortByColor() {
+    for (int i = 0; i < this->cards.size(); i++) {
+        for (int j = i + 1; j < this->cards.size(); j++) {
             if (this->cards[i].getColor() > this->cards[j].getColor()) {
                 Card temp = this->cards[i];
                 this->cards[i] = this->cards[j];
@@ -135,11 +163,11 @@ void CardDeck::sortByColor() {
     }
 }
 
-/* Sort the deck by ID */
-void CardDeck::sortByID() {
-    for (int i = 0; i < this->totalCard; i++) {
-        for (int j = i + 1; j < this->totalCard; j++) {
-            if (this->cards[i].getID() > this->cards[j].getID()) {
+template <class T>
+void CardList<T>::sortByColorDesc() {
+    for (int i = 0; i < this->cards.size(); i++) {
+        for (int j = i + 1; j < this->cards.size(); j++) {
+            if (this->cards[i].getColor() < this->cards[j].getColor()) {
                 Card temp = this->cards[i];
                 this->cards[i] = this->cards[j];
                 this->cards[j] = temp;
@@ -148,45 +176,140 @@ void CardDeck::sortByID() {
     }
 }
 
-/* Print the deck */
-void CardDeck::print() const {
-    for (int i = 0; i < this->totalCard; i++) {
-        this->cards[i].print();
+template <class T>
+void CardList<T>::sortByNumberAndColor() {
+    for (int i = 0; i < this->cards.size(); i++) {
+        for (int j = i + 1; j < this->cards.size(); j++) {
+            if (this->cards[i].getNumber() > this->cards[j].getNumber()) {
+                Card temp = this->cards[i];
+                this->cards[i] = this->cards[j];
+                this->cards[j] = temp;
+            }
+            else if (this->cards[i].getNumber() == this->cards[j].getNumber()) {
+                if (this->cards[i].getColor() > this->cards[j].getColor()) {
+                    Card temp = this->cards[i];
+                    this->cards[i] = this->cards[j];
+                    this->cards[j] = temp;
+                }
+            }
+        }
     }
 }
 
-/* Operator == */
-bool CardDeck::operator==(const CardDeck& cd) const {
-    if (this->totalCard != cd.totalCard) {
+template <class T>
+void CardList<T>::sortByNumberAndColorDesc() {
+    for (int i = 0; i < this->cards.size(); i++) {
+        for (int j = i + 1; j < this->cards.size(); j++) {
+            if (this->cards[i].getNumber() < this->cards[j].getNumber()) {
+                Card temp = this->cards[i];
+                this->cards[i] = this->cards[j];
+                this->cards[j] = temp;
+            }
+            else if (this->cards[i].getNumber() == this->cards[j].getNumber()) {
+                if (this->cards[i].getColor() < this->cards[j].getColor()) {
+                    Card temp = this->cards[i];
+                    this->cards[i] = this->cards[j];
+                    this->cards[j] = temp;
+                }
+            }
+        }
+    }
+}
+
+template <class T>
+void CardList<T>::sortByColorAndNumber() {
+    for (int i = 0; i < this->cards.size(); i++) {
+        for (int j = i + 1; j < this->cards.size(); j++) {
+            if (this->cards[i].getColor() > this->cards[j].getColor()) {
+                Card temp = this->cards[i];
+                this->cards[i] = this->cards[j];
+                this->cards[j] = temp;
+            }
+            else if (this->cards[i].getColor() == this->cards[j].getColor()) {
+                if (this->cards[i].getNumber() > this->cards[j].getNumber()) {
+                    Card temp = this->cards[i];
+                    this->cards[i] = this->cards[j];
+                    this->cards[j] = temp;
+                }
+            }
+        }
+    }
+}
+
+template <class T>
+void CardList<T>::sortByColorAndNumberDesc() {
+    for (int i = 0; i < this->cards.size(); i++) {
+        for (int j = i + 1; j < this->cards.size(); j++) {
+            if (this->cards[i].getColor() < this->cards[j].getColor()) {
+                Card temp = this->cards[i];
+                this->cards[i] = this->cards[j];
+                this->cards[j] = temp;
+            }
+            else if (this->cards[i].getColor() == this->cards[j].getColor()) {
+                if (this->cards[i].getNumber() < this->cards[j].getNumber()) {
+                    Card temp = this->cards[i];
+                    this->cards[i] = this->cards[j];
+                    this->cards[j] = temp;
+                }
+            }
+        }
+    }
+}
+
+template <class T>
+void CardList<T>::print() {
+    vector<string> prints(5);
+    for (int i = 0; i < this->cards.size(); i++) {
+        prints=cards[i].setToPrint(prints);
+    }
+    for (int i=0; i< 5;i++){
+        cout << prints[i] << endl;
+    }
+}
+
+template <class T>
+bool CardList<T>::operator==(const CardList& cardList) const {
+    if (this->cards.size() != cardList.cards.size()) {
         return false;
     }
-    for (int i = 0; i < this->totalCard; i++) {
-        if (this->cards[i] != cd.cards[i]) {
+    for (int i = 0; i < this->cards.size(); i++) {
+        if (this->cards[i] != cardList.cards[i]) {
             return false;
         }
     }
     return true;
 }
 
-/* Operator != */
-bool CardDeck::operator!=(const CardDeck& cd) const {
-    return !(*this == cd);
+template <class T>
+bool CardList<T>::operator!=(const CardList& cardList) const {
+    return !(*this == cardList);
 }
 
-/* Operator = */
-CardDeck& CardDeck::operator=(const CardDeck& cd) {
-    if (this != &cd) {
-        this->totalCard = cd.totalCard;
-        delete[] this->cards;
-        this->cards = new Card[this->totalCard];
-        for (int i = 0; i < this->totalCard; i++) {
-            this->cards[i] = cd.cards[i];
-        }
-    }
+template <class T>
+const Card& CardList<T>::operator[](int index) const {
+    return this->cards[index];
+}
+
+template <class T>
+CardList<T>& CardList<T>::operator=(const CardList& cardList) {
+    this->cards.clear();
+    for (int i = 0; i < cardList.cards.size(); i++) {
+        this->cards.push_back(cardList.cards[i]);
+    } 
     return *this;
 }
 
-/* Operator [] */
-Card& CardDeck::operator[](int index) const {
-    return this->cards[index];
+template <class T>
+CardList<T>& CardList<T>::operator<<(const Card& card) {
+    this->cards.push_back(card);
+    return *this;
 }
+
+template <class T>
+CardList<T>& CardList<T>::operator>>(Card& card) {
+    card = this->cards.back();
+    this->cards.pop_back();
+    return *this;
+}
+
+template class CardList<Card>;

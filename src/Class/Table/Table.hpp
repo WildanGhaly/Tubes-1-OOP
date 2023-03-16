@@ -1,49 +1,54 @@
 #ifndef _TABLE_HPP_
 #define _TABLE_HPP_
 
-// #include "../Card/CardListVec.cpp"
-#include <vector>
-#include <algorithm>
+#include "../Card/CardList.hpp"
 
-class Table {
+template <class V>
+class Table : public Valueable<long long int> {
     public:
-        /* ctor cctor dtor */
         Table();
-        Table(CardDeckVec, int);
+        Table(CardList<V>, int);
+        Table(string);
         Table(const Table&);
         ~Table();
 
         /* Getter */
-        std::vector<Card> getCards() const;
+        CardList<V> getCards() const;
+        CardList<V> getDeck() const;
         int getTotalCard() const;
-        Card getCard(int) const;
+        V getCard(int) const;
         int getRound() const;
-        int getScore() const;
+        long long int getValue() const;
 
         /* Setter */
-        void setCards(CardDeckVec);
+        void setDeck(CardList<V>);
+        void setCards(CardList<V>);
         int setRound(int);
-        void setScore(int);
+        long long int setReward(long long int);
 
         /* Method */
-        void print() const;
-        void addCard(Card);
+        void print();
+        void addCard(V);
         void addRound();
-        void nextRound(CardDeckVec&);
-        void removeCard(Card);
+        void nextRound();
+        void removeCard(V);
         void removeCard(int);
+        void removeCards();
         void shuffle();
+        void removeDeckFirst();
 
         /* Operator */
         bool operator==(const Table&) const;
         bool operator!=(const Table&) const;
         Table& operator=(const Table&);
+        Table& operator<<(const V&);
+        Table& operator>>(V&);
 
     protected:
-        std::vector<Card> cards;
         int round;
-        int score;
-        CardDeckVec deck;
+        long long int reward;
+        CardList<V> cards;
+        CardList<V> deck;
 };
 
 #endif

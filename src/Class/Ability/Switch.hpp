@@ -2,13 +2,13 @@
 #define _SWITCH_CARD_HPP_
 
 
-#include "../Player/ListPlayerVec.hpp"
-#include "../Ability/Ability.hpp"
+#include "../Game/Game.hpp"
+#include "Ability.hpp"
 
-class Switch : public ListPlayerVec, public Ability{
+class Switch : public Ability{
     public:
         Switch();
-        void useAbility(int);
+        bool useAbility(Game<Card>&, int, int);
 };
 
 

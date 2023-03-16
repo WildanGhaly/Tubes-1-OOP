@@ -1,16 +1,17 @@
 #ifndef _REVERSEDIR_HPP_
 #define _REVERSEDIR_HPP_
 
-#include <iostream>
-#include "../Player/ListPlayerVec.hpp"
+#include "../Player/PlayerList.hpp"
 #include "Ability.hpp"
+#include "../Game/Game.hpp"
 
-class ReverseDirection : public ListPlayerVec, public Ability{
+class ReverseDirection : public PlayerList, public Ability{
     public:
         /* ctor cctor dtor */
         ReverseDirection();
         // ~ReverseDirection();
-        void useAbility();
+        // void useAbility();
+        bool useAbility(Game<Card>&, int, int);
 
 };
 

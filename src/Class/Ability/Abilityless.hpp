@@ -2,13 +2,13 @@
 #define _ABILITYLESS_HPP
 
 #include <iostream>
-#include "../Player/PlayerVec.hpp"
-#include "../Ability/Ability.hpp"
+#include "../Game/Game.hpp"
+#include "Ability.hpp"
 
-class Abilityless : public PlayerVec, public Ability {
+class Abilityless : public Ability {
     public :
     Abilityless();
-    void useAbility();
+    bool useAbility(Game<Card>&, int, int);
 };  
 
 

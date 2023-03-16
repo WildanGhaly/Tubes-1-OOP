@@ -1,57 +1,70 @@
-// class Card(id, color, number)
-// class deskCard(listOfCard)
-// class player(listOfCard, playerId, name, point, ability, isTurn)
-// class listOfPlayer(listOfPlayer, boolean isReverse, firstLastPlayer)
-// class game(pair, listofplayer, listOfCard, round, match, constant 2^32, long)
-// generic function -> list circular
-
 #ifndef _CARD_HPP_
 #define _CARD_HPP_
 
-#include <string>
 #include <iostream>
-#include "SubCard/CardColor.cpp"
-#include "SubCard/CardNumber.cpp"
+#include <vector>
+#include <algorithm>
+#include <utility>
+#include <cctype>
+#include <string>
+#include <cstring>
+#include <random>
+#include <map>
+#include <iomanip>
+#include "../../Exception/Exception.h"
+#include "../Valueable/Valueable.hpp"
+using namespace std;
 
-class Card : public CardColor, public CardNumber {
-    static int IDCounter;
+template <typename T>
+map<string, T>create_color_map(T a) {
+    map<string, T> colors;
+    colors["Green"] = a + 0;
+    colors["Blue"] = a + 1;
+    colors["Yellow"] = a + 2;
+    colors["Red"] = a + 3;
+    return colors;
+}
+class Card : public Valueable<float> {
     public:
-        /* ctor cctor dtor */
         Card();
         Card(int, int);
+        Card(string, int);
         Card(const Card&);
         ~Card();
-        
-        /* Setter */
-        void setNumber(int);
-        void setColor(int);
-        void setColor(std::string);
 
-        /* getter */
-        int getNumber() const;
         int getColor() const;
-        int getID() const;
-        void input();
-        std::string getColorAsString() const;
-        std::string getCardNumberAsString() const;
-        std::string toString() const;
-        float getScore() const;
+        int getNumber() const;
+        string getColorString() const;
+        string getNumberString() const;
+        map<string, int> getColorMap() const;
+        pair<int, string> getNumberPair() const;
+        float getValue() const;
 
-        /* operator */
-        Card &operator=(const Card&);
+        void setColor(int);
+        void setNumber(int);
+        void setColorString(string);
+        void setNumberString(string);
+        void setColorMap(map<string, int>);
+        void setNumberPair(pair<int, string>);
+
+        void print();
+        vector<string> setToPrint(vector<string>);
+
+        bool isColorValid(string);
+        bool isNumberValid(string);
         bool operator==(const Card&) const;
         bool operator!=(const Card&) const;
-        // bool operator<(const Card&) const;
-        // bool operator>(const Card&) const;
-        // bool operator<=(const Card&) const;
-        // bool operator>=(const Card&) const;
-        // Card& operator=(const Card&);
-
-        /* method */
-        virtual void print() const;
-
+        bool operator>(const Card&) const;
+        bool operator<(const Card&) const;
+        bool operator>=(const Card&) const;
+        bool operator<=(const Card&) const;
+        Card& operator=(const Card&);
+        friend std::ostream& operator<<(std::ostream& os, const Card& card);
+        
     private:
-        int IDCard;
+        map<string, int> colors;
+        int color;
+        pair<int, string> number;
 };
 
 #endif

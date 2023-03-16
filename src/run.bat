@@ -56,7 +56,7 @@ g++ -c ./Class/Ability/Switch.cpp -o                                            
     ../bin/Ability/Switch.o
 
 :: Compile main with linker
-g++ mainRemake.cpp                          ^
+g++ main.cpp                          ^
     ../bin/Card/Card.o                      ^
     ../bin/Card/CardList.o                  ^
     ../bin/Player/Player.o                  ^
@@ -81,7 +81,7 @@ g++ mainRemake.cpp                          ^
     ../bin/Combination/FullHouse.o          ^
     ../bin/Combination/FourOfKind.o         ^
     ../bin/Combination/StraightFlush.o      ^
-    -o mainRemake.o
+    -o main.o
 
 :: Run the program
-.\mainRemake.o
+.\main.o

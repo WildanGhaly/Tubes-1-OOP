@@ -1,129 +1,182 @@
 #include "Table.hpp"
 
-Table::Table() {
+template <class V>
+Table<V>::Table() {
+    this->cards = CardList<V>();
+    this->deck = CardList<V>();
     this->round = 0;
-    this->cards = std::vector<Card>();
-    this -> score = 64;
-    this -> deck = CardDeckVec();
+    this->reward = 64;
 }
 
-Table::Table(CardDeckVec cd, int round) : round(round) {
-    this->cards = std::vector<Card>();
-    for (int i = 0; i < round-1; i++) {
-        this->cards.push_back(cd.getCard(0));
-        cd.removeCard(0);
-    }
-    this -> score = 64;
+template <class V>
+Table<V>::Table(CardList<V> deck, int round) {
+    this->cards = CardList<V>();
+    this->deck = deck;
+    this->round = round;
+    this->reward = 64;
 }
 
-Table::Table(const Table& table) : cards(table.cards) {
-    this->round = table.round;
+template <class V>
+Table<V>::Table(string name) {
+    this->cards = CardList<V>();
+    this->deck = CardList<V>(name);
+    this->round = 0;
+    this->reward = 64;
+}
+
+template <class V>
+Table<V>::Table(const Table& table) {
     this->cards = table.cards;
-    this -> score = table.score;
-    this -> deck = table.deck;
+    this->deck = table.deck;
+    this->round = table.round;
+    this->reward = table.reward;
 }
 
-Table::~Table() {
-    this->cards.clear();
+template <class V>
+Table<V>::~Table() {
+    // this->cards.clear();
+    // this->deck.clear();
 }
 
 /* Getter */
-std::vector<Card> Table::getCards() const {
+template <class V>
+CardList<V> Table<V>::getCards() const {
     return this->cards;
 }
 
-int Table::getTotalCard() const {
-    return this->cards.size();
+template <class V>
+int Table<V>::getTotalCard() const {
+    return this->cards.getTotalCard();
 }
 
-Card Table::getCard(int index) const {
-    return this->cards[index];
+template <class V>
+V Table<V>::getCard(int index) const {
+    return this->cards.getCard(index);
 }
 
-int Table::getRound() const {
+template <class V>
+int Table<V>::getRound() const {
     return this->round;
 }
 
-/* Setter */
-void Table::setCards(CardDeckVec cd) {
-    this->cards.clear();
-    for (int i = 0; i < this->round-1; i++) {
-        this->cards.push_back(cd.getCard(0));
-        cd.removeCard(0);
-    }
+template <class V>
+long long int Table<V>::getValue() const {
+    return this->reward;
+}
+template <class V>
+CardList<V> Table<V>::getDeck() const{
+    return this->deck;
 }
 
-int Table::setRound(int round) {
+/* Setter */
+template <class V>
+void Table<V>::setDeck(CardList<V> deck) {
+    this->deck = deck;
+}
+
+template <class V>
+void Table<V>::setCards(CardList<V> cards) {
+    this->cards = cards;
+}
+
+template <class V>
+int Table<V>::setRound(int round) {
     this->round = round;
     return this->round;
 }
 
-int Table::getScore() const {
-    return this -> score;
+template <class V>
+long long int Table<V>::setReward(long long int reward) {
+    this->reward = reward;
+    return this->reward;
 }
-
-void Table::setScore(int score) {
-    this -> score = score;
-}
-
 
 /* Method */
-void Table::print() const {
-    for (int i = 0; i < this->getTotalCard(); i++) {
-        std::cout << "      ";
-        this->getCard(i).print();
-    }
+template <class V>
+void Table<V>::print() {
+    std::cout << "      Round: " << this->round << std::endl;
+    std::cout << "      Reward: " << this->reward << std::endl;
+    std::cout << "      Cards: " << std::endl;
+    this->cards.print();
+    
 }
 
-void Table::addCard(Card card) {
-    this->cards.push_back(card);
+template <class V>
+void Table<V>::addCard(V card) {
+    this->cards.addCard(card);
 }
 
-void Table::addRound() {
+template <class V>
+void Table<V>::addRound() {
     this->round++;
 }
 
-void Table::nextRound(CardDeckVec &cd) {
+template <class V>
+void Table<V>::nextRound() {
+    this->deck.shuffle();
+    this->cards.addCard(this->deck.getCard(0));
+    this->deck.removeCard(0);
     this->round++;
-    this->cards.push_back(cd.getCard(0));
-    cd.removeCard(0);
 }
 
-void Table::removeCard(Card card) {
-    for (int i = 0; i < this->getTotalCard(); i++) {
-        if (this->getCard(i) == card) {
-            this->cards.erase(this->cards.begin() + i);
-        }
+template <class V>
+void Table<V>::removeCard(V card) {
+    this->cards.removeCard(card);
+}
+
+template <class V>
+void Table<V>::removeCard(int index) {
+    this->cards.removeCard(index);
+}
+
+template <class V>
+void Table<V>::removeDeckFirst() {
+    this->deck.removeCard(0);
+}
+
+template <class V>
+void Table<V>::removeCards() {
+    for (int i = 0; i < getTotalCard(); i++) {
+        this->cards.removeCard(i);
     }
 }
 
-void Table::removeCard(int index) {
-    this->cards.erase(this->cards.begin() + index);
-}
-
-void Table::shuffle() {
-    std::random_shuffle(this->cards.begin(), this->cards.end());
+template <class V>
+void Table<V>::shuffle() {
+    this->deck.shuffle();
 }
 
 /* Operator */
-bool Table::operator==(const Table& table) const {
-    if (this->round != table.round) {
-        return false;
-    }
-    for (int i = 0; i < this->getTotalCard(); i++) {
-        if (this->getCard(i) != table.getCard(i)) {
-            return false;
-        }
-    }
-    return true;
+template <class V>
+bool Table<V>::operator==(const Table& table) const {
+    return (this->cards == table.cards) && (this->deck == table.deck) && (this->round == table.round) && (this->reward == table.reward);
 }
 
-bool Table::operator!=(const Table& table) const {
+template <class V>
+bool Table<V>::operator!=(const Table& table) const {
     return !(*this == table);
 }
 
-Table& Table::operator=(const Table& table) {
-    this->round = table.round;
+template <class V>
+Table<V>& Table<V>::operator=(const Table& table) {
     this->cards = table.cards;
+    this->deck = table.deck;
+    this->round = table.round;
+    this->reward = table.reward;
     return *this;
 }
+
+template <class V>
+Table<V>& Table<V>::operator<<(const V& card) {
+    this->cards.addCard(card);
+    return *this;
+}
+
+template <class V>
+Table<V>& Table<V>::operator>>(V& card) {
+    card = this->cards.getCard(0);
+    this->cards.removeCard(0);
+    return *this;
+}
+
+template class Table<Card>;

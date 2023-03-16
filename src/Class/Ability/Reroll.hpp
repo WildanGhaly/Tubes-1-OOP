@@ -1,14 +1,14 @@
 #ifndef _REROLL_HPP
 #define _REROLL_HPP
 
-#include <iostream>
-#include "../Player/PlayerVec.hpp"
-#include "../Ability/Ability.hpp"
+#include "../Player/PlayerList.hpp"
+#include "Ability.hpp"
+#include "../Game/Game.hpp"
 
-class Reroll : public PlayerVec, public Ability {
+class Reroll : public Ability {
     public :
     Reroll();
-    void useAbility();
+    bool useAbility(Game<Card>&, int, int);
 };  
 
 

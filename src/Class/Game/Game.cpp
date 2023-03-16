@@ -1,70 +1,91 @@
 #include "Game.hpp"
 
-/* Default Constructor */
-Game::Game() : players(), deck(){
+template <class W>
+Game<W>::Game() : PlayerList(), Table<W>(){
 }
 
-/* Constructor with total player */
-Game::Game(int totalPlayer) : players(totalPlayer), deck(){
+template <class W>
+Game<W>::Game(int totalPlayer) : PlayerList(totalPlayer), Table<W>() {
 }
 
-/* Copy Constructor */
-Game::Game(const Game& g) {
-    this->players = g.players;
-    this->deck = g.deck;
+template <class W>
+Game<W>::Game(int totalPlayer, string name) : PlayerList(totalPlayer), Table<W>(name) {
 }
 
-/* Destructor */
-Game::~Game() {
+template <class W>
+Game<W>::Game(const Game& game) {
+    this->deck = game.deck;
+    this->cards = game.cards;
+    this->players = game.players;
+    this->round = game.round;
+    this->reward = game.reward;
 }
 
-/* Getter untuk players */
-ListPlayer Game::getPlayers() const {
-    return this->players;
+template <class W>
+Game<W>::~Game() {
+    // this->deck.clear();
+    // this->table.clear();
+    // this->players.clear();
 }
 
-/* Getter untuk deck */
-CardDeck Game::getDeck() const {
-    return this->deck;
-}
-
-/* Getter untuk total card */
-int Game::getTotalCard() const {
-    return this->deck.getTotalCard();
-}
-
-/* Setter untuk players */
-void Game::setPlayers(ListPlayer players) {
-    this->players = players;
-}
-
-/* Setter untuk deck */
-void Game::setDeck(CardDeck deck) {
+/* Setter */
+template <class W>
+void Game<W>::setDeck(CardList<W> deck) {
     this->deck = deck;
 }
 
-/* Method untuk print */
-void Game::print() const {
-    std::cout << "Players: " << std::endl;
-    this->players.print();
-    std::cout << "Deck: " << std::endl;
-    this->deck.print();
+template <class W>
+void Game<W>::setTable(CardList<W> table) {
+    this->cards = table;
 }
 
-/* Method untuk start */
-void Game::start() {
+template <class W>
+void Game<W>::setPlayers(vector<Player> players) {
+    this->players = players;
+}
+
+template <class W>
+void Game<W>::setPlayer(int index, Player player) {
+    this->players[index] = player;
+}
+
+template <class W>
+void Game<W>::setRound(int round) {
+    this->round = round;
+}
+
+/* Method */
+template <class W>
+void Game<W>::print() {
+    PlayerList::print();
+    Table<W>::print();
+}
+
+template <class W>
+void Game<W>::start() {
     this->deck.shuffle();
-    for (int i = 0; i < this->players.getTotalPlayer(); i++) {
-        this->players.getPlayer(i).addCard(this->deck.getCard(0));
-        this->deck.removeCard(0);
+    for (int i = 0; i < this->getTotalPlayer(); i++) {
+        for (int j = 0; j < 2; j++) {
+            this->players[i].addHand(this->deck.getCard(0));
+            this->deck.removeCard(0); // error
+        }
     }
-    this->players.getPlayer(0).setIsTurn(true);
 }
 
-/* Method untuk start dengan jumlah kartu */
-void Game::start(int totalCard) {
+template <class W>
+void Game<W>::start(int totalCardPerPlayer) {
     this->deck.shuffle();
-    this->players.addCard(this->deck,totalCard);
+    for (int i = 0; i < this->getTotalPlayer(); i++) {
+        for (int j = 0; j < totalCardPerPlayer; j++) {
+            this->players[i].addHand(this->deck.getCard(0));
+            this->deck.removeCard(0);
+        }
+    }
 }
 
+template <class W>
+void Game<W>::nextRound() {
+    this->Table<W>::nextRound();
+}
 
+template class Game<Card>;

@@ -1,14 +1,15 @@
 #ifndef _SWAP_CARD_HPP_
 #define _SWAP_CARD_HPP_
 
-#include "../Player/ListPlayerVec.hpp"
-#include "../Ability/Ability.hpp"
+#include "../Player/PlayerList.hpp"
+#include "Ability.hpp"
+#include "../Game/Game.hpp"
 
-class SwapCard : public Ability, public ListPlayerVec{
+class SwapCard : public Ability{
     public:
         /* ctor cctor dtor */
         SwapCard();
-        void useAbility(int, int, int, int);
+        bool useAbility(Game<Card>&, int, int);
 
         // int data;
 };
