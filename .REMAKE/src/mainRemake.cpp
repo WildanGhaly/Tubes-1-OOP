@@ -98,6 +98,7 @@ int main(){
     PlayerList tempPlayers;
     vector<Player> temp2Players;
     int locateReverse = 0;
+    bool isfile;
     Combination *combinations[9] = {&highCard, &pair, &twoPair, &threeOfKind, &straight, &flush, &fullHouse, &fourOfKind, &straightFlush};
     
     //buat file
@@ -115,9 +116,11 @@ int main(){
         cout << ">> ";
         InputEs(path);
         if (path == 1){
+            isfile=false;
             game = new Game<Card>(7, "POKER"); // 7 pemain
             // default_deck = game->getDeck();
         } else if(path==2){
+            isfile=true;
             cout << "Masukkan nama file: ";
             cin >> fileName;
 
@@ -151,7 +154,7 @@ int main(){
             cout << ">> ";
             InputEs(choosegame);
             if (choosegame== 1) {
-                if(cards.getTotalCard()<19){
+                if(cards.getTotalCard()<19 && isfile){
                     cards=CardList<Card>();
                     cout << "\033[1;31mException: Minimum cards for poker is 19\033[0m\n";
                     throw CardInsufficientException();
@@ -402,7 +405,7 @@ int main(){
             }
             delete game;
             } else if (choosegame == 2) {
-            if(cards.getTotalCard()<52){
+            if(cards.getTotalCard()<52 && isfile){
                 cards = CardList<Card>();
                 cout << "\033[1;31mException: Minimum cards for capsa is 52\033[0m\n";
                 throw CardInsufficientException();

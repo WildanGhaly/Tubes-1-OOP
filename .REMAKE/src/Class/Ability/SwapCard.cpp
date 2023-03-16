@@ -20,7 +20,7 @@ bool SwapCard::useAbility(Game<Card>& game, int playerAbility, int playerNumber)
                 }
             }
             cout<<">>";
-            cin>>player1;
+            InputEs(player1);
             player1--;
             cout << "Silahkan pilih pemain lain yang kartunya ingin anda tukar:" << endl;
             for(int i=0;i<game.getPlayers().size();i++){
@@ -29,18 +29,18 @@ bool SwapCard::useAbility(Game<Card>& game, int playerAbility, int playerNumber)
                 }
             }
             cout<<">>";
-            cin>>player2;
+            InputEs(player2);
             player2--;
 
             cout<< "Silahkan pilih kartu kanan/kiri "<< game.getPlayer(player1).getName() << endl;
             cout<<"1. Kiri\n2. Kanan"<<endl;
             cout<<">>";
-            cin>>player1CardIdx;
+            InputEs(player1CardIdx);
             player1CardIdx--;
             cout<< "Silahkan pilih kartu kanan/kiri "<< game.getPlayer(player2).getName() << endl;
             cout<<"1. Kiri\n2. Kanan"<<endl;
             cout<<">>";
-            cin>>player2CardIdx;
+            InputEs(player2CardIdx);
             player2CardIdx--;
 
             Card player1Card = game.getPlayer(player1).getHand(player1CardIdx);
