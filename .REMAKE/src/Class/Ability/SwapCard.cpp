@@ -19,29 +19,74 @@ bool SwapCard::useAbility(Game<Card>& game, int playerAbility, int playerNumber)
                     cout<< i+1 <<"." << game.getPlayer(i).getName()<<endl;
                 }
             }
-            cout<<">>";
-            Input(player1);
-            player1--;
+            while(true){
+                try{
+                    cout<<">> ";
+                    Input(player1);
+                    player1--;
+                    if((player1>6 || player1<0) || player1==playerNumber){
+                        throw InvalidInputException();
+                    } else {
+                        break;
+                    }
+                }catch(InvalidInputException e){
+                    cout << e.what();
+                }
+            }
             cout << "Silahkan pilih pemain lain yang kartunya ingin anda tukar:" << endl;
             for(int i=0;i<game.getPlayers().size();i++){
                 if(i != playerNumber){
                     cout<< i+1 <<"." << game.getPlayer(i).getName()<<endl;
                 }
             }
-            cout<<">>";
-            Input(player2);
-            player2--;
+            while(true){
+                try{
+                    cout<<">> ";
+                    Input(player2);
+                    player2--;
+                    if((player2>6 || player2<0) || player2==playerNumber || player2==player1){
+                        throw InvalidInputException();
+                    } else {
+                        break;
+                    }
+                }catch(InvalidInputException e){
+                    cout << e.what();
+                }
+            }
 
             cout<< "Silahkan pilih kartu kanan/kiri "<< game.getPlayer(player1).getName() << endl;
             cout<<"1. Kiri\n2. Kanan"<<endl;
-            cout<<">>";
-            Input(player1CardIdx);
-            player1CardIdx--;
+            while(true){
+                try{
+                    cout<<">> ";
+                    Input(player1CardIdx);
+                    player1CardIdx--;
+                    if((player1CardIdx>1 || player1CardIdx<0)){
+                        throw InvalidInputException();
+                    } else {
+                        break;
+                    }
+                }catch(InvalidInputException e){
+                    cout << e.what();
+                }
+            }
             cout<< "Silahkan pilih kartu kanan/kiri "<< game.getPlayer(player2).getName() << endl;
             cout<<"1. Kiri\n2. Kanan"<<endl;
-            cout<<">>";
-            Input(player2CardIdx);
-            player2CardIdx--;
+            cout<<">> ";
+            while(true){
+                try{
+                    cout<<">> ";
+                    Input(player2CardIdx);
+                    player2CardIdx--;
+                    if((player2CardIdx>1 || player2CardIdx<0)){
+                        throw InvalidInputException();
+                    } else {
+                        break;
+                    }
+                }catch(InvalidInputException e){
+                    cout << e.what();
+                }
+            }
 
             Card player1Card = game.getPlayer(player1).getHand(player1CardIdx);
             Card player2Card = game.getPlayer(player2).getHand(player2CardIdx);

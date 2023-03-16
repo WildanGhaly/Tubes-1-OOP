@@ -31,10 +31,22 @@ bool Abilityless::useAbility(Game<Card>& game, int playerAbility, int player){
                     }
                 }
 
-                cout<<">";
+                cout<<">> ";
                 int enemyNumber;
-                Input(enemyNumber);
-                enemyNumber--;
+                while(true){
+                    try{
+                        cout<<">> ";
+                        Input(enemyNumber);
+                        enemyNumber--;
+                        if((enemyNumber>6 || enemyNumber<0) || enemyNumber==player){
+                            throw InvalidInputException();
+                        } else {
+                            break;
+                        }
+                    }catch(InvalidInputException e){
+                        cout << e.what();
+                    }
+                }
                 Playermati = game.getPlayer(enemyNumber);
                 playerPengguna = game.getPlayer(player);
                 if(game.getPlayer(enemyNumber).getAbility()>0){
