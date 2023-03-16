@@ -21,11 +21,21 @@ bool Switch::useAbility(Game<Card>& game, int playerAbility, int playerNumber){
                     cout<< i+1 <<"." << game.getPlayer(i).getName()<<endl;
                 }
             }
-            cout<<">";
             int enemyNumber;
-            Input(enemyNumber);
-            enemyNumber--;
-            
+            while(true){
+                try{
+                    cout<<">> ";
+                    Input(enemyNumber);
+                    enemyNumber--;
+                    if((enemyNumber>6 || enemyNumber<0) || enemyNumber==playerNumber){
+                        throw InvalidInputException();
+                    } else {
+                        break;
+                    }
+                }catch(InvalidInputException e){
+                    cout << e.what();
+                }
+            }
             cout<<"Kedua kartu " << game.getPlayer(playerNumber).getName() <<" telah ditukar dengan "<< game.getPlayer(enemyNumber).getName()<<"!"<<endl;
 
             CardList<Card> enemyCard,playerCard;
@@ -45,6 +55,7 @@ bool Switch::useAbility(Game<Card>& game, int playerAbility, int playerNumber){
             game.getPlayer(playerNumber).printHand();
             Ability::setUsingAbility(true);
             return true;
+            
         } else if(playerAbility ==-1){
             printPesan2("SWITCH");
         }else if(playerAbility ==0){
