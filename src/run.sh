@@ -81,7 +81,7 @@ g++ main.cpp                          \
     ../bin/Combination/FullHouse.o          \
     ../bin/Combination/FourOfKind.o         \
     ../bin/Combination/StraightFlush.o      \
-    -o mainRemake.o
+    -o main.o
 
 # Run the program
 ./main.o
