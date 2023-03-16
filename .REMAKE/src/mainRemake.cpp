@@ -131,9 +131,9 @@ int main(){
             cout << ">> ";
             Input(choosegame);
             if (choosegame== 1) {
-                if(cards.getTotalCard()<19 && isfile){
+                if(cards.getTotalCard()<21 && isfile){
                     cards=CardList<Card>();
-                    cout << "\033[1;31mException: Minimum cards for poker is 19\033[0m\n";
+                    cout << "\033[1;31mException: Minimum cards for poker is 21\033[0m\n";
                     throw CardInsufficientException();
                 }
                 for (int i = 0; i < game->getTotalPlayer(); i++){
@@ -205,10 +205,18 @@ int main(){
                                 } else if (playeropt == "Next"){
                                 } else if (playeropt == "Half"){
                                     temp_actv = game->getPlayer(i % game->getTotalPlayer()).getName();
-                                    temp_actv += " melakukan Half! Poin hadiah turun dari " + to_string(game->getValue()) + " Menjadi " + to_string(game->getValue() / 2);
-                                    game->setReward(game->getValue() / 2);
+                                    if(game->getValue()==1){
+                                        temp_actv += " melakukan Half! Sayangnya poin hadiah sudah bernilai 1. Poin hadiah tidak berubah..";
+                                    }else if(game->getValue() / 2 < 1){
+                                        game->setReward(1);
+                                        temp_actv += " melakukan Half! Poin hadiah tidak bisa turun kurang dari 1";
+                                    } else {
+                                        temp_actv += " melakukan Half! Poin hadiah turun dari " + to_string(game->getValue()) + " Menjadi " + to_string(game->getValue() / 2);
+                                        game->setReward(game->getValue() / 2);
+                                    }
+                                    // game->setReward(game->getValue() / 2);
                                     activity.push_back(temp_actv);
-                                } else if (playeropt == "QUADRUPLE" || playeropt == "QUARTER" || playeropt == "RE-ROLL" || playeropt == "REVERSE" || playeropt == "SWAP" || playeropt == "SWITCH" || playeropt == "ABILITYLESS"){
+                                } else if ((playeropt == "QUADRUPLE" || playeropt == "QUARTER" || playeropt == "RE-ROLL" || playeropt == "REVERSE" || playeropt == "SWAP" || playeropt == "SWITCH" || playeropt == "ABILITYLESS") && game->getRound() >= 2){
                                     if (playeropt == "QUADRUPLE"){
                                         ability=&quadruple;
                                         bool use = ability->useAbility(*game, game->getPlayer(i % game->getTotalPlayer()).getAbility(),i % game->getTotalPlayer());
@@ -222,12 +230,19 @@ int main(){
                                     } else if (playeropt == "QUARTER"){
                                         ability=&quarter;
                                         bool use = ability->useAbility(*game, game->getPlayer(i % game->getTotalPlayer()).getAbility(),i % game->getTotalPlayer());
-                                        if(use){
+                                        if(game->getValue()<1){
+                                            game->setReward(1);
                                             temp_actv = game->getPlayer(i % game->getTotalPlayer()).getName();
-                                            temp_actv += " melakukan QUARTER! Poin hadiah turun dari " + to_string(game->getValue()*4) + " Menjadi " + to_string(game->getValue());
+                                            temp_actv += " melakukan QUARTER! Sayangnya poin hadiah tidak bisa turun kurang dari 1";
                                             activity.push_back(temp_actv);
                                         }else{
-                                            valid = false;
+                                            if(use){
+                                                temp_actv = game->getPlayer(i % game->getTotalPlayer()).getName();
+                                                temp_actv += " melakukan QUARTER! Poin hadiah turun dari " + to_string(game->getValue()*4) + " Menjadi " + to_string(game->getValue());
+                                                activity.push_back(temp_actv);
+                                            }else{
+                                                valid = false;
+                                            }
                                         }
                                     } else if (playeropt == "RE-ROLL"){
                                         ability=&reroll;
@@ -313,23 +328,23 @@ int main(){
                 activity.clear(); 
                 activity.push_back(temp_actv);
                 }
-                for (int i = 0; i < game->getTotalPlayer(); i++){ 
-                    cards.setCardsList(game->getPlayer(i).getHand(), game->getCards());
+                for (int j = 0; j < game->getTotalPlayer(); j++){ 
+                    cards.setCardsList(game->getPlayer(j).getHand(), game->getCards());
                     for (int i = 0; i < 9; i++){
                         combination = combinations[i];
                         combination->setCards(cards);
                         combination->setPoint(i > 0 ? combinations[i-1]->getValue() : 0);
                         combination->computeScore();
                     }
-                    if (i == 0){
+                    if (j == 0){
                         max = combination->getValue();
-                        pWin = i;
+                        pWin = j;
                     }
                     else if (max < combination->getValue()) {
-                            max = combination->getValue();
-                            pWin = i;
-                        }
+                        max = combination->getValue();
+                        pWin = j;
                     }
+                }
                 // Setscore
                 cout << "Player " << game->getPlayer(pWin).getName() << " memenangkan pertandingan!" << endl;
                 player = game->getPlayer(pWin);
@@ -349,8 +364,64 @@ int main(){
                 // Reset
                 game->setReward(64);
                 activity.clear();
-                default_deck.shuffle();
-                game->setDeck(default_deck);
+                cout << "Game ke-"<< game_total<<" telah berakhir!!" <<endl;
+                cout << "Pilih opsi untuk membentuk deck!" << endl;
+                cout << "1. Random" << endl;
+                cout << "2. Input dari file" << endl;
+                cout << ">> ";
+                while(true){
+                try{
+                Input(path);
+                if (path == 1){
+                    default_deck.shuffle();
+                    game->setDeck(default_deck);
+                    break;
+                }
+                else if (path == 2){
+                    while(true){
+                    cards=CardList<Card>();
+                    try{
+                    isfile=true;
+                    cout << "Masukkan nama file: ";
+                    cin >> fileName;
+                    ifstream infile ("../test/" + fileName);
+                    if(infile.fail()){
+                        throw FileNotExistException();
+                    }
+                    if(infile.is_open()){
+                        while(!infile.eof()){
+                            infile >> color >> number;
+                            cards << Card(color, number);
+                        }
+                        infile.close();
+                    }
+                    if(DoubleValue(cards)){
+                        cards=CardList<Card>();
+                        throw CardRedundancyException();
+                    }
+                    if(cards.getTotalCard()<21 && isfile){
+                    cards=CardList<Card>();
+                    cout << "\033[1;31mException: Minimum cards for poker is 21\033[0m\n";
+                    throw CardInsufficientException();
+                    }
+                    break;
+                    
+                    game->setDeck(cards); 
+                    }catch(exception& e){
+                        cout<<e.what();
+                    }
+                }  
+                break;
+                } else {
+                    throw InvalidInputException();
+                } 
+                }catch(InvalidInputException e){
+                    cout << e.what();
+                }
+                }
+                
+                // default_deck.shuffle();
+                // game->setDeck(default_deck);
                 game->setTable(CardList<Card>());
                 for (int i = 0; i < game->getTotalPlayer(); i++){
                     tempPlayer = game->getPlayer(i);
@@ -361,7 +432,8 @@ int main(){
                 round = 1;
             }
             clear_screen();
-            cout << "Permainan Telah berakhir! Player " << game->getPlayer(pWin).getName() <<  "Memenangkan pertandingan!" << endl;
+            cout << "Permainan Telah berakhir! Player " << game->getPlayer(pWin).getName() <<  " Memenangkan pertandingan!" << endl;
+            cout << "Lanjutkan permainan? (Y/N)"<<endl;
             cout << ">> ";
             cin >> enter;
             if (enter == "Y" || enter == "y") {
