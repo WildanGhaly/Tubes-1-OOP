@@ -21,7 +21,7 @@
 
 
 <p align="center">
-<img width="642" alt="image" src="https://user-images.githubusercontent.com/102657926/225552784-7a1521a9-9618-4b25-9695-e133c4cf9da4.png">
+<img width="642" alt="image" src="![image](https://user-images.githubusercontent.com/102657926/225650781-c985c5ae-103b-4666-880e-0ab6bc79b5ec.png)">
 </p>
 
 ## Fitur
@@ -32,5 +32,10 @@
 Pastikan anda memiliki compiler g++
 
 ## Cara Menjalankan Program
-- Clone repository ini ke direktori anda
-- Klik run.bat sebanyak 2 kali
+Clone repository ini ke direktori anda
+1. Pada Windows
+  -- Klik run.bat sebanyak 2 kali atau ketik ./src/run.bat pada terminal
+2. Pada Linux
+  - cd src
+  - chmod +x run.sh
+  - ./run.sh
