@@ -14,6 +14,9 @@ bool Quarter::useAbility(Game<Card>& game, int playerAbility, int player){
             players = game.getPlayer(player);
             players.setAbility(-3);
             game.setPlayer(player, players);
+            // if(game.getValue()<=1){
+            //     game.setReward(1);
+            // }
             Ability::setUsingAbility(true);
             return true;
         } else if(playerAbility ==-3){
