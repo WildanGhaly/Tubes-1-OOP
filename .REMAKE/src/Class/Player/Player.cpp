@@ -60,7 +60,7 @@ string Player::getAbilityName() const {
             return "Abilitymu " + it->second;
         }
     }
-    return "Exception";
+    throw NotFoundException();
 }
 
 void Player::setName(string name) {
