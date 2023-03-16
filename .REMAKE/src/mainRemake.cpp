@@ -1,5 +1,6 @@
 // Halo ges pakabar?
 // Ini adalah main.cpp
+#pragma 
 #ifdef WIN64
     #include <windows.h>
     #define DELAYSCR Sleep(1000)
@@ -10,38 +11,37 @@
 #include <cstring>
 #include <time.h>
 #include <math.h>
-#include "Function/MaxMinAvg.hpp"
-#include "Function/DoubleValue.hpp"
-#include "Class/Valueable/Valueable.hpp"
-#include "Class/Player/PlayerList.cpp"
-#include "Class/Player/Player.cpp"
-#include "Class/Card/CardList.cpp"
-#include "Class/Card/Card.cpp"
-#include "Class/Table/Table.cpp"
-#include "Class/Game/game.cpp"
-#include "Class/Ability/Ability.cpp"
-#include "Class/Ability/Quadruple.cpp"
 #include <fstream>
-#include "Class/Ability/Quarter.cpp"
-#include "Class/Ability/Reroll.cpp"
-#include "Class/Ability/SwapCard.cpp"
-#include "Class/Ability/Switch.cpp"
-#include "Class/Ability/ReverseDirection.cpp"
-#include "Class/Ability/Abilityless.cpp"
-#include "Class/Combination/Combination.cpp"
-#include "Class/Combination/SubCombination/HighCard/HighCard.cpp"
-#include "Class/Combination/SubCombination/Pair/Pair.cpp"
-#include "Class/Combination/SubCombination/TwoPair/TwoPair.cpp"
-#include "Class/Combination/SubCombination/ThreeOfKind/ThreeOfKind.cpp"
-#include "Class/Combination/SubCombination/Straight/Straight.cpp"
-#include "Class/Combination/SubCombination/Flush/Flush.cpp"
-#include "Class/Combination/SubCombination/FullHouse/FullHouse.cpp"
-#include "Class/Combination/SubCombination/FourOfKind/FourOfKind.cpp"
-#include "Class/Combination/SubCombination/StraightFlush/StraightFlush.cpp"
-
 #include <vector>
 #include <iostream>
 using namespace std;
+#include "Function/DoubleValue.hpp"
+#include "Function/MaxMinAvg.hpp"
+#include "Class/Valueable/Valueable.hpp"
+#include "Class/Card/Card.hpp"
+#include "Class/Card/CardList.hpp"
+#include "Class/Player/Player.hpp"
+#include "Class/Player/PlayerList.hpp"
+#include "Class/Table/Table.hpp"
+#include "Class/Game/Game.hpp"
+#include "Class/Ability/Ability.hpp"
+#include "Class/Ability/Quadruple.hpp"
+#include "Class/Ability/Quarter.hpp"
+#include "Class/Ability/Reroll.hpp"
+#include "Class/Ability/SwapCard.hpp"
+#include "Class/Ability/Switch.hpp"
+#include "Class/Ability/ReverseDirection.hpp"
+#include "Class/Ability/Abilityless.hpp"
+#include "Class/Combination/Combination.hpp"
+#include "Class/Combination/SubCombination/HighCard/HighCard.hpp"
+#include "Class/Combination/SubCombination/Pair/Pair.hpp"
+#include "Class/Combination/SubCombination/TwoPair/TwoPair.hpp"
+#include "Class/Combination/SubCombination/ThreeOfKind/ThreeOfKind.hpp"
+#include "Class/Combination/SubCombination/Straight/Straight.hpp"
+#include "Class/Combination/SubCombination/Flush/Flush.hpp"
+#include "Class/Combination/SubCombination/FullHouse/FullHouse.hpp"
+#include "Class/Combination/SubCombination/FourOfKind/FourOfKind.hpp"
+#include "Class/Combination/SubCombination/StraightFlush/StraightFlush.hpp"
 
 void clear_screen(){
     #ifdef WIN64
@@ -113,7 +113,7 @@ int main(){
         cout << "1. Random" << endl;
         cout << "2. Input dari file" << endl;
         cout << ">> ";
-        Input(path);
+        InputEs(path);
         if (path == 1){
             game = new Game<Card>(7, "POKER"); // 7 pemain
             // default_deck = game->getDeck();
@@ -149,7 +149,7 @@ int main(){
             cout << "1. Poker" << endl;
             cout << "2. Capsa" << endl;
             cout << ">> ";
-            Input(choosegame);
+            InputEs(choosegame);
             if (choosegame== 1) {
                 if(cards.getTotalCard()<19){
                     cards=CardList<Card>();
@@ -159,7 +159,7 @@ int main(){
                 for (int i = 0; i < game->getTotalPlayer(); i++){
                     cout << "Halo player " << i + 1 << " Silahkan Masukkan Nickname Anda ! (Maksimal 100 huruf)" << endl;
                     cout << ">> ";
-                    Input(nickname);
+                    InputEs(nickname);
                     player = game->getPlayer(i);
                     player.setName(nickname);
                     game->setPlayer(i,player);
@@ -431,8 +431,8 @@ int main(){
                     cout << "Contoh input: 1 2" << endl;
                     cout << "Jika tidak ada kartu yang akan ditukar, masukkan 0 0" << endl;
                     // cin >> swap1 >> swap2;
-                    Input(swap1);
-                    Input(swap2);
+                    InputEs(swap1);
+                    InputEs(swap2);
                     cin.ignore();
 
                     if (swap1 == 0 && swap2 == 0){

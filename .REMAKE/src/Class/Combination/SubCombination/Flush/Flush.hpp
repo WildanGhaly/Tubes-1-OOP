@@ -1,7 +1,7 @@
 #ifndef _FLUSH_HPP_
 #define _FLUSH_HPP_
 
-// #include "../../Combination.cpp"
+#include "../../Combination.hpp"
 
 class Flush : public Combination {
     public:

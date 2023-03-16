@@ -179,3 +179,4 @@ Table<V>& Table<V>::operator>>(V& card) {
     return *this;
 }
 
+template class Table<Card>;

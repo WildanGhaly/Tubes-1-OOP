@@ -1,5 +1,4 @@
 #include "Card.hpp"
-#include "../../Exception/Exception.h"
 
 
 Card::Card() {

@@ -1,7 +1,7 @@
 #ifndef _FOUR_OF_KIND_HPP_
 #define _FOUR_OF_KIND_HPP_
 
-// #include "../../Combination.cpp"
+#include "../../Combination.hpp"
 
 class FourOfKind : public Combination {
     public:

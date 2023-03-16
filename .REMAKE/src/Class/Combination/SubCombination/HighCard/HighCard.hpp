@@ -1,7 +1,7 @@
 #ifndef _HIGH_CARD_HPP_
 #define _HIGH_CARD_HPP_
 
-// #include "../../Combination.cpp"
+#include "../../Combination.hpp"
 
 class HighCard : public Combination {
     public:
