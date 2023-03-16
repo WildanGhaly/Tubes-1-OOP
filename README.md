@@ -1,8 +1,6 @@
-# coba
 # Tubes-1-OOP
-Tubes 1 OOP K3 SubjectOriented 2023
 
-# Kelompok SubjectOriented
+# Kelompok Capture Fullhouse
 1. 13521010 / Muhamad Salman Hakim Alfarisi
 2. 13521011 / Afnan Edsa Ramadhan
 3. 13521012 / Haikal Ardzi Shofiyyurrohman
@@ -13,6 +11,7 @@ Tubes 1 OOP K3 SubjectOriented 2023
 ## Table of Contents
 * [Deskripsi](#deskripsi)
 * [Fitur](#fitur)
+* [Requirement](#requirement)
 * [Cara Menjalankan Program](#cara-menjalankan-program)
 
 ## Deskripsi
@@ -28,6 +27,9 @@ Tubes 1 OOP K3 SubjectOriented 2023
 ## Fitur
 - Game Poker
 - Game Capsa Susun Cina
+
+## Requirement
+Pastikan anda memiliki compiler g++
 
 ## Cara Menjalankan Program
 - Clone repository ini ke direktori anda
