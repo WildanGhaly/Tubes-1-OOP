@@ -114,7 +114,7 @@ int main(){
         cout << "1. Random" << endl;
         cout << "2. Input dari file" << endl;
         cout << ">> ";
-        InputEs(path);
+        Input(path);
         if (path == 1){
             isfile=false;
             game = new Game<Card>(7, "POKER"); // 7 pemain
@@ -152,7 +152,7 @@ int main(){
             cout << "1. Poker" << endl;
             cout << "2. Capsa" << endl;
             cout << ">> ";
-            InputEs(choosegame);
+            Input(choosegame);
             if (choosegame== 1) {
                 if(cards.getTotalCard()<19 && isfile){
                     cards=CardList<Card>();
@@ -162,7 +162,7 @@ int main(){
                 for (int i = 0; i < game->getTotalPlayer(); i++){
                     cout << "Halo player " << i + 1 << " Silahkan Masukkan Nickname Anda ! (Maksimal 100 huruf)" << endl;
                     cout << ">> ";
-                    InputEs(nickname);
+                    Input(nickname);
                     player = game->getPlayer(i);
                     player.setName(nickname);
                     game->setPlayer(i,player);
@@ -434,8 +434,8 @@ int main(){
                     cout << "Contoh input: 1 2" << endl;
                     cout << "Jika tidak ada kartu yang akan ditukar, masukkan 0 0" << endl;
                     // cin >> swap1 >> swap2;
-                    InputEs(swap1);
-                    InputEs(swap2);
+                    Input(swap1);
+                    Input(swap2);
                     cin.ignore();
 
                     if (swap1 == 0 && swap2 == 0){
