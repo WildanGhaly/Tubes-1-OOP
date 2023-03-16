@@ -56,7 +56,7 @@ int main(){
     system("");
     bool valid = false, end = false, isReversed = false, antiReversed = false, isfile;
     int choosegame = 0, path = 0, round = 1, pWin, game_total = 0, locateReverse = 0, color, number;
-    float max;
+    float max, tempMax;
     string next, playeropt, temp_actv, enter, fileName;
     vector <string> activity;
     vector<Player> temp2Players;
@@ -164,6 +164,9 @@ int main(){
                     game->setPlayer(i,player);
                     abilityId.erase(abilityId.begin()+index);
                 }
+                while(!end) {
+                    isReversed = false;
+                    antiReversed = false;
                 // Reset
                 game->start(2); // 2 kartu
                 game->nextRound();
@@ -328,21 +331,28 @@ int main(){
                 activity.clear(); 
                 activity.push_back(temp_actv);
                 }
-                for (int j = 0; j < game->getTotalPlayer(); j++){ 
-                    cards.setCardsList(game->getPlayer(j).getHand(), game->getCards());
-                    for (int i = 0; i < 9; i++){
-                        combination = combinations[i];
-                        combination->setCards(cards);
-                        combination->setPoint(i > 0 ? combinations[i-1]->getValue() : 0);
+                for (int i = 0; i < game->getTotalPlayer(); i++){ 
+                    cards.setCardsList(game->getPlayer(i).getHand(), game->getCards());
+                    tempMax = 0;
+                    for (int j = 0; j < 9; j++){
+                        combination = combinations[j];
+                        if (j == 0){
+                            combination->setCards(game->getPlayer(i).getHand());
+                        } else {
+                            cards.sortByNumberAndColor();
+                            combination->setCards(cards);
+                        }
+                        combination->setPoint(0);
                         combination->computeScore();
+                        tempMax += combination->getValue();
                     }
-                    if (j == 0){
-                        max = combination->getValue();
-                        pWin = j;
+                    if (i == 0){
+                        max = tempMax;
+                        pWin = i;
+                    } else if (max < tempMax) {
+                        max = tempMax;
+                        pWin = i;
                     }
-                    else if (max < combination->getValue()) {
-                        max = combination->getValue();
-                        pWin = j;
                     }
                 }
                 // Setscore
