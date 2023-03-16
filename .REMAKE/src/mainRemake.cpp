@@ -186,7 +186,7 @@ int main(){
                                 cout << ". Half" << endl;
                                 if (round >= 2){
                                 cout << ". Ability"<< endl; 
-                                cout <<game->getPlayer(i).getAbility()<<endl;
+                                cout <<game->getPlayer(i).getAbilityName()<<endl;
                                 }
                                 cout << " Pilih opsi anda! " << endl;
                                 cout << ">> ";
