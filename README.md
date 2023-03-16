@@ -21,7 +21,7 @@
 
 
 <p align="center">
-<img width="642" alt="image" src="![image](https://user-images.githubusercontent.com/102657926/225650781-c985c5ae-103b-4666-880e-0ab6bc79b5ec.png)">
+<img width="642" alt="image" src="https://user-images.githubusercontent.com/102657926/225650781-c985c5ae-103b-4666-880e-0ab6bc79b5ec.png">
 </p>
 
 ## Fitur
