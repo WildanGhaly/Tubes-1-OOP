@@ -150,23 +150,22 @@ int main(){
                     DELAYSCR;
                 }
                 while(!end) {
+                isReversed = false;
+                antiReversed = false;
                 vector<int> abilityId;
                 vector<int> selectedAbility;
                 for(int i = 0; i < 7; i++){
                     abilityId.push_back(i);
                 }
+                srand(time(NULL));
                 for (int i = 0; i < 7; i++){
                     int index = rand() % abilityId.size();
                     selectedAbility.push_back(abilityId[index]);
                     player = game->getPlayer(i);
-                    // player.setAbility(selectedAbility[i]+1);
-                    player.setAbility(i+1);
+                    player.setAbility(selectedAbility[i]+1);
                     game->setPlayer(i,player);
                     abilityId.erase(abilityId.begin()+index);
                 }
-                while(!end) {
-                    isReversed = false;
-                    antiReversed = false;
                 // Reset
                 game->start(2); // 2 kartu
                 game->nextRound();
@@ -307,7 +306,7 @@ int main(){
                                 cout << "input apapun untuk melanjutkan..." << endl;
                                 cout << ">> ";
                                 cin >> enter;   
-                                DELAYSCR;
+                                // DELAYSCR;
                                 clear_screen();
                             }   
                         }
@@ -331,28 +330,27 @@ int main(){
                 activity.clear(); 
                 activity.push_back(temp_actv);
                 }
-                for (int i = 0; i < game->getTotalPlayer(); i++){ 
-                    cards.setCardsList(game->getPlayer(i).getHand(), game->getCards());
+                for (int j = 0; j < game->getTotalPlayer(); j++){ 
+                    cards.setCardsList(game->getPlayer(j).getHand(), game->getCards());
                     tempMax = 0;
-                    for (int j = 0; j < 9; j++){
-                        combination = combinations[j];
-                        if (j == 0){
-                            combination->setCards(game->getPlayer(i).getHand());
+                    for (int i = 0; i < 9; i++){
+                        combination = combinations[i];
+                        if (i == 0){
+                            combination->setCards(game->getPlayer(j).getHand());
                         } else {
-                            cards.sortByNumberAndColor();
                             combination->setCards(cards);
                         }
                         combination->setPoint(0);
                         combination->computeScore();
                         tempMax += combination->getValue();
                     }
-                    if (i == 0){
+                    if (j == 0){
                         max = tempMax;
-                        pWin = i;
-                    } else if (max < tempMax) {
-                        max = tempMax;
-                        pWin = i;
+                        pWin = j;
                     }
+                    else if (max < tempMax) {
+                        max = tempMax;
+                        pWin = j;
                     }
                 }
                 // Setscore
