@@ -1,10 +1,17 @@
 // Halo ges pakabar?
 // Ini adalah main.cpp
-#include <windows.h>
+#ifdef WIN64
+    #include <windows.h>
+    #define DELAYSCR Sleep(1000)
+#else
+    #include <unistd.h>
+    #define DELAYSCR usleep(1000000)
+#endif
 #include <cstring>
 #include <time.h>
 #include <math.h>
 #include "Function/MaxMinAvg.hpp"
+#include "Function/DoubleValue.hpp"
 #include "Class/Valueable/Valueable.hpp"
 #include "Class/Player/PlayerList.cpp"
 #include "Class/Player/Player.cpp"
@@ -37,11 +44,11 @@
 using namespace std;
 
 void clear_screen(){
-    #ifdef __linux__
+    #ifdef WIN64
+        system("CLS");
+    #else
         printf("\033[2J");
     	printf("\033[0;0f");
-    #else
-        system("CLS");
     #endif
 }
 
@@ -56,10 +63,10 @@ int main(){
     nickname = new char[100];
     string playeropt;
     string temp_actv;
-    boolean valid = false;
+    bool valid = false;
     vector <string> activity;
     string enter;
-    boolean end = false;
+    bool end = false;
     int pWin;
     int game_total = 0;
     Combination *combination;
@@ -101,46 +108,58 @@ int main(){
 
 
     do {
+        try{
         cout << "Pilih opsi untuk membentuk deck!" << endl;
         cout << "1. Random" << endl;
         cout << "2. Input dari file" << endl;
         cout << ">> ";
-        cin >> path;
+        Input(path);
         if (path == 1){
             game = new Game<Card>(7, "POKER"); // 7 pemain
             // default_deck = game->getDeck();
         } else if(path==2){
-            // cout << "Masukkan nama file: ";
-            // cin >> fileName;
+            cout << "Masukkan nama file: ";
+            cin >> fileName;
 
-            // ifstream infile ("../test/" + fileName);
-            // if(infile.fail()){
-            //     throw FileNotExistException();
-            // }
-            // if(infile.is_open()){
-            //     while(!infile.eof()){
-            //         infile >> color >> number;
-            //         cards << Card(color, number);
-            //     }
-            //     infile.close();
-            // }
-            // cout << "=== Daftar Kartu ===" << endl;
-            // cards.sortByNumberAndColor();
-            // cards.print();
-            // game = new Game<Card>(7, "POKER");
-            // game->setDeck(cards);   
+            ifstream infile ("../test/" + fileName);
+            if(infile.fail()){
+                throw FileNotExistException();
             }
+            if(infile.is_open()){
+                while(!infile.eof()){
+                    infile >> color >> number;
+                    cards << Card(color, number);
+                }
+                infile.close();
+            }
+            if(DoubleValue(cards)){
+                cards=CardList<Card>();
+                throw CardRedundancyException();
+            }
+            cout << "=== Daftar Kartu ===" << endl;
+            cards.sortByNumberAndColor();
+            cards.print();
+            game = new Game<Card>(7, "POKER");
+            game->setDeck(cards);   
+        } else {
+            throw InvalidInputException();
+        }
             Player player;
             cout << "Pilih Game: " << endl;
             cout << "1. Poker" << endl;
             cout << "2. Capsa" << endl;
             cout << ">> ";
-            cin >> choosegame;
+            Input(choosegame);
             if (choosegame== 1) {
+                if(cards.getTotalCard()<19){
+                    cards=CardList<Card>();
+                    cout << "\033[1;31mException: Minimum cards for poker is 19\033[0m\n";
+                    throw CardInsufficientException();
+                }
                 for (int i = 0; i < game->getTotalPlayer(); i++){
                     cout << "Halo player " << i + 1 << " Silahkan Masukkan Nickname Anda ! (Maksimal 100 huruf)" << endl;
                     cout << ">> ";
-                    cin >> nickname;
+                    Input(nickname);
                     player = game->getPlayer(i);
                     player.setName(nickname);
                     game->setPlayer(i,player);
@@ -150,7 +169,7 @@ int main(){
                 for (int i = 3; i > 0; i--){
                     clear_screen();
                     cout << "Game will start in " << i << endl;
-                    Sleep(1000);
+                    DELAYSCR;
                 }
                 for (int i = 0; i < 7; i++){
                     int index = rand() % abilityId.size();
@@ -289,7 +308,7 @@ int main(){
                                 cout << ">> ";
                                 cin >> enter;
                                 
-                                Sleep(1000);
+                                DELAYSCR;
                                 clear_screen();
                             }
                             
@@ -383,7 +402,11 @@ int main(){
             }
             delete game;
             } else if (choosegame == 2) {
-            
+            if(cards.getTotalCard()<52){
+                cards = CardList<Card>();
+                cout << "\033[1;31mException: Minimum cards for capsa is 52\033[0m\n";
+                throw CardInsufficientException();
+            }
             int ii = 0;
             int winnerCapsaPoint;
             bool done;
@@ -394,7 +417,9 @@ int main(){
             game->start(13);
             while (ii < 4){
                 done = false;
+                clear_screen();
                 while (!done){
+                    try{
                     cout << "Player " << ii+1 << " turn" << endl;
                     cout << "Kartu saat in: " << endl;
                     game->getPlayer(ii).printCapsa();
@@ -405,19 +430,25 @@ int main(){
                     cout << "8  9  10 11 12" << endl;
                     cout << "Contoh input: 1 2" << endl;
                     cout << "Jika tidak ada kartu yang akan ditukar, masukkan 0 0" << endl;
-                    cin >> swap1 >> swap2;
+                    // cin >> swap1 >> swap2;
+                    Input(swap1);
+                    Input(swap2);
                     cin.ignore();
 
                     if (swap1 == 0 && swap2 == 0){
                         done = true;
-                    } else if (swap1 < -1 || swap1 > 12 || swap2 < -1 || swap2 > 12){
-                        cout << "Input tidak valid" << endl;
-                        // Exception handling
+                    } else if (swap1 < 0 || swap1 > 12 || swap2 < 0 || swap2 > 12){
+                        throw InvalidInputException();
                     } else {
                         tempPlayer = game->getPlayer(ii);
                         tempPlayer.swapCardPosition(swap1, swap2);
                         game->setPlayer(ii, tempPlayer);
                     }
+                    }catch(InvalidInputException e){
+                        cout << e.what();
+                        DELAYSCR;
+                    }
+                    clear_screen();
                 }
                 for (int j = 0; j < 3; j++){
                     value[j] = 0.0;
@@ -505,6 +536,11 @@ int main(){
 
             delete game;
             
+        } else {
+            throw InvalidInputException();
+        }
+        }catch(exception& e){
+            cout << e.what();
         }
     } while(!end);
     return 0;
