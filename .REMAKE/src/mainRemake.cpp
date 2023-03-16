@@ -1,12 +1,13 @@
 // Halo ges pakabar?
 // Ini adalah main.cpp
 #pragma 
-#ifdef _linux_
-    #include <unistd.h>
-    #define DELAYSCR usleep(1000000)
-#else
+#ifdef _WIN32
     #include <windows.h>
     #define DELAYSCR Sleep(1000)
+#else
+    #include <unistd.h>
+    #define DELAYSCR usleep(1000000)    
+    
 #endif
 #include <cstring>
 #include <time.h>
@@ -44,7 +45,7 @@ using namespace std;
 #include "Class/Combination/SubCombination/StraightFlush/StraightFlush.hpp"
 
 void clear_screen(){
-    #ifdef WIN64
+    #ifdef _WIN32
         system("CLS");
     #else
         printf("\033[2J");
@@ -54,6 +55,7 @@ void clear_screen(){
 
 
 int main(){
+    system("");
     Player tempPlayer;
     int choosegame=0;
     int path=0;
@@ -275,9 +277,9 @@ int main(){
                                         ability=&swapCard;
                                         bool use = ability->useAbility(*game, game->getPlayer(i % game->getTotalPlayer()).getAbility(),i % game->getTotalPlayer());
                                         if(use){
-                                            // temp_actv = game->getPlayer(i).getName();
-                                            // temp_actv += " melakukan QUARTER! Poin hadiah turun dari " + to_string(game->getValue()*4) + " Menjadi " + to_string(game->getValue());
-                                            // activity.push_back(temp_actv);
+                                            temp_actv = game->getPlayer(i).getName();
+                                            temp_actv += " melakukan SWAP!"; 
+                                            activity.push_back(temp_actv);
                                         }else{
                                             valid = false;
                                         }
@@ -285,9 +287,9 @@ int main(){
                                         ability=&switch_;
                                         bool use = ability->useAbility(*game, game->getPlayer(i % game->getTotalPlayer()).getAbility(),i % game->getTotalPlayer());
                                         if(use){
-                                            // temp_actv = game->getPlayer(i).getName();
-                                            // temp_actv += " melakukan QUARTER! Poin hadiah turun dari " + to_string(game->getValue()*4) + " Menjadi " + to_string(game->getValue());
-                                            // activity.push_back(temp_actv);
+                                            temp_actv = game->getPlayer(i).getName();
+                                            temp_actv += " melakukan SWITCH!";
+                                            activity.push_back(temp_actv);
                                         }else{
                                             valid = false;
                                         }
@@ -295,9 +297,9 @@ int main(){
                                         ability=&abilityless;
                                         bool use = ability->useAbility(*game, game->getPlayer(i % game->getTotalPlayer()).getAbility(),i % game->getTotalPlayer());
                                         if(use){
-                                            // temp_actv = game->getPlayer(i).getName();
-                                            // temp_actv += " melakukan QUARTER! Poin hadiah turun dari " + to_string(game->getValue()*4) + " Menjadi " + to_string(game->getValue());
-                                            // activity.push_back(temp_actv);
+                                            temp_actv = game->getPlayer(i).getName();
+                                            temp_actv += " melakukan ABILITYLESS!";
+                                            activity.push_back(temp_actv);
                                         }else{
                                             valid = false;
                                         }
@@ -422,7 +424,7 @@ int main(){
                 done = false;
                 clear_screen();
                 while (!done){
-                    try{
+                    try {
                     cout << "Player " << ii+1 << " turn" << endl;
                     cout << "Kartu saat in: " << endl;
                     game->getPlayer(ii).printCapsa();
@@ -447,7 +449,7 @@ int main(){
                         tempPlayer.swapCardPosition(swap1, swap2);
                         game->setPlayer(ii, tempPlayer);
                     }
-                    }catch(InvalidInputException e){
+                    } catch(InvalidInputException e){
                         cout << e.what();
                         DELAYSCR;
                     }
