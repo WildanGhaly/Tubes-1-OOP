@@ -59,8 +59,6 @@ int main(){
     float max;
     string next, playeropt, temp_actv, enter, fileName;
     vector <string> activity;
-    vector<int> abilityId;
-    vector<int> selectedAbility;
     vector<Player> temp2Players;
     Player tempPlayer;
     char* nickname;
@@ -145,23 +143,27 @@ int main(){
                     player = game->getPlayer(i);
                     player.setName(nickname);
                     game->setPlayer(i,player);
-                    abilityId.push_back(i);
                 }
                 for (int i = 3; i > 0; i--){
                     clear_screen();
                     cout << "Game will start in " << i << endl;
                     DELAYSCR;
                 }
+                while(!end) {
+                vector<int> abilityId;
+                vector<int> selectedAbility;
+                for(int i = 0; i < 7; i++){
+                    abilityId.push_back(i);
+                }
                 for (int i = 0; i < 7; i++){
                     int index = rand() % abilityId.size();
                     selectedAbility.push_back(abilityId[index]);
                     player = game->getPlayer(i);
-                    player.setAbility(selectedAbility[i]+1);
-                    // player.setAbility(7);
+                    // player.setAbility(selectedAbility[i]+1);
+                    player.setAbility(i+1);
                     game->setPlayer(i,player);
                     abilityId.erase(abilityId.begin()+index);
                 }
-                while(!end) {
                 // Reset
                 game->start(2); // 2 kartu
                 game->nextRound();
