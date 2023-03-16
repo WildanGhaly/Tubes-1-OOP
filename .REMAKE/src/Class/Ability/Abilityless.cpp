@@ -59,13 +59,12 @@ bool Abilityless::useAbility(Game<Card>& game, int playerAbility, int player){
                     cout<<"Kartu ability "<< game.getPlayer(enemyNumber).getName() <<" telah dipakai sebelumnya. Yah, sayang penggunaan kartu ini sia-sia"<<endl;
                     playerPengguna.setAbility(-7);
                     game.setPlayer(player,playerPengguna);
-                    return false;
                 }
                 Ability::setUsingAbility(true);
-                return true;
             }else{
                 cout<<"Eits, ternyata semua pemain sudah memakai kartu kemampuan. Yah kamu kena sendiri deh, kemampuanmu menjadi abilityless. Yah, pengunaan kartu ini sia-sia"<<endl;
             }
+            return true;
             
         } else if(playerAbility ==-7) {
             printPesan2("ABILITYLESS");
